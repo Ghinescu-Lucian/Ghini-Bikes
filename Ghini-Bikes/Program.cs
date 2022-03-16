@@ -1,5 +1,12 @@
-﻿using Ghini_Bikes.Bikes;
+﻿#define CONDITION
+using Ghini_Bikes.Bikes;
+using Ghini_Bikes.Exceptions;
+using Ghini_Bikes.Models;
+using Ghini_Bikes.Products;
+using Ghini_Bikes.Users;
+using System.Diagnostics;
 using System;
+
 
 namespace Bikes
 {
@@ -7,6 +14,9 @@ namespace Bikes
     {
         static void Main(string[] args)
         {
+#if CONDITION
+            Console.WriteLine("Conditional compilation");
+#endif
             Bike a;
             ElectricBike b;
             MTBBike c;
@@ -22,16 +32,40 @@ namespace Bikes
             pack.AddProduct(c);
             pack.AddProduct(acc);
 
-            Console.WriteLine(a.ToString());
-            Console.WriteLine(b.ToString());
-            Console.WriteLine(c.ToString());
             Console.WriteLine();
-            Console.WriteLine($"{a.Manufacturer}"+ " : " + $"{a.Coeficient().ToString("0.00")}");
-            Console.WriteLine($"{b.Manufacturer}" + " :  " + $"{b.Coeficient(2).ToString("0.00")}");
-            Console.WriteLine($"{c.Manufacturer}" + " : " + $"{c.Coeficient(3).ToString("0.00")}");
-            Console.WriteLine($"{d.Manufacturer}" + " : " + $"{d.Coeficient(3).ToString("0.00")}");
 
-            Console.WriteLine($"{pack.ToString()}");
+            NormalUser u = new NormalUser("Luky", "1234", "l@k.com","1.jpg");
+          
+            try
+            {
+                 //double t = u.GetTotalPrice();
+                u.LogIn("1234");
+               // u.AddToCart(null);
+            }
+            catch(EmptyCartException ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+                Console.WriteLine($"{ex.Message}");
+            }
+            catch(InvalidCredentialsException ex1){
+                Debug.WriteLine(ex1.Message);
+                Console.WriteLine(ex1.Message);
+            }
+            catch(ArgumentNullException ex2)
+            {
+                Debug.WriteLine(" Null parameter found!");
+                Console.WriteLine(" Null parameter found!");
+                throw new Exception("Program crashed!", ex2);
+            }
+            finally
+            {
+                Console.WriteLine();
+                u.AddToCart(a);
+                Console.WriteLine(u.ToString());
+                Console.WriteLine(u.GetTotalPrice());
+            }
+
+           
 
 
 

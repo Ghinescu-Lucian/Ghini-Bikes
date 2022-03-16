@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Ghini_Bikes.Models;
+using System;
 
-namespace Ghini_Bikes.Bikes
+namespace Ghini_Bikes.Products
 {
 
 	/// <summary>

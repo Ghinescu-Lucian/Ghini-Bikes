@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Bikes
+namespace Ghini_Bikes.Models
 {
     public abstract class Product
     {
@@ -14,5 +14,11 @@ namespace Ghini_Bikes.Bikes
         public double Price { get { return price; } set { price = value; } }
         public string Manufacturer { get { return manufacturer; } set { manufacturer = value; } }
         public string Model { get { return model; } set { model = value; } }
+
+        public override string ToString()
+        {
+            string s = manufacturer + " " + model + " " + price;
+            return s;
+        }
     }
 }
