@@ -15,7 +15,6 @@ namespace Ghini_Bikes.Products
 		private int year;
 		private string specs;
 
-		public int Year { get { return year; } set { year = value; } }
 		public string Specification { get { return specs; } set { specs = value; } }
 
 		public Bike(string man, string model, int year , string specs,double price)
@@ -30,7 +29,7 @@ namespace Ghini_Bikes.Products
 
 		public override string ToString()
         {
-			string s = "Normal bike!";
+			string s = Manufacturer + " "+ Model + " "+Year;
 			return s;
         }
 		public double Coeficient()

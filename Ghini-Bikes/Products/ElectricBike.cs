@@ -16,11 +16,6 @@ namespace Ghini_Bikes.Bikes
         {
             BikeCapacity = batteryCapacity;
         }
-        public override string ToString()
-        {
-            string s = "I'm an electric bike!";
-            return s;
-        }
         public double Coeficient(int soldNo)
         {
             double coef = base.Coeficient();

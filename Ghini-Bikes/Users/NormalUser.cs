@@ -1,4 +1,5 @@
-﻿using Ghini_Bikes.Exceptions;
+﻿using Ghini_Bikes.Collections;
+using Ghini_Bikes.Exceptions;
 using Ghini_Bikes.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Ghini_Bikes.Users
         private string img;
         private string[] vouchers;
         private List<Product> cart = new List<Product>();
+        private Collection<Product>? order;
 
         public NormalUser(string name, string password, string email,string img) : base(name, password, email)
         {
@@ -25,10 +27,15 @@ namespace Ghini_Bikes.Users
                 throw new EmptyCartException(" Cart is empty!");
             else
             {
+                order = new Collection<Product>();
                 Console.WriteLine("Order contain:");
                 foreach (Product product in cart)
+                {
                     Console.WriteLine($"  {product.ToString()}");
+                    order.AddItem(product);
+                }
             }
+            
         }
 
         public  void AddToCart(Product p)
@@ -53,6 +60,12 @@ namespace Ghini_Bikes.Users
                 s += p.Price;
             }
             return s;
+        }
+        public Collection<Product> GetOrder()
+        {
+            if(order != null)
+                return order;
+            return null;
         }
 
         
