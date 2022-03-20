@@ -16,6 +16,7 @@ namespace Ghini_Bikes.Products
 		//private string specs;
 
 		public string Specification { get; set; }
+		public string Specification { get { return specs; } set { specs = value; } }
 
 		public Bike(string man, string model, int year , string specs,double price)
 		{
