@@ -12,14 +12,10 @@ namespace Ghini_Bikes.Bikes
         private double batteryCapacity;
 
         public double BikeCapacity { get { return batteryCapacity; } set { batteryCapacity = value; } }
-        public ElectricBike(string man, string model, int year, string specs,double price,double batteryCapacity) : base(man, model, year, specs,price)
+        public ElectricBike(string manufacturer, string model, int year, string specs,double price,double batteryCapacity) : base(manufacturer, model, year, specs,price)
         {
             BikeCapacity = batteryCapacity;
-        }
-        public override string ToString()
-        {
-            string s = "I'm an electric bike!";
-            return s;
+           // this.Manufacturer = dto.man;
         }
         public double Coeficient(int soldNo)
         {

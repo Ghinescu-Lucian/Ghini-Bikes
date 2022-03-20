@@ -1,4 +1,4 @@
-﻿#define CONDITION
+﻿//#define CONDITION
 using Ghini_Bikes.Bikes;
 using Ghini_Bikes.Exceptions;
 using Ghini_Bikes.Models;
@@ -6,7 +6,7 @@ using Ghini_Bikes.Products;
 using Ghini_Bikes.Users;
 using System.Diagnostics;
 using System;
-
+using Ghini_Bikes.Services;
 
 namespace Bikes
 {
@@ -61,11 +61,32 @@ namespace Bikes
             {
                 Console.WriteLine();
                 u.AddToCart(a);
-                Console.WriteLine(u.ToString());
-                Console.WriteLine(u.GetTotalPrice());
+                u.AddToCart(a);
+                u.AddToCart(pack);
+                //Console.WriteLine(u.ToString());
+               // Console.WriteLine(u.GetTotalPrice());
             }
 
-           
+            Console.WriteLine();
+            u.Place_Order();
+            Console.WriteLine();
+            Console.WriteLine("HashSet:");
+            Product[] p = u.GetOrder().GetHashSet();
+            for(int i=0;i < p.Length; i++)
+            {
+                Console.WriteLine(p[i].ToString());
+            }
+
+            var filePath1 = "C:\\Users\\ghine\\Pictures\\Bikes\\FOCUS.png";
+            var filePath2 = "C:\\Users\\ghine\\Desktop\\Facultate\\Sem6\\PNS\\Laborator\\Laborator 3\\lab4.m";
+            FileService.CopyFile(filePath2);
+            FileService.CopyPicture(filePath1);
+
+            filePath1 = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\Ghini-Bikes\\Pictures\\FOCUS_copy.png";
+            filePath2 = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\Ghini-Bikes\\Pictures\\lab4_copy.m";
+            FileService.DeleteFile(filePath2);
+            FileService.DeleteFile(filePath1);
+
 
 
 

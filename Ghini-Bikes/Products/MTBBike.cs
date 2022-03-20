@@ -14,12 +14,12 @@ namespace Ghini_Bikes.Products
         {
             this.suspension = suspension;
         }
-        public override string ToString()
+        /*public override string ToString()
         {
             string s = base.ToString();
             s = s + ", but i love going off-road!";
             return s;
-        }
+        }*/
         public double Coeficient(int reviews)
         {
             double coef = base.Coeficient();

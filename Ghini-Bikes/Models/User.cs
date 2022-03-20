@@ -32,7 +32,7 @@ namespace Ghini_Bikes.Models
 
         public void LogIn(string password)
         {
-            if (password != this.password)
+            if (!String.Equals(password,this.password))
                 throw new InvalidCredentialsException("Wrong password!");
             else Console.WriteLine($" {Username} is logged in!");
             this.loggedIn = true;
