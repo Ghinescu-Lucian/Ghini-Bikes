@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Models
+namespace Domain.Models
 {
     public class Product
     {

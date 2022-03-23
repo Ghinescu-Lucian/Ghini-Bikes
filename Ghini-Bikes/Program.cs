@@ -1,9 +1,9 @@
 ﻿//#define CONDITION
-using Ghini_Bikes.Bikes;
-using Ghini_Bikes.Exceptions;
-using Ghini_Bikes.Models;
-using Ghini_Bikes.Products;
-using Ghini_Bikes.Users;
+using Domain.Bikes;
+using Domain.Exceptions;
+using Domain.Models;
+using Domain.Products;
+using Domain.Users;
 using System.Diagnostics;
 using System;
 using Ghini_Bikes.Services;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Exceptions
+namespace Domain.Exceptions
 {
     public class NoUserException : Exception
     {

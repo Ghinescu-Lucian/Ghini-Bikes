@@ -1,11 +1,11 @@
-﻿using Ghini_Bikes.Exceptions;
+﻿using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Models
+namespace Domain.Models
 {
     public abstract class User
     {

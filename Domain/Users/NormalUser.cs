@@ -1,13 +1,13 @@
-﻿using Ghini_Bikes.Collections;
-using Ghini_Bikes.Exceptions;
-using Ghini_Bikes.Models;
+﻿using Domain.Collections;
+using Domain.Exceptions;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Users
+namespace Domain.Users
 {
     public class NormalUser : User
     {

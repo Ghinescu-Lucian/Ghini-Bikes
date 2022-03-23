@@ -1,11 +1,11 @@
-﻿using Ghini_Bikes.Products;
+﻿using Domain.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ghini_Bikes.Bikes
+namespace Domain.Bikes
 {
     public class ElectricBike : Bike
     {

@@ -1,7 +1,7 @@
-﻿using Ghini_Bikes.Models;
+﻿using Domain.Models;
 using System;
 
-namespace Ghini_Bikes.Products
+namespace Domain.Products
 {
 
 	/// <summary>
@@ -16,7 +16,7 @@ namespace Ghini_Bikes.Products
 		//private string specs;
 
 		public string Specification { get; set; }
-		public string Specification { get { return specs; } set { specs = value; } }
+		//public string Specification { get { return specs; } set { specs = value; } }
 
 		public Bike(string man, string model, int year , string specs,double price)
 		{

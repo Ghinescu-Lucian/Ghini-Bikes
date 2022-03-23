@@ -1,4 +1,4 @@
-﻿using Ghini_Bikes.Collections;
+﻿using Domain.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public enum Status : byte { Accepted = 1, Rejected, Pending };
  public enum Payment : byte { Cash, Card };
 
-namespace Ghini_Bikes.Models
+namespace Domain.Models
 {
     public class Order
     {

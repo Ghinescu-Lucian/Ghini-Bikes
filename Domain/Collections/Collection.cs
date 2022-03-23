@@ -1,5 +1,5 @@
-﻿using Ghini_Bikes.Models;
-using Ghini_Bikes.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 
 
-namespace Ghini_Bikes.Collections
+namespace Domain.Collections
 {
     public class Collection<T> : IEqualityComparer<T> where T : Product
     {
