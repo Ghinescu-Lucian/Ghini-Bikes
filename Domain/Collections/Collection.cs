@@ -80,10 +80,9 @@ namespace Domain.Collections
         }
         public  void SwapItems(int index1, int index2)
         {
-            T swap;
-            swap = array[index1];
-            array[index1] = array[index2];
-            array[index2] = swap;
+            if (index1 >= 0 && index2 >= 0 && index1 <= 100 && index2 <= 100)
+                (array[index1], array[index2]) = (array[index2], array[index1]);
+            else throw new ArgumentException("Invalid index");
         }
 
         public bool Equals(T? x, T? y)
