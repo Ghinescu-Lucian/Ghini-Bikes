@@ -18,7 +18,7 @@ namespace Domain.Products
 		public string Specification { get; set; }
 		//public string Specification { get { return specs; } set { specs = value; } }
 
-		public Bike(string man, string model, int year , string specs,double price)
+		/*public Bike(string man, string model, int year , string specs,double price)
 		{
 			Manufacturer = man;
 			Model	 = model;
@@ -26,7 +26,7 @@ namespace Domain.Products
 			Specification = specs;
 			Price = price;
 			id= lastId++;
-		}
+		}*/
 
 		public override string ToString()
         {

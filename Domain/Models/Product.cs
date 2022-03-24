@@ -12,6 +12,8 @@ namespace Domain.Models
         private string model;
         private double price;
         private int year;
+
+        public string Description { get; set; }
         public int Year { get { return year; } set { year = value; } }
         public double Price { get { return price; } set { price = value; } }
         public string Manufacturer { get { return manufacturer; } set { manufacturer = value; } }

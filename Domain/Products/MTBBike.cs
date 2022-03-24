@@ -9,11 +9,11 @@ namespace Domain.Products
 {
     public class MTBBike : Bike,ICloneable
     {
-        private string suspension;
-        public MTBBike(string man, string model,int year, string specs,double price, string suspension) : base(man, model, year, specs,price)
+        public string Suspension { get; set; }
+       /* public MTBBike(string man, string model,int year, string specs,double price, string suspension) : base(man, model, year, specs,price)
         {
             this.suspension = suspension;
-        }
+        }*/
         /*public override string ToString()
         {
             string s = base.ToString();
@@ -29,7 +29,14 @@ namespace Domain.Products
 
         public object Clone()
         {
-            return new MTBBike(this.Manufacturer, this.Model, this.Year, this.Specification, this.Price, this.suspension);
+            return new MTBBike{
+                Manufacturer = this.Manufacturer, 
+                Model = this.Model, 
+                Year = this.Year, 
+                Specification = this.Specification, 
+                Price = this.Price, 
+                Suspension = this.Suspension 
+            };
         }
     }
 

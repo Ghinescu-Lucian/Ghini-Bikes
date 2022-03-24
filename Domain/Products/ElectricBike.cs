@@ -12,11 +12,11 @@ namespace Domain.Bikes
         private double batteryCapacity;
 
         public double BikeCapacity { get { return batteryCapacity; } set { batteryCapacity = value; } }
-        public ElectricBike(string manufacturer, string model, int year, string specs,double price,double batteryCapacity) : base(manufacturer, model, year, specs,price)
+       /* public ElectricBike(string manufacturer, string model, int year, string specs,double price,double batteryCapacity) : base(manufacturer, model, year, specs,price)
         {
             BikeCapacity = batteryCapacity;
            // this.Manufacturer = dto.man;
-        }
+        }*/
         public double Coeficient(int soldNo)
         {
             double coef = base.Coeficient();
