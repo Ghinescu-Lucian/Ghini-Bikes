@@ -1,64 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Ghini_Bikes.Services
 {
-    public static class FileService
+    public class FileService : IFileService
     {
-        private const string directoryPathPhoto = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\Ghini-Bikes\\Pictures";
-        
-        public static void CopyPicture(string filePathSRC)
-        {
-            var name = Path.GetFileNameWithoutExtension(filePathSRC) + "_copy";
-            var extension = Path.GetExtension(filePathSRC);
-            var newFileName = name + extension;
-            var newFilePath = Path.Combine(directoryPathPhoto,newFileName);
-            var fileStream = File.Create(newFilePath);
-            fileStream.Close();
+         private static FileService _instance;
+        private static readonly object padlock = new object();
 
-            byte[] buffer = File.ReadAllBytes(filePathSRC);
-            File.WriteAllBytes(newFilePath, buffer);
-            
+        private FileService()
+        {
+            //System.Console.WriteLine("Constructor called");
         }
-        public static void CopyFile(string filePathSRC)
+
+        public static FileService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    //System.Console.WriteLine("Instance called");
+                    lock (padlock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new FileService();
+                        }
+                    }
+                }
+                return _instance;
+            }
+            private set { }
+        }
+        private const string directoryPathPhotos = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\Ghini-Bikes\\Pictures";
+        
+        public  void CopyFile(string filePathSRC)
         {
             var name = Path.GetFileNameWithoutExtension(filePathSRC) + "_copy";
             var extension = Path.GetExtension(filePathSRC);
             var newFileName = name + extension;
-            var newFilePath = Path.Combine(directoryPathPhoto, newFileName);
-
-
+            var newFilePath = Path.Combine(directoryPathPhotos, newFileName);
             try
             {
-                var sr = new StreamReader(filePathSRC);
-                var fileStream = File.Create(newFilePath);
-                var sw = new StreamWriter(fileStream);
-                var read = true;
-                while (read)
-                {
-                    var line = sr.ReadLine();
-                    if (string.IsNullOrEmpty(line))
-                        read = false;
-                    sw.WriteLine(line);
-                }
-                sw.Close();
-                sr.Close();
+                File.Copy(filePathSRC, newFilePath);
+                Console.WriteLine("Copied successfully");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            catch( Exception ex) {  Console.WriteLine(ex.Message); }
             
         }
         
-        public static void DeleteFile(string filePathSRC)
+        public  void DeleteFile(string filePathSRC)
         {
             FileInfo fileInfo = new FileInfo(filePathSRC);
-            fileInfo.Delete();
+            try
+            {
+                fileInfo.Delete();
+                Console.WriteLine("Deleted successfully");
+            }
+            catch ( Exception ex ) { Console.WriteLine(ex.Message); }
           
+        }
+
+        public  string GetFilePath(string fileName)
+        {
+           var dir = Directory.GetCurrentDirectory();
+            DirectoryInfo directory = new DirectoryInfo(dir);
+            DirectoryInfo baseDirectory = directory.Parent.Parent.Parent;
+
+            string pathDirecotry = Path.Combine(baseDirectory.FullName,"Pictures");
+            string filePath = Path.Combine(pathDirecotry,fileName);
+            
+            //string fullPath = Path.GetFullPath(fileName);
+            //Console.WriteLine(filePath);
+            return filePath;
+        
         }
 
     }

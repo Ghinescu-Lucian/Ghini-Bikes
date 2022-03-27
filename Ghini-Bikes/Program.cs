@@ -14,19 +14,39 @@ namespace Bikes
     {
         static void Main(string[] args)
         {
-            var bikeFactory = BikeFactory.Instance;
-            var partfactory = PartFactory.Instance;
-            var accesoryFactory = AccesoryFactory.Instance;
+            var x = "C:\\Users\\ghine\\Pictures\\Bikes\\FOCUS.png";
+            var fileHelper = new FileServiceProxy();
+            fileHelper.IsAuthorized = true;
+            fileHelper.CopyFile(x);
+            fileHelper.DeleteFile("FOCUS_copy.png");
 
-            MTBBike a = (MTBBike)bikeFactory.CreateProductOfType("MTBBike", 2022, 4500, "Whistler", "FOCUS","Duralumin frame");
-            ElectricBike b = (ElectricBike)bikeFactory.CreateProductOfType("ElectricBike", 2022, 12000, "Stereo Hybrid", "Cube", "Battery 900wh");
-            Part p = (Part)partfactory.CreateProduct(2020, 120, "Ultegra", "Shimano", " Steel chain");
-            Accesory acc = (Accesory)accesoryFactory.CreateProduct(2022, 275, "LS-460", "Trelock", " USB lights I-GO");
-            PromoPackage pack = new PromoPackage();
-            pack.AddProduct(a);
-            pack.AddProduct(p);
-            pack.AddProduct(acc);
-            Console.WriteLine(pack.ToString());
+            var fileHelper2 = new FileServiceFacade();
+            fileHelper2.CopyFile(x);
+            fileHelper2.DeleteFile("FOCUS_copy.png");
+
+            IBike b = new MTBBike()
+            {
+                Manufacturer = "FOCUS",
+                Price = 3500,
+                Model = "HighLand Peak",
+                Year = 2014,
+                WarrantyMonths = 24,
+                Suspension = "SR Sountour",
+                Specification = "Duralumin frame"
+
+            };
+
+            Console.WriteLine("Initial warranty: "+ b.GetWarrantyMonths());
+
+            b = new ExtendedWarrantyBike(b)
+            {
+                ExtraPrice = 250,
+                ExtraWarrantyMonths = 12
+                
+            };
+            Console.WriteLine("Extended warranty: "+ b.GetWarrantyMonths());
+            
+
 
         }
     }

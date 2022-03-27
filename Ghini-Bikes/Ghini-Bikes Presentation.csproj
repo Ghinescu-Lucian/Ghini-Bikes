@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="Pictures\" />
     <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 	  <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
