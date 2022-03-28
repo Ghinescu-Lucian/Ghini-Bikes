@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System;
 using Ghini_Bikes.Services;
 using Domain.ProductFactory;
+using Domain.Orders;
 
 namespace Bikes
 {
@@ -14,17 +15,11 @@ namespace Bikes
     {
         static void Main(string[] args)
         {
-            var x = "C:\\Users\\ghine\\Pictures\\Bikes\\FOCUS.png";
-            var fileHelper = new FileServiceProxy();
-            fileHelper.IsAuthorized = true;
-            fileHelper.CopyFile(x);
-            fileHelper.DeleteFile("FOCUS_copy.png");
 
-            var fileHelper2 = new FileServiceFacade();
-            fileHelper2.CopyFile(x);
-            fileHelper2.DeleteFile("FOCUS_copy.png");
+            NormalUser u = new NormalUser("Luky", "1234", "luky@gmail.com", "image1.png");
+            u.LogIn("1234");
 
-            IBike b = new MTBBike()
+            MTBBike b = new MTBBike()
             {
                 Manufacturer = "FOCUS",
                 Price = 3500,
@@ -35,17 +30,31 @@ namespace Bikes
                 Specification = "Duralumin frame"
 
             };
-
-            Console.WriteLine("Initial warranty: "+ b.GetWarrantyMonths());
-
-            b = new ExtendedWarrantyBike(b)
+            Accesory a = new Accesory()
             {
-                ExtraPrice = 250,
-                ExtraWarrantyMonths = 12
-                
+                Manufacturer = "Sram",
+                Year = 2022,
+                Model = "Ring",
+                Description = "Claxon",
+                Price = 20
+
             };
-            Console.WriteLine("Extended warranty: "+ b.GetWarrantyMonths());
-            
+
+           
+           
+           
+            u.AddToCart(a);
+           Order order = u.Place_Order("Personal");
+            Console.WriteLine(order);
+          
+            u.AddToCart(a);
+            Order order1 = u.Place_Order("Courier");
+            Console.WriteLine(order1);
+
+            u.AddToCart(a);
+             u.AddToCart(b);
+            Order order2 = u.Place_Order("Courier");
+            Console.WriteLine(order2);
 
 
         }

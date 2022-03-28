@@ -14,26 +14,22 @@ namespace Domain.Users
         private string img;
         private string[] vouchers;
         private List<Product> cart = new List<Product>();
-        private Collection<Product>? order;
+        private List<Order>? orders;
 
         public NormalUser(string name, string password, string email,string img) : base(name, password, email)
         {
             this.img = img;
         }
 
-        public void Place_Order()
+        public Order Place_Order(string shippingMethod)
         {
             if (cart == null)
                 throw new EmptyCartException(" Cart is empty!");
             else
             {
-                order = new Collection<Product>();
-                Console.WriteLine("Order contain:");
-                foreach (Product product in cart)
-                {
-                    Console.WriteLine($"  {product.ToString()}");
-                    order.AddItem(product);
-                }
+                Order  order = new Order(cart,this,shippingMethod);
+                cart.Clear();
+                return order;
             }
             
         }
@@ -61,10 +57,10 @@ namespace Domain.Users
             }
             return s;
         }
-        public Collection<Product> GetOrder()
+        public List<Order> GetOrder()
         {
-            if(order != null)
-                return order;
+            if(orders != null)
+                return orders;
             return null;
         }
 

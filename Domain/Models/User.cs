@@ -13,13 +13,13 @@ namespace Domain.Models
         private int id;
         private string username;
         private string password;
-        public string email;
+        public string Email { get; set; }
         private bool loggedIn;
         public string Username { get {  return this.username; } set { username = value; } }
         public bool LoggedIn { get { return this.loggedIn; } set { this.loggedIn = value; } }
         public User(string username,string password, string email)
         {
-            this.email = email;
+            Email = email;
             this.username = username;   
             this.password = password;
             initialID = initialID + 1;
@@ -27,7 +27,7 @@ namespace Domain.Models
 
         public override string ToString()
         {
-            return username + ":" + email;
+            return username + ":" + Email;
         }
 
         public void LogIn(string password)
