@@ -7,22 +7,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public abstract class User
+    public class User
     {
         private static int initialID = 0;
-        private int id;
+        
         private string username;
-        private string password;
+        public  string Password { get; set; }
         public string Email { get; set; }
         private bool loggedIn;
         public string Username { get {  return this.username; } set { username = value; } }
         public bool LoggedIn { get { return this.loggedIn; } set { this.loggedIn = value; } }
-        public User(string username,string password, string email)
+        public int Id { get; set; }
+        public User()
         {
-            Email = email;
-            this.username = username;   
-            this.password = password;
-            initialID = initialID + 1;
+            Id = initialID++;
         }
 
         public override string ToString()
@@ -32,7 +30,7 @@ namespace Domain.Models
 
         public void LogIn(string password)
         {
-            if (!String.Equals(password,this.password))
+            if (!String.Equals(password,Password))
                 throw new InvalidCredentialsException("Wrong password!");
             else Console.WriteLine($" {Username} is logged in!");
             this.loggedIn = true;

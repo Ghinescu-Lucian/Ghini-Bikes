@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-   public interface IUserRepository
+    public interface IOrderRepository
     {
-        void CreateUser(User user);
-        IEnumerable<User> GetUsers();
+        void CreateOrder(Order order);
+        IEnumerable<Order> GetOrders();
     }
 }

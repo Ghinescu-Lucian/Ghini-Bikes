@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
+using Domain.Users;
 using MediatR;
 
 namespace Application.Users.Commands.CreateUser
@@ -19,16 +20,18 @@ namespace Application.Users.Commands.CreateUser
 
         public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            /*var user = new User
+            var user = new User()
             {
                 Email = request.Email,
             Username = request.Username,
             Password = request.Password
              };
+
             _repository.CreateUser(user);
-            await _repository.SaveChangesAsync();
-            return user;*/
-            return null;
+
+            return user;
+
+            //return null;
         }
        
     }

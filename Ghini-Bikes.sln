@@ -5,11 +5,11 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghini-Bikes Presentation", "Ghini-Bikes\Ghini-Bikes Presentation.csproj", "{1A333042-ED27-4E02-AE9F-9D2C7A3DC8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{87B84A57-547E-4F72-BE00-2904B27B0BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{87B84A57-547E-4F72-BE00-2904B27B0BCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{6461ADCC-2037-4498-9EEB-5EC7734F819E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{6461ADCC-2037-4498-9EEB-5EC7734F819E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{D0DE5D86-62FC-4FE4-BBA5-003EE3C3BE0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{B9444CAD-E573-4D18-8594-FAFE36BE70EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{6461ADCC-2037-4498-9EEB-5EC7734F819E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6461ADCC-2037-4498-9EEB-5EC7734F819E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6461ADCC-2037-4498-9EEB-5EC7734F819E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0DE5D86-62FC-4FE4-BBA5-003EE3C3BE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0DE5D86-62FC-4FE4-BBA5-003EE3C3BE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0DE5D86-62FC-4FE4-BBA5-003EE3C3BE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0DE5D86-62FC-4FE4-BBA5-003EE3C3BE0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9444CAD-E573-4D18-8594-FAFE36BE70EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9444CAD-E573-4D18-8594-FAFE36BE70EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9444CAD-E573-4D18-8594-FAFE36BE70EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9444CAD-E573-4D18-8594-FAFE36BE70EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

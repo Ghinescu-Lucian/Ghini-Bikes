@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Bikes
 {
-    public class Accesory : Product
+    public class Accessory : Product
     {
        
         public override string ToString()

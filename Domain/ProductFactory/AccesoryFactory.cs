@@ -39,7 +39,7 @@ namespace Domain.ProductFactory
         }
         public Product CreateProduct(int year, double price, string model, string manufacturer, string description)
         {
-            return new Accesory
+            return new Accessory
             {
                 Year = year,
                 Price = price,

@@ -16,10 +16,11 @@ namespace Domain.Users
         private List<Product> cart = new List<Product>();
         private List<Order>? orders;
 
-        public NormalUser(string name, string password, string email,string img) : base(name, password, email)
+
+      /*  public NormalUser(string name, string password, string email,string img) : base(name, password, email)
         {
             this.img = img;
-        }
+        }*/
 
         public Order Place_Order(string shippingMethod)
         {
