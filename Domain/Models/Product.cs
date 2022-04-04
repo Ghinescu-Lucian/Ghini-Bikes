@@ -13,6 +13,7 @@ namespace Domain.Models
         private double price;
         private int year;
 
+        public int productId { get; set; }
         public string Description { get; set; }
         public int Year { get { return year; } set { year = value; } }
         public double Price { get { return price; } set { price = value; } }

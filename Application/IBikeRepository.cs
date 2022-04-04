@@ -11,5 +11,8 @@ namespace Application
     {
         void CreateBike(Bike bike);
         IEnumerable<Bike> GetBikes();
+        void DeleteBike(Bike bike);
+        Bike GetBikeById(int bikeId);
+        void UpdateBike(int bikeId, Bike bike);
     }
 }

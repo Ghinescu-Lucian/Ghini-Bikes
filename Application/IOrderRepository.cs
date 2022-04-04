@@ -11,5 +11,8 @@ namespace Application
     {
         void CreateOrder(Order order);
         IEnumerable<Order> GetOrders();
+        void DeleteOrder(Order order);
+        User GetOrderById(int orderId);
+        void UpdateOrder(int orderId, Order order);
     }
 }

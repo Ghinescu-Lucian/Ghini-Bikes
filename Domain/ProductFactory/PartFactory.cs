@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ProductFactory
 {
-    public class PartFactory : IProductFactory
+    public class PartFactory : IProductFactory<Part>
     {
         private static PartFactory _instance;
         private static readonly object padlock = new object();
@@ -37,7 +37,7 @@ namespace Domain.ProductFactory
             }
             private set { }
         }
-        public Product CreateProduct(int year, double price, string model, string manufacturer, string description)
+        public Part CreateProduct(int year, double price, string model, string manufacturer, string description)
         {
             return new Part
             {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ProductFactory
 {
-    public class BikeFactory : IProductFactory
+    public class BikeFactory : IProductFactory<Bike>
     {
 
         private static BikeFactory _instance;
@@ -40,7 +40,7 @@ namespace Domain.ProductFactory
             private set { }
         }
 
-        public Product CreateProduct(int year, double price, string model, string manufacturer, string description)
+        public Bike CreateProduct(int year, double price, string model, string manufacturer, string description)
         {
             return new Bike
             {
@@ -52,7 +52,7 @@ namespace Domain.ProductFactory
             };
 
         }
-        public Product CreateProductOfType(string type,int year, double price, string model, string manufacturer, string description)
+        public Bike CreateProductOfType(string type,int year, double price, string model, string manufacturer, string description)
         {
             switch (type)
             {

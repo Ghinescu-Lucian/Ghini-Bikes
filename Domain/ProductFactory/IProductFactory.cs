@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.ProductFactory
 {
-    public interface IProductFactory
+    public interface IProductFactory<T>
     {
-       public Product CreateProduct(int year, double price, string model, string manufacturer, string description);
+       public T CreateProduct(int year, double price, string model, string manufacturer, string description);
     }
 }

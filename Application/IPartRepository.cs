@@ -12,5 +12,8 @@ namespace Application
     {
         void CreatePart(Part part);
         IEnumerable<Part> GetParts();
+        void DeletePart(Part part);
+        Part GetPartById(int partId);
+        void UpdatePart(int partId,Part part);
     }
 }

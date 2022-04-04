@@ -16,7 +16,22 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
+        public void DeleteBike(Bike bike)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bike GetBikeById(int bikeId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Bike> GetBikes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBike(int bikeId, Bike bike)
         {
             throw new NotImplementedException();
         }

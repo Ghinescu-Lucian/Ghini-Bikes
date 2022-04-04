@@ -41,5 +41,19 @@ namespace Domain.Models
             this.loggedIn = false;
         }
 
+        public bool Equals(Object obj)
+        {
+            if ( obj == null) 
+                return false;
+            User u = obj as User;
+            if (string.Equals(u.Username, Username) && u.Id == this.Id)
+                return true;
+            return false;
+        }
+        public int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
     }
 }

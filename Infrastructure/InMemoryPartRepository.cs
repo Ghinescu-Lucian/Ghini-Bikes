@@ -15,7 +15,22 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
+        public void DeletePart(Part part)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Part GetPartById(int partId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Part> GetParts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePart(int partId, Part part)
         {
             throw new NotImplementedException();
         }
