@@ -12,6 +12,7 @@ namespace Domain.Products
 
 		public int WarrantyMonths { get; set; }
 		public string Specification { get; set; }
+		public double Weigth { get; set; }
 
 		public Bike()
 		{

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Products;
+using MediatR;
+
 
 namespace Application.Products.Bikes.Queries.GetAllBikes
 {
-    internal class GetAllBikesQuery
+    public class GetAllBikesQuery : IRequest<IEnumerable<Bike>>
     {
     }
 }

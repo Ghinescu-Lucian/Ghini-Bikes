@@ -22,7 +22,7 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
             var bikeFactory = BikeFactory.Instance;
 
             var bike = bikeFactory.CreateProductOfType(request.Type, request.Year, request.Price, request.Model, request.Manufacturer, request.Description);
-
+            bike.Weigth = request.Weight;
            _repository.CreateBike(bike);
 
             return bike;

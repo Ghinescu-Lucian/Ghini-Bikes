@@ -10,6 +10,8 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
         public string Description { get; set; }
         public int Year { get; set; }
         public double Price { get; set; }
+
+        public double Weight { get; set; }
         public int WarrantyMonths { get; set; }
         public string Type { get; set; }
 

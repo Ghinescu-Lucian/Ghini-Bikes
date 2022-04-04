@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Products;
+using MediatR;
+
 
 namespace Application.Products.Bikes.Queries.GetBikeById
 {
-    internal class GetBikeByIdQuery
+    public class GetBikeByIdQuery : IRequest<Bike>
     {
+        public int Id { get; set; }
     }
 }
