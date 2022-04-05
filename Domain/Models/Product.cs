@@ -22,7 +22,7 @@ namespace Domain.Models
 
         public override string ToString()
         {
-            string s = manufacturer + " " + model + " " + price;
+            string s = manufacturer + " " + model + " " + price + " "+Description;
             return s;
         }
     }

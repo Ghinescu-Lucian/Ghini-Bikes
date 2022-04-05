@@ -9,12 +9,16 @@ using Application.Products.Bikes.Commands.DeleteBikeCommand;
 using Application.Products.Bikes.Commands.UpdateBikeCommand;
 using Application.Products.Bikes.Queries.GetAllBikes;
 using Application.Products.Bikes.Queries.GetBikeById;
+using Application.Products.Parts.Commands.CreatePartCommand;
+using Application.Products.Parts.Queries.GetAllParts;
+using Application.Products.Parts.Queries.GetPartById;
+using Domain.Products;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Bikes
+namespace Ghini_Bikes
 {
     class Program
     {
@@ -109,7 +113,25 @@ namespace Bikes
             Console.WriteLine(bike4.Last() +" "+ bike4.Last().productId);
 
             var bike5 = await mediator.Send(new GetBikeByIdQuery { Id = 1 });
-            Console.WriteLine(" By ID "+bike5.Manufacturer);    
+            Console.WriteLine(" By ID "+bike5.Manufacturer);
+
+            List<Bike> bikeList = new List<Bike>();
+            bikeList.Add(bike5);
+            Console.WriteLine("Bike nr "+bikeList.Count );
+            var part = await mediator.Send(new CreatePartCommand
+            {
+                Manufacturer = "Shimano",
+                Model = "Altus",
+                Year = 2022,
+                Price = 129,
+                Description = "Schimbator spate 8 viteze",
+                Bikes = bikeList
+            });
+
+            var part2 = await mediator.Send(new GetAllPartsQuery());
+            Console.WriteLine(part2.Last() + " "+ part2.Last().productId);
+            var part3 = await mediator.Send(new GetPartByIdQuery { Id = 1 });
+            Console.WriteLine(part3);
            
 
             

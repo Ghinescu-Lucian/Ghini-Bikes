@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Products;
+using MediatR;
 
 namespace Application.Products.Parts.Commands.DeletePartCommand
 {
-    internal class DeletePartCommandHandler
+    public class DeletePartCommandHandler : IRequestHandler<DeletePartCommand, Part>
     {
+        private IPartRepository _partRepository;
+
+        public DeletePartCommandHandler(IPartRepository repository)
+        {
+            _partRepository = repository;
+        }
+
+         public Task<Part> Handle(DeletePartCommand request, CancellationToken cancellationToken)
+        {
+            var part = new Part
+            {
+                Manufacturer = request.Manufacturer,
+                Model = request.Model,
+                Year = request.Year
+            };
+            _partRepository.DeletePart(part);
+            return Task.FromResult(part);
+        }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Products;
+using MediatR;
+
 
 namespace Application.Products.Parts.Commands.DeletePartCommand
 {
-    internal class DeletePartCommand
+    public class DeletePartCommand : IRequest<Part>
     {
+        public string Manufacturer { get; set; }
+        public string Model { get; set; }
+        public int Year { get; set; }
     }
 }
