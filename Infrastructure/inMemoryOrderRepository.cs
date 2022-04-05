@@ -1,38 +1,66 @@
 ﻿using Application;
 using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
     public class InMemoryOrderRepository : IOrderRepository
     {
+        private List<Order> _orders= new();
         public void CreateOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (order == null) throw new ArgumentNullException("order parameter is null");
+            order.Id = _orders.Count + 1;
+            _orders.Add(order);
         }
 
-        public void DeleteOrder(Order order)
+        public Order DeleteOrder(int orderId)
         {
-            throw new NotImplementedException();
+            if (orderId < 0) throw new ArgumentOutOfRangeException(" Invalid order id " + orderId);
+            var orderDelete = _orders.Single( o => o.Id == orderId);
+            _orders.Remove(orderDelete);
+            return orderDelete;
+
         }
 
-        public User GetOrderById(int orderId)
+        public IEnumerable<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _orders;
         }
 
-        public IEnumerable<Order> GetOrders()
+        public Order GetOrderById(int orderId)
         {
-            throw new NotImplementedException();
+            if (orderId < 0) throw new ArgumentOutOfRangeException(" Invalid order id " + orderId);
+            return _orders.FirstOrDefault( o => o.Id == orderId);
+        }
+
+        public IEnumerable<Order> GetOrdersByUser(User user)
+        {
+            if(user == null) throw new ArgumentNullException("user parameter is null");
+            var result = _orders.Where(o => string.Equals(o.User.Username, user.Username));
+            return result;
         }
 
         public void UpdateOrder(int orderId, Order order)
         {
-            throw new NotImplementedException();
+            if(orderId < 0) throw new ArgumentOutOfRangeException("Invalid order Id ( <0 )" + orderId);
+            if(order == null) throw new ArgumentNullException("order parameter is null");
+            int ok = 0;
+            foreach (Order o in _orders)
+                if (o.Id == orderId)
+                {
+                    ok = ok + 1;
+                    o.Address = order.Address;
+                    o.User =  order.User;
+                    o.ShippingCost = order.ShippingCost;
+                    o.TotalCost = order.TotalCost;
+                    o.Date = order.Date;
+                    o.TelephoneNr = order.TelephoneNr;
+                    o.Pay = order.Pay;
+                    o.Status = order.Status;
+                    break;
+                }
+            if (ok == 0) throw new InvalidOperationException("Invalid order Id");
         }
+
     }
 }

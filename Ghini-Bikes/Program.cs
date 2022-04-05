@@ -1,4 +1,8 @@
 ﻿using Application;
+using Application.Orders.Commands.CreateOrderCommand;
+using Application.Orders.Commands.DeleteOrderCommand;
+using Application.Orders.Queries.GetAllOrders;
+using Application.Orders.Queries.GetOrdersByUser;
 using Application.Products.Accessories.Commands.CreateAccessoryCommand;
 using Application.Products.Accessories.Commands.DeleteAccessoryCommand;
 using Application.Products.Accessories.Commands.UpdateAccessoryCommand;
@@ -12,6 +16,8 @@ using Application.Products.Bikes.Queries.GetBikeById;
 using Application.Products.Parts.Commands.CreatePartCommand;
 using Application.Products.Parts.Queries.GetAllParts;
 using Application.Products.Parts.Queries.GetPartById;
+using Application.Users.Commands.CreateUser;
+using Domain.Models;
 using Domain.Products;
 using Infrastructure;
 using MediatR;
@@ -34,6 +40,8 @@ namespace Ghini_Bikes
                  .BuildServiceProvider();
 
             var mediator = diContainer.GetRequiredService<IMediator>();
+
+            Console.WriteLine("\n   Accessory\n");
 
             var acc = await mediator.Send(new CreateAccessoryCommand
             {
@@ -61,7 +69,7 @@ namespace Ghini_Bikes
 
             var acc4 = await mediator.Send(new GetAllAccessoriesQuery());
             Console.WriteLine(acc4.Last());
-
+            Console.WriteLine("\n   Bike\n");
             var bike = await mediator.Send(new CreateBikeCommand
             {
                 Type = "MTBBike",
@@ -115,6 +123,7 @@ namespace Ghini_Bikes
             var bike5 = await mediator.Send(new GetBikeByIdQuery { Id = 1 });
             Console.WriteLine(" By ID "+bike5.Manufacturer);
 
+            Console.WriteLine("\n   Part\n");
             List<Bike> bikeList = new List<Bike>();
             bikeList.Add(bike5);
             Console.WriteLine("Bike nr "+bikeList.Count );
@@ -132,9 +141,53 @@ namespace Ghini_Bikes
             Console.WriteLine(part2.Last() + " "+ part2.Last().productId);
             var part3 = await mediator.Send(new GetPartByIdQuery { Id = 1 });
             Console.WriteLine(part3);
-           
 
-            
+            Console.WriteLine("\n   Order");
+
+            var user = await mediator.Send(new CreateUserCommand
+            {
+                Username = "Luky",
+                Password = "1234",
+                Email = "Luky@gmail.com"
+            });
+
+            List<Product> products = new List<Product> { bike5, acc2 };
+            var order1 = await mediator.Send(new CreateOrderCommand
+            {
+                User = user,
+                products = products,
+                Date= DateTime.Now,
+                TelephoneNr = "0727217169",
+                Address ="Strada X",
+                Payment = Domain.Enums.Payment.Cash,
+                ShippingMethod = "Personal"
+            });
+            Console.WriteLine("Id-ul comenzii e: "+ order1.Id + order1.User);
+
+            var order2 = await mediator.Send(new DeleteOrderCommand
+            {
+                Id = order1.Id
+            });
+
+            order1 = await mediator.Send(new CreateOrderCommand
+            {
+                User= user,
+                products = products,
+                Date = DateTime.Now,
+                TelephoneNr = "0727217169",
+                Address = "Strada X",
+                Payment = Domain.Enums.Payment.Cash,
+                ShippingMethod = "Personal"
+            });
+            var order3 = await mediator.Send(new GetAllOrdersQuery());
+           Console.WriteLine("Order3    "+order3.Count());
+           var order4 = await mediator.Send(new GetOrdersByUserQuery
+            {
+                User= user
+            });
+            Console.WriteLine("By User      "+order4.First());
+
+
         }
 
     }

@@ -10,9 +10,10 @@ namespace Application
     public interface IOrderRepository
     {
         void CreateOrder(Order order);
-        IEnumerable<Order> GetOrders();
-        void DeleteOrder(Order order);
-        User GetOrderById(int orderId);
+        IEnumerable<Order> GetOrdersByUser(User user);
+        Order DeleteOrder(int orderId);
+        Order GetOrderById(int orderId);
+        IEnumerable<Order> GetAllOrders();
         void UpdateOrder(int orderId, Order order);
     }
 }
