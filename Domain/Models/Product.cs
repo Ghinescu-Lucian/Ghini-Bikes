@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,21 +9,26 @@ namespace Domain.Models
 {
     public class Product
     {
-        private string manufacturer;
-        private string model;
-        private double price;
-        private int year;
-
-        public int productId { get; set; }
+        
+        public int ProductId { get; set; }
+        [MaxLength(200)]
         public string Description { get; set; }
-        public int Year { get { return year; } set { year = value; } }
-        public double Price { get { return price; } set { price = value; } }
-        public string Manufacturer { get { return manufacturer; } set { manufacturer = value; } }
-        public string Model { get { return model; } set { model = value; } }
+        [Required]
+        public int Year { get; set; }
+        public double Price { get; set; }
+        [Required, MaxLength(30)]
+        public string Manufacturer { get; set; }
+        [Required, MaxLength(30)]
+        public string Model { get; set; }
+        [Required]
+
+        public int Quantity { get; set; }
+        [Required]
+        public int Category { get; set; }
 
         public override string ToString()
         {
-            string s = manufacturer + " " + model + " " + price + " "+Description;
+            string s = Manufacturer + " " + Model + " " + Price + " "+Description;
             return s;
         }
     }

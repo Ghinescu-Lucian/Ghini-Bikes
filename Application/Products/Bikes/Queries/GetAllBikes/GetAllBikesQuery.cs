@@ -1,10 +1,11 @@
-﻿using Domain.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using MediatR;
 
 
 namespace Application.Products.Bikes.Queries.GetAllBikes
 {
-    public class GetAllBikesQuery : IRequest<IEnumerable<Bike>>
+    public class GetAllBikesQuery : IRequest<IEnumerable<Product>>
     {
     }
 }

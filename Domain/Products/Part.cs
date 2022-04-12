@@ -24,7 +24,7 @@ namespace Domain.Products
         public void RemoveCompatibleBike(Bike bike)
         {
             if(bike == null) throw new ArgumentNullException("Bike parameter is null");
-            var bikeRemove = _compatibilities.Single(b => b.productId == bike.productId);
+            var bikeRemove = _compatibilities.Single(b => b.ProductId == bike.ProductId);
             _compatibilities.Remove(bikeRemove);
         }
         public IEnumerable<Bike> Compatibilities()

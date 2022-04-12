@@ -1,18 +1,14 @@
-﻿using Domain.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Models;
+using Domain.Products;
 
 namespace Application
 {
-    public interface IBikeRepository
+    public interface IBikeRepository 
     {
         void CreateBike(Bike bike);
-        IEnumerable<Bike> GetBikes();
+        IEnumerable<Product> GetBikes();
         void DeleteBike(Bike bike);
-        Bike GetBikeById(int bikeId);
+        Product GetBikeById(int bikeId);
         void UpdateBike(int bikeId, Bike bike);
     }
 }

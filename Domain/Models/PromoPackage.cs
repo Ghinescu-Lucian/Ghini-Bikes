@@ -2,45 +2,52 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Products
+namespace Domain.Models
 {
-    public class PromoPackage :Product, IEnumerable<Product>
+    public class PromoPackage : IEnumerable<PromoItem>
     {
-        private List<Product> package = new List<Product>();
+        public int Id { get; set; }
+        [MaxLength(50)]
+        public string Name { get; set; }   
+        public List<PromoItem> Items { get; set; }
 
-        public void AddProduct(Product p)
+
+        public void AddProduct(Product p,int quantity, double discount)
         {
-            package.Add(p);
+          /*  PromoItem item = new PromoItem { Discount = discount, Quantity = quantity, Price = p.Price, Image = p.Image };
+            Items.Add(item);
+          */
         }
 
         public int GetNo()
         {
-            return package.Count;
+            return Items.Count;
         }
 
-        public List<Product> GetPackage()
+        public List<PromoItem> GetPackage()
         {
-            return this.package;
+            return this.Items;
         }
 
         public override string ToString()
         {
             string s = "Promo - Package : ";
-            for(int i = 0; i < package.Count; i++)
+            for(int i = 0; i < Items.Count; i++)
             {
-                s+="\n    "+package[i].ToString();
+                s+="\n    "+Items[i].ToString();
             }
             return s;
         }
       
 
-        public IEnumerator<Product> GetEnumerator()
+        public IEnumerator<PromoItem> GetEnumerator()
         {
-            return new ProductEnumerator(this);
+            return new PromoItemEnumerator(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -48,18 +55,18 @@ namespace Domain.Products
             return GetEnumerator();
         }
     }
-    public class ProductEnumerator : IEnumerator<Product>
+    public class PromoItemEnumerator : IEnumerator<PromoItem>
     {
         private PromoPackage promoPackage;
         private int index;
 
-        public ProductEnumerator(PromoPackage promoPackage)
+        public PromoItemEnumerator(PromoPackage promoPackage)
         {
             this.promoPackage = promoPackage;
             index = -1;
         }
 
-        public Product Current => promoPackage.GetPackage()[index];
+        public PromoItem Current => promoPackage.GetPackage()[index];
 
         object IEnumerator.Current => Current;
 

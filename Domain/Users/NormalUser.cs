@@ -13,7 +13,7 @@ namespace Domain.Users
     {
         private string img;
         private string[] vouchers;
-        private List<Product> cart = new List<Product>();
+        private List<OrderItem> cart = new List<OrderItem>();
         private List<Order>? orders;
 
 
@@ -28,7 +28,7 @@ namespace Domain.Users
                 throw new EmptyCartException(" Cart is empty!");
             else
             {
-                Order  order = new Order(cart,this,shippingMethod);
+                Order order = new Order();// cart,this,shippingMethod);
                 cart.Clear();
                 return order;
             }
@@ -38,7 +38,12 @@ namespace Domain.Users
         public  void AddToCart(Product p)
         {
             if (p != null)
-                cart.Add(p);
+            {/*
+                OrderItem item = new OrderItem { _Product = p, Quantity = 1,Price=p.Price };
+                cart.Add(item);
+                */
+            }
+                
             else throw new ArgumentNullException("invalid product");
         }
 
@@ -52,9 +57,9 @@ namespace Domain.Users
             }
             
             double s = 0.0;
-            foreach(Product p in cart)
+            foreach(OrderItem p in cart)
             {
-                s += p.Price;
+              //  s += p.Price;
             }
             return s;
         }

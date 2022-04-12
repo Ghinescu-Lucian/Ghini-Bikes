@@ -84,8 +84,6 @@ namespace Ghini_Bikes.Services
             string pathDirecotry = Path.Combine(baseDirectory.FullName, "Pictures");
             string filePath = Path.Combine(pathDirecotry, fileName);
 
-            //string fullPath = Path.GetFullPath(fileName);
-            //Console.WriteLine(filePath);
             return filePath;
         }
 

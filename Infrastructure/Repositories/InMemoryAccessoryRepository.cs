@@ -1,5 +1,6 @@
 ﻿using Application;
 using Domain.Bikes;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Infrastructure
         {
             if (accessory == null)
                 throw new ArgumentNullException();
-            accessory.productId = _accessories.Count;
+            accessory.ProductId = _accessories.Count;
             _accessories.Add(accessory);
         }
 
@@ -32,14 +33,14 @@ namespace Infrastructure
             }
         }
 
-        public IEnumerable<Accessory> GetAccessories()
+        public IEnumerable<Product> GetAccessories()
         {
             return _accessories;
         }
 
-        public Accessory GetAccessoryById(int accessoryId)
+        public Product GetAccessoryById(int accessoryId)
         {
-            return _accessories.FirstOrDefault(acc => acc.productId == accessoryId);
+            return _accessories.FirstOrDefault(acc => acc.ProductId == accessoryId);
         }
 
         public void UpdateAccessory(int accessoryId, Accessory accessory)
@@ -47,7 +48,7 @@ namespace Infrastructure
             int ok = 0;
             if(accessoryId < 0) throw new ArgumentOutOfRangeException("Invalid accessory ID");
             foreach (Accessory acc in _accessories)
-                if (acc.productId == accessoryId)
+                if (acc.ProductId == accessoryId)
                 {
                     ok = ok + 1;
                     acc.Price = accessory.Price;

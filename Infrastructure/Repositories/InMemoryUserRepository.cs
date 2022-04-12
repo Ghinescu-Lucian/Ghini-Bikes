@@ -17,16 +17,17 @@ namespace Infrastructure
 
         }
 
-        public void DeleteUser(User user)
+        public User DeleteUser(int userId)
         {
-            
+            var userRemove = _users.Single( u => u.Id == userId);
             try { 
-                var userRemove = _users.Single( u => u.Username == user.Username);
+                
                 _users.Remove(userRemove);
             }
             catch (Exception e){
                 Console.WriteLine(e.Message); 
             }
+            return userRemove;
         }
 
         public User GetUserById(int userId)

@@ -5,6 +5,7 @@ using Domain.Orders;
 using Domain.Products;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,28 +16,33 @@ namespace Domain.Models
 {
     public class Order
     {
-        private List<Product> Products { get; set; }
-
         public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public double TotalCost { get; set; }
+        public List<OrderItem> Items { get; set; }
 
+        [Required]
+        public DateTime Date { get; set; }
+        [Required]
+        public double TotalCost { get; set; }
+        [Required]
         public double FinalCost { get; set; }
         public User User { get; set; }
+
+        [Required,MaxLength(13)]
         public string TelephoneNr { get; set; }
+        [Required, MaxLength(50)]
         public string Address { get; set; }
 
         public Payment? Pay { get; set; }
 
         public Status? Status { get; set; }
 
-        public ShippingCostContext ShippingCost { get; set; }
-
-        public Order(List<Product> items, User user, string shippingMethod)
+        public ShippingCostContext ShippingCost;
+        
+       /* public Order(List<OrderItem> Items, User User, string shippingMethod)
         {
             double totalCost = 0;
 
-            foreach (Product product in items)
+            foreach (OrderItem product in Items)
                 totalCost += product.Price;
             ShippingCost = new ShippingCostContext();
             if (string.Equals(shippingMethod, "Personal"))
@@ -54,10 +60,11 @@ namespace Domain.Models
 
 
             Date  = DateTime.Now;
-            Products = items;
+            OrderItems = Items;
             TotalCost = totalCost;
-            User = user;
-        }
+            User = User;
+        }*/
+
         public override string ToString()
         {
             string s = " Comanda cu id: " + Id + " are costul "+FinalCost+"lei (livrare = "+(FinalCost-TotalCost) + " lei )";

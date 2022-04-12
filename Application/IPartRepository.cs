@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public interface IPartRepository
+    public interface IPartRepository 
     {
         void CreatePart(Part part);
-        IEnumerable<Part> GetParts();
+        IEnumerable<Product> GetParts();
         void DeletePart(Part part);
-        Part GetPartById(int partId);
+        Product GetPartById(int partId);
         void UpdatePart(int partId,Part part);
     }
 }

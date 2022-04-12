@@ -14,7 +14,7 @@ namespace Application.Orders.Commands.UpdateOrderCommand
 
         public Task<Order> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = new Order(request.products, request.User, request.ShippingMethod)
+            var order = new Order()//request.Items, request.User, request.ShippingMethod)
             {
                 TelephoneNr = request.TelephoneNr,
                 Pay = request.Payment,

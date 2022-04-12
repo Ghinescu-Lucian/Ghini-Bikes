@@ -1,4 +1,5 @@
 ﻿using Domain.Bikes;
+using Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Products.Accessories.Queries.GetAccessoryById
 {
-    public class GetAccessoryByIdQueryHandler : IRequestHandler<GetAccessoryByIdQuery, Accessory>
+    public class GetAccessoryByIdQueryHandler : IRequestHandler<GetAccessoryByIdQuery, Product>
     {
         private readonly IAccessoryRepository _repository;
 
@@ -18,7 +19,7 @@ namespace Application.Products.Accessories.Queries.GetAccessoryById
         }
 
 
-        Task<Accessory> IRequestHandler<GetAccessoryByIdQuery, Accessory>.Handle(GetAccessoryByIdQuery request, CancellationToken cancellationToken)
+        Task<Product> IRequestHandler<GetAccessoryByIdQuery, Product>.Handle(GetAccessoryByIdQuery request, CancellationToken cancellationToken)
         {
             var result = _repository.GetAccessoryById(request.Id);
             return Task.FromResult(result);

@@ -7,7 +7,7 @@ namespace Application.Orders.Commands.CreateOrderCommand
 {
     public class CreateOrderCommand : IRequest<Order>
     {
-        public List<Product> products;
+        public List<OrderItem> Items;
         public DateTime Date { get; set; }
         public User User { get; set; }
         public string TelephoneNr { get; set; }

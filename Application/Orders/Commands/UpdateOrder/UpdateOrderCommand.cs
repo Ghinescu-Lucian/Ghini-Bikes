@@ -7,7 +7,7 @@ namespace Application.Orders.Commands.UpdateOrderCommand
     public class UpdateOrderCommand : IRequest<Order>
     {
         public int Id { get; set; }
-        public List<Product> products;
+        public List<OrderItem> Items;
         public DateTime Date { get; set; }
         public User User { get; set; }
         public string TelephoneNr { get; set; }

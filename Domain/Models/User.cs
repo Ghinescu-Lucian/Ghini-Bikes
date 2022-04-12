@@ -1,6 +1,7 @@
 ﻿using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,23 +10,25 @@ namespace Domain.Models
 {
     public class User
     {
-        private static int initialID = 0;
-        
-        private string username;
-        public  string Password { get; set; }
-        public string Email { get; set; }
-        private bool loggedIn;
-        public string Username { get {  return this.username; } set { username = value; } }
-        public bool LoggedIn { get { return this.loggedIn; } set { this.loggedIn = value; } }
         public int Id { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Username { get; set; }
+
+        public bool LoggedIn { get; set; }
+        public List<Order> Orders { get; set; }
+       
         public User()
         {
-            Id = initialID++;
+            Orders = new List<Order>();
         }
-
         public override string ToString()
         {
-            return username + ":" + Email;
+            return Username + ":" + Email;
         }
 
         public void LogIn(string password)
@@ -33,12 +36,12 @@ namespace Domain.Models
             if (!String.Equals(password,Password))
                 throw new InvalidCredentialsException("Wrong password!");
             else Console.WriteLine($" {Username} is logged in!");
-            this.loggedIn = true;
+            this.LoggedIn = true;
 
         }
         public void LogOut()
         {
-            this.loggedIn = false;
+            this.LoggedIn = false;
         }
 
         public bool Equals(Object obj)
@@ -54,6 +57,7 @@ namespace Domain.Models
         {
             return Id.GetHashCode();
         }
+
 
     }
 }

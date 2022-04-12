@@ -1,10 +1,11 @@
-﻿using Domain.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using MediatR;
 
 
 namespace Application.Products.Bikes.Queries.GetAllBikes
 {
-    public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<Bike>>
+    public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<Product>>
     {
         private readonly IBikeRepository _repository;
         
@@ -13,7 +14,7 @@ namespace Application.Products.Bikes.Queries.GetAllBikes
             _repository = repository;
         }
 
-        public Task<IEnumerable<Bike>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<Product>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
         {
             var result = _repository.GetBikes();
             return Task.FromResult(result);

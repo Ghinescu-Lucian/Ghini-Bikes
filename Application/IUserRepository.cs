@@ -11,7 +11,7 @@ namespace Application
     {
         void CreateUser(User user);
         IEnumerable<User> GetUsers();
-        void DeleteUser(User user);
+        User DeleteUser(int userId);
         User GetUserById(int userId);
         void UpdateUser(int userId,User user);
     }

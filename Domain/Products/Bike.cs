@@ -8,7 +8,7 @@ namespace Domain.Products
 		private static int lastId = 0;
 		private readonly int id;
 		
-		private int year;
+		//public int Year;
 
 		public int WarrantyMonths { get; set; }
 		public string Specification { get; set; }
@@ -26,7 +26,8 @@ namespace Domain.Products
         }
 		public double Coeficient()
         {
-			double coef = Price/this.year;
+			double coef = Price/Year;
+			coef= Math.Round(coef, 2);
 			return coef;
 
         }

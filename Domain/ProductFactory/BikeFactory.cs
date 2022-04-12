@@ -48,7 +48,8 @@ namespace Domain.ProductFactory
                 Price = price,
                 Manufacturer = manufacturer,
                 Description = description,
-                Model = model
+                Model = model,
+                Category = 1
             };
 
         }
@@ -64,7 +65,8 @@ namespace Domain.ProductFactory
                             Price = price,
                             Manufacturer = manufacturer,
                             Description = description,
-                            Model = model
+                            Model = model,
+                            Category = 2
                         };
                         break;
                     }
@@ -76,7 +78,8 @@ namespace Domain.ProductFactory
                             Price = price,
                             Manufacturer = manufacturer,
                             Description = description,
-                            Model = model
+                            Model = model,
+                            Category = 3
                         };
                         break;
                     }

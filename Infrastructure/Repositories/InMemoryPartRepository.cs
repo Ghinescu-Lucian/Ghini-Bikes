@@ -1,4 +1,5 @@
 ﻿using Application;
+using Domain.Models;
 using Domain.Products;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Infrastructure
         public void CreatePart(Part part)
         {
             if(part == null) throw new ArgumentNullException("Part parameter null!");
-            part.productId = _parts.Count + 1;
+            part.ProductId = _parts.Count + 1;
             _parts.Add(part);
 
         }
@@ -33,13 +34,13 @@ namespace Infrastructure
             }
         }
 
-        public Part GetPartById(int partId)
+        public Product GetPartById(int partId)
         {
             if (partId < 0) throw new ArgumentOutOfRangeException("Incorrect part Id");
-            return _parts.FirstOrDefault(p => p.productId == partId);
+            return _parts.FirstOrDefault(p => p.ProductId == partId);
         }
 
-        public IEnumerable<Part> GetParts()
+        public IEnumerable<Product> GetParts()
         {
            return _parts;
         }
@@ -48,7 +49,7 @@ namespace Infrastructure
         {
             int ok = 0;
             foreach (Part p in _parts)
-                if (p.productId == partId)
+                if (p.ProductId == partId)
                 {
                     ok = ok + 1;
                     p.Manufacturer = part.Manufacturer;

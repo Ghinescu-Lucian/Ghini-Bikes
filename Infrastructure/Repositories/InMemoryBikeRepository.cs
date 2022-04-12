@@ -17,7 +17,7 @@ namespace Infrastructure
         {
             if (bike == null)
                 throw new ArgumentNullException();
-            bike.productId = _bikes.Count;
+            bike.ProductId = _bikes.Count;
             _bikes.Add(bike);
         }
 
@@ -34,12 +34,12 @@ namespace Infrastructure
             }
         }
 
-        public Bike GetBikeById(int bikeId)
+        public Product GetBikeById(int bikeId)
         {
-            return _bikes.FirstOrDefault(acc => acc.productId == bikeId);
+            return _bikes.FirstOrDefault(acc => acc.ProductId == bikeId);
         }
 
-        public IEnumerable<Bike> GetBikes()
+        public IEnumerable<Product> GetBikes()
         {
             return _bikes;
         }
@@ -51,7 +51,7 @@ namespace Infrastructure
             int ok = 0;
             if (bikeId < 0) throw new ArgumentOutOfRangeException("Invalid accessory ID");
             foreach (Bike acc in _bikes)
-                if (acc.productId == bikeId)
+                if (acc.ProductId == bikeId)
                 {
                     ok = ok + 1;
                     acc.Price = bike.Price;

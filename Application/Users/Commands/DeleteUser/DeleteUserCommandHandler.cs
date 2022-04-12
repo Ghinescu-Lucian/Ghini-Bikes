@@ -19,14 +19,8 @@ namespace Application.Users.Commands.DeleteUser
 
         public async Task<User> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User()
-            {
-                Email = request.Email,
-                Username = request.Username,
-                Password = request.Password
-            };
-
-            _repository.DeleteUser(user);
+          
+           var user = _repository.DeleteUser(request.UserId);
 
             return user;
 
