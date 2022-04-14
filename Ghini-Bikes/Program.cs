@@ -12,6 +12,8 @@ using Application.Orders.Queries.GetOrdersByUser;
 using Application.Orders.Queries.GetAllOrders;
 using Application.Orders.Queries.GetOrderById;
 using Application.Users.Queries.GetUsersList;
+using Application.Promotions.Commands.CreatePromotion;
+using Domain.Models;
 
 namespace Ghini_Bikes
 {
@@ -28,6 +30,7 @@ namespace Ghini_Bikes
                  .AddScoped<IAccessoryRepository, AccessoryRepository>()
                  .AddScoped<IOrderRepository, OrderRepository>()
                  .AddScoped<IImageRepository, ImageRepository>()
+                 .AddScoped<IPromotionRepository, PromotionRepository>()
                  .BuildServiceProvider();
 
             var mediator = diContainer.GetRequiredService<IMediator>();
@@ -110,6 +113,13 @@ namespace Ghini_Bikes
 
             var bike1Pictures = bikes.Take(1).SelectMany(b => b.Images).Count();
             var part1Compatibilities = parts.Last().Compatibilities.Count();
+
+            List<PromoItem> items = new List<PromoItem> { new PromoItem { _Product = bikes.First(), Discount = 30, Quantity = 1 } };
+            var promoPack = await mediator.Send(new CreatePromotionCommand
+            {
+                Name = " Winter sale ",
+                Items = items
+            });
 
             Console.WriteLine("First bike has " + bike1Pictures + " photos");
             Console.WriteLine("Last part has " + part1Compatibilities + " compatibilities");
