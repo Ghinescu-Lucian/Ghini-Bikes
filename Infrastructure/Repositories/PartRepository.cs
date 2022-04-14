@@ -2,6 +2,7 @@
 using Domain.Models;
 using Domain.Products;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -16,6 +17,7 @@ namespace Infrastructure.Repositories
             if (part == null) throw new ArgumentNullException("Part parameter null!");
             part.Category = 4;
             _db.Products.Add(part);
+            _db.SaveChanges();
 
         }
 
@@ -30,17 +32,18 @@ namespace Infrastructure.Repositories
             {
                 Console.WriteLine(e.Message);
             }
+            _db.SaveChanges();
         }
 
-        public Product GetPartById(int partId)
+        public Part GetPartById(int partId)
         {
             if (partId < 0) throw new ArgumentOutOfRangeException("Incorrect part Id");
-            return _db.Products.FirstOrDefault(p => p.ProductId == partId);
+            return _db.Parts.FirstOrDefault(p => p.ProductId == partId);
         }
 
-        public IEnumerable<Product> GetParts()
+        public IEnumerable<Part> GetParts()
         {
-            return _db.Products.Where(p => p.Category == 4);
+            return _db.Parts.Include(p =>p.Images).Include(p1 => p1.Compatibilities);
         }
 
         public void UpdatePart(int partId, Part part)
@@ -58,6 +61,7 @@ namespace Infrastructure.Repositories
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid part Id");
+            _db.SaveChanges();
         }
     }
 }

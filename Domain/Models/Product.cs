@@ -21,7 +21,7 @@ namespace Domain.Models
         [Required, MaxLength(30)]
         public string Model { get; set; }
         [Required]
-
+        public List<Image> Images { get; set; }
         public int Quantity { get; set; }
         [Required]
         public int Category { get; set; }

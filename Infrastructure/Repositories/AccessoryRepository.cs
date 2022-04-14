@@ -1,12 +1,8 @@
 ﻿using Application;
-using Domain.Bikes;
 using Domain.Models;
+using Domain.Products;
 using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -21,6 +17,7 @@ namespace Infrastructure.Repositories
                 throw new ArgumentNullException();
             accessory.Category = 5;
             _db.Add(accessory);
+            _db.SaveChanges();
         }
 
         public void DeleteAccessory(Accessory accessory)
@@ -34,16 +31,17 @@ namespace Infrastructure.Repositories
             {
                 Console.WriteLine(e.Message);
             }
+            _db.SaveChanges();  
         }
 
-        public IEnumerable<Product> GetAccessories()
+        public IEnumerable<Accessory> GetAccessories()
         {
-            return _db.Products.Where( p => p.Category == 5 );
+            return _db.Accessories.Include( a => a.Images);
         }
 
-        public Product GetAccessoryById(int accessoryId)
+        public Accessory GetAccessoryById(int accessoryId)
         {
-            return _db.Products.FirstOrDefault(acc => acc.ProductId == accessoryId);
+            return _db.Accessories.FirstOrDefault(acc => acc.ProductId == accessoryId);
         }
 
         public void UpdateAccessory(int accessoryId, Accessory accessory)
@@ -62,6 +60,7 @@ namespace Infrastructure.Repositories
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid accessory ID");
+            _db.SaveChanges();
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Application.Orders.Commands.CreateOrderCommand
         public string Address { get; set; }
         public Payment Payment { get; set; }
         public string ShippingMethod { get; set; }
+    
     }
 }

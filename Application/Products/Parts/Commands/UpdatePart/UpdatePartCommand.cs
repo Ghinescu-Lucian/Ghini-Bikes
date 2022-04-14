@@ -1,4 +1,5 @@
-﻿using Domain.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using MediatR;
 
 namespace Application.Products.Parts.Commands.UpdatePartCommand
@@ -10,7 +11,7 @@ namespace Application.Products.Parts.Commands.UpdatePartCommand
         public string Model { get; set; }
         public string Description { get; set; }
         public int Year { get; set; }
-
+        public List<Image> Images { get; set; }
         public double Price { get; set; }
     }
 }

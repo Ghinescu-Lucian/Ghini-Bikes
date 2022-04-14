@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413181854_Add_Tables_for_Products_Types")]
+    partial class Add_Tables_for_Products_Types
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Domain.Models.Order", b =>
@@ -244,7 +246,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Products.Accessory", b =>
+            modelBuilder.Entity("Domain.Bikes.Accessory", b =>
                 {
                     b.HasBaseType("Domain.Models.Product");
 
@@ -255,9 +257,6 @@ namespace Infrastructure.Migrations
                 {
                     b.HasBaseType("Domain.Models.Product");
 
-                    b.Property<int?>("PartProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Specification")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -267,8 +266,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<double>("Weigth")
                         .HasColumnType("float");
-
-                    b.HasIndex("PartProductId");
 
                     b.HasDiscriminator().HasValue("Bike");
                 });
@@ -328,13 +325,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("_Product");
                 });
 
-            modelBuilder.Entity("Domain.Products.Bike", b =>
-                {
-                    b.HasOne("Domain.Products.Part", null)
-                        .WithMany("Compatibilities")
-                        .HasForeignKey("PartProductId");
-                });
-
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.Navigation("Items");
@@ -353,11 +343,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Domain.Products.Part", b =>
-                {
-                    b.Navigation("Compatibilities");
                 });
 #pragma warning restore 612, 618
         }

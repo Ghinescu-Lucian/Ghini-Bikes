@@ -13,7 +13,6 @@ namespace Domain.Models
         public int Id { get; set; }
         public Product _Product { get; set; }
         public double Discount { get; set; }
-
         public int Quantity { get; set; }
         
     }

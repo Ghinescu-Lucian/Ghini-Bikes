@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -9,6 +10,9 @@ namespace Infrastructure.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Bike> Bikes { get; set; }
+        public DbSet<Accessory> Accessories { get; set; }
+        public DbSet<Part> Parts { get; set; }
         public DbSet<PromoPackage> Promotions { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }

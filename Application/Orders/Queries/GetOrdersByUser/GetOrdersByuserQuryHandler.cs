@@ -14,7 +14,7 @@ namespace Application.Orders.Queries.GetOrdersByUser
 
         public Task<IEnumerable<Order>> Handle(GetOrdersByUserQuery request, CancellationToken cancellationToken)
         {
-            var orders = _orderRepository.GetOrdersByUser(request.User);
+            var orders = _orderRepository.GetOrdersByUser(request.UserId);
             return Task.FromResult(orders);
         }
     }

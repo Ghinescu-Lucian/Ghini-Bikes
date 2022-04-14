@@ -13,6 +13,7 @@ using Domain.Users;
 using Domain.Models;
 using Domain.Products;
 using System;
+using Infrastructure.Repositories;
 
 namespace UnitTests
 {
@@ -25,11 +26,11 @@ namespace UnitTests
         {
             var diContainer = new ServiceCollection()
                 .AddMediatR(typeof(IUserRepository))
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddScoped<IBikeRepository, InMemoryBikeRepository>()
-                .AddScoped<IPartRepository, InMemoryPartRepository>()
-                .AddScoped<IAccessoryRepository, InMemoryAccessoryRepository>()
-                .AddScoped<IOrderRepository, InMemoryOrderRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IBikeRepository, BikeRepository>()
+                .AddScoped<IPartRepository, PartRepository>()
+                .AddScoped<IAccessoryRepository, AccessoryRepository>()
+                .AddScoped<IOrderRepository, OrderRepository>()
                 .BuildServiceProvider();
 
             var mediator = diContainer.GetRequiredService<IMediator>();

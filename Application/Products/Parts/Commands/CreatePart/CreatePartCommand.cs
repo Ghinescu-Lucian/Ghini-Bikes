@@ -1,4 +1,5 @@
-﻿using Domain.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Application.Products.Parts.Commands.CreatePartCommand
         public int Year { get; set; }
         public double Price { get; set; }
 
+        public List<Image> Images { get; set; }
         public List<Bike> Bikes { get; set; }
     }
 }

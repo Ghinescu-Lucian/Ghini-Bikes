@@ -1,4 +1,5 @@
-﻿using Domain.Products;
+﻿using Domain.Models;
+using Domain.Products;
 using MediatR;
 
 
@@ -14,6 +15,7 @@ namespace Application.Products.Bikes.Commands.UpdateBikeCommand
         public int WarrantyMonths { get; set; }
         public double Price { get; set; }
         public double Weigth { get; set; }
+        public List<Image> Images { get; set; }
 
     }
 }

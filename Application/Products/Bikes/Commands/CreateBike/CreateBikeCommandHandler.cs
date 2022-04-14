@@ -24,6 +24,7 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
             var bike = bikeFactory.CreateProductOfType(request.Type, request.Year, request.Price, request.Model, request.Manufacturer, request.Description);
             bike.Weigth = request.Weight;
             bike.Quantity= request.Quantity;
+            bike.Images = request.Images;
            _repository.CreateBike(bike);
 
             return bike;

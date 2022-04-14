@@ -11,9 +11,9 @@ namespace Application
     public interface IPartRepository 
     {
         void CreatePart(Part part);
-        IEnumerable<Product> GetParts();
+        IEnumerable<Part> GetParts();
         void DeletePart(Part part);
-        Product GetPartById(int partId);
+        Part GetPartById(int partId);
         void UpdatePart(int partId,Part part);
     }
 }

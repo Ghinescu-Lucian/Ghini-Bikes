@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Bikes
+namespace Domain.Products
 {
     public class Accessory : Product
     {

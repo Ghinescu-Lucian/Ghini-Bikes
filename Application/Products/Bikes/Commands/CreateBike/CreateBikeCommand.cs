@@ -11,7 +11,7 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
         public string Description { get; set; }
         public int Year { get; set; }
         public double Price { get; set; }
-        public Image _Image { get; set; }
+        public List<Image> Images { get; set; }
         public double Weight { get; set; }
         public int WarrantyMonths { get; set; }
         public string Type { get; set; }

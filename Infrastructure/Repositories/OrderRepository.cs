@@ -1,6 +1,7 @@
 ﻿using Application;
 using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -29,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return _db.Orders;
+            return _db.Orders.Include( o => o.Items);
         }
 
         public Order GetOrderById(int orderId)
@@ -38,10 +39,10 @@ namespace Infrastructure.Repositories
             return _db.Orders.FirstOrDefault(o => o.Id == orderId);
         }
 
-        public IEnumerable<Order> GetOrdersByUser(User user)
+        public IEnumerable<Order> GetOrdersByUser(int userId)
         {
-            if (user == null) throw new ArgumentNullException("user parameter is null");
-            var result = _db.Orders.Where(o => string.Equals(o.User.Username, user.Username));
+            if (userId == null || userId<=0 ) throw new ArgumentNullException("user parameter is null");
+            var result = _db.Orders.Where(o => o.User.Id == userId);
             return result;
         }
 

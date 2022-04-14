@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Products.Bikes.Queries.GetAllBikes
 {
-    public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<Product>>
+    public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<Bike>>
     {
         private readonly IBikeRepository _repository;
         
@@ -14,9 +14,9 @@ namespace Application.Products.Bikes.Queries.GetAllBikes
             _repository = repository;
         }
 
-        public Task<IEnumerable<Product>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<Bike>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
         {
-            var result = _repository.GetBikes();
+            var result = _repository.GetAllBikes();
             return Task.FromResult(result);
         }
     }

@@ -5,6 +5,6 @@ namespace Application.Orders.Queries.GetOrdersByUser
 {
     public class GetOrdersByUserQuery : IRequest<IEnumerable<Order>>
     {
-        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

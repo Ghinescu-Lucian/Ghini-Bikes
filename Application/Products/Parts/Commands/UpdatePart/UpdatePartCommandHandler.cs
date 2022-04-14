@@ -19,7 +19,8 @@ namespace Application.Products.Parts.Commands.UpdatePartCommand
                 Model = request.Model,
                 Description = request.Description,
                 Year = request.Year,
-                Price = request.Price
+                Price = request.Price,
+                Images = request.Images,
             };
             return Task.FromResult(partUpdate);
         }

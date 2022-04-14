@@ -1,5 +1,6 @@
 ﻿using Domain.Bikes;
 using Domain.Models;
+using Domain.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;

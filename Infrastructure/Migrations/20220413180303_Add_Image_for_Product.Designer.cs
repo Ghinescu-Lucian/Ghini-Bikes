@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413180303_Add_Image_for_Product")]
+    partial class Add_Image_for_Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Domain.Models.Order", b =>
@@ -133,10 +135,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -159,8 +157,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
 
             modelBuilder.Entity("Domain.Models.PromoItem", b =>
@@ -244,42 +240,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Products.Accessory", b =>
-                {
-                    b.HasBaseType("Domain.Models.Product");
-
-                    b.HasDiscriminator().HasValue("Accessory");
-                });
-
-            modelBuilder.Entity("Domain.Products.Bike", b =>
-                {
-                    b.HasBaseType("Domain.Models.Product");
-
-                    b.Property<int?>("PartProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Specification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WarrantyMonths")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weigth")
-                        .HasColumnType("float");
-
-                    b.HasIndex("PartProductId");
-
-                    b.HasDiscriminator().HasValue("Bike");
-                });
-
-            modelBuilder.Entity("Domain.Products.Part", b =>
-                {
-                    b.HasBaseType("Domain.Models.Product");
-
-                    b.HasDiscriminator().HasValue("Part");
-                });
-
             modelBuilder.Entity("Domain.Models.Image", b =>
                 {
                     b.HasOne("Domain.Models.Product", null)
@@ -328,13 +288,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("_Product");
                 });
 
-            modelBuilder.Entity("Domain.Products.Bike", b =>
-                {
-                    b.HasOne("Domain.Products.Part", null)
-                        .WithMany("Compatibilities")
-                        .HasForeignKey("PartProductId");
-                });
-
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.Navigation("Items");
@@ -353,11 +306,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Domain.Products.Part", b =>
-                {
-                    b.Navigation("Compatibilities");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Products.Parts.Queries.GetPartById
 {
-    public class GetPartByIdQueryHandler :IRequestHandler<GetPartByIdQuery, Product>
+    public class GetPartByIdQueryHandler :IRequestHandler<GetPartByIdQuery, Part>
     {
         private IPartRepository _partRepository;
 
@@ -13,7 +13,7 @@ namespace Application.Products.Parts.Queries.GetPartById
             _partRepository = repository;
         }
 
-        public Task<Product> Handle(GetPartByIdQuery request, CancellationToken cancellationToken)
+        public Task<Part> Handle(GetPartByIdQuery request, CancellationToken cancellationToken)
         {
             var part = _partRepository.GetPartById(request.Id);
             return Task.FromResult(part);

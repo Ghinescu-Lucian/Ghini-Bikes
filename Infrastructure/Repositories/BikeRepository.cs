@@ -2,6 +2,7 @@
 using Domain.Models;
 using Domain.Products;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +37,19 @@ namespace Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        public Product GetBikeById(int bikeId)
+        public IEnumerable<Bike> GetAllBikes()
         {
-            return _db.Products.FirstOrDefault(acc => acc.ProductId == bikeId);
+            var bikes = _db.Bikes.Include(b => b.Images);
+            return bikes;
+         }
+        public Bike GetBikeById(int bikeId)
+        {
+            return _db.Bikes.FirstOrDefault(acc => acc.ProductId == bikeId);
         }
 
         public IEnumerable<Product> GetBikes()
         {
-            return _db.Products.Where(p => p.Category == (int)2 );
+            return _db.Bikes;
         }
 
 

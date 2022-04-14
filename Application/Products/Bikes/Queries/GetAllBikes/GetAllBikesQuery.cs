@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Products.Bikes.Queries.GetAllBikes
 {
-    public class GetAllBikesQuery : IRequest<IEnumerable<Product>>
+    public class GetAllBikesQuery : IRequest<IEnumerable<Bike>>
     {
     }
 }

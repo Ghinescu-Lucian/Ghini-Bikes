@@ -18,6 +18,7 @@ namespace Application.Products.Parts.Commands.CreatePartCommand
             var part = partFactory.CreateProduct(request.Year, request.Price,request.Model, request.Manufacturer,request.Description);
             foreach(Bike b in request.Bikes)
                 part.AddCompatibleBike(b);
+            part.Images=request.Images;
             _partRepository.CreatePart(part);
             return Task.FromResult(part);
 

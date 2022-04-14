@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Products.Bikes.Queries.GetBikeById
 {
-    public class GetBikeByIdQueryHandler : IRequestHandler<GetBikeByIdQuery, Product>
+    public class GetBikeByIdQueryHandler : IRequestHandler<GetBikeByIdQuery, Bike>
     {
         private readonly IBikeRepository _repository;
 
@@ -12,7 +12,7 @@ namespace Application.Products.Bikes.Queries.GetBikeById
         {
             _repository = repository;
         }
-        public Task<Product> Handle(GetBikeByIdQuery request, CancellationToken cancellationToken)
+        public Task<Bike> Handle(GetBikeByIdQuery request, CancellationToken cancellationToken)
         {
             var bike = _repository.GetBikeById(request.Id);
             return Task.FromResult(bike);

@@ -1,4 +1,5 @@
 ﻿using Domain.Bikes;
+using Domain.Products;
 using MediatR;
 
 
