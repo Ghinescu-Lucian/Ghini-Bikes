@@ -1,4 +1,5 @@
-﻿using Domain.ProductFactory;
+﻿using Domain.Models;
+using Domain.ProductFactory;
 using Domain.Products;
 using MediatR;
 
@@ -16,7 +17,7 @@ namespace Application.Products.Parts.Commands.CreatePartCommand
         {
             var partFactory = PartFactory.Instance;
             var part = partFactory.CreateProduct(request.Year, request.Price,request.Model, request.Manufacturer,request.Description);
-            foreach(Bike b in request.Bikes)
+            foreach(CompatibleItem b in request.Bikes)
                 part.AddCompatibleBike(b);
             part.Images=request.Images;
             _partRepository.CreatePart(part);

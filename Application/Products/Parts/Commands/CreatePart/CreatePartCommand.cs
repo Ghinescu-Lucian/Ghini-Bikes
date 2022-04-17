@@ -18,6 +18,6 @@ namespace Application.Products.Parts.Commands.CreatePartCommand
         public double Price { get; set; }
 
         public List<Image> Images { get; set; }
-        public List<Bike> Bikes { get; set; }
+        public List<CompatibleItem> Bikes { get; set; }
     }
 }

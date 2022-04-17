@@ -9,22 +9,22 @@ namespace Domain.Products
 {
     public class Part : Product
     {
-        public List<Bike> Compatibilities { get; set; }
+        public List<CompatibleItem> Compatibilities { get; set; }
 
         public Part()
         {
-            Compatibilities = new List<Bike>();
+            Compatibilities = new List<CompatibleItem>();
         }
-        public void AddCompatibleBike(Bike bike)
+        public void AddCompatibleBike(CompatibleItem bike)
         {
             if (bike == null) throw new ArgumentNullException("Bike parameter is null");
             Compatibilities.Add(bike);
         }
 
-        public void RemoveCompatibleBike(Bike bike)
+        public void RemoveCompatibleBike(CompatibleItem bike)
         {
             if(bike == null) throw new ArgumentNullException("Bike parameter is null");
-            var bikeRemove = Compatibilities.Single(b => b.ProductId == bike.ProductId);
+            var bikeRemove = Compatibilities.Single(b => b.Id == bike.Id);
             Compatibilities.Remove(bikeRemove);
         }
        

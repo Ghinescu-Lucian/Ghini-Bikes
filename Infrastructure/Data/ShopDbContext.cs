@@ -17,6 +17,7 @@ namespace Infrastructure.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<PromoItem> PromoItems { get; set; }
+        public DbSet<CompatibleItem> Compatibilities { get; set; }
 
         public ShopDbContext() { }
 

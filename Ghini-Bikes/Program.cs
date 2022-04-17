@@ -112,7 +112,7 @@ namespace Ghini_Bikes
             var ordersByUser2 = ordersByUser.Take(2).ToList();
 
             var bike1Pictures = bikes.Take(1).SelectMany(b => b.Images).Count();
-            var part1Compatibilities = parts.Last().Compatibilities.Count();
+          //  var part1Compatibilities = parts.Last().Compatibilities.Count();
 
             List<PromoItem> items = new List<PromoItem> { new PromoItem { _Product = bikes.First(), Discount = 30, Quantity = 1 } };
             var promoPack = await mediator.Send(new CreatePromotionCommand
@@ -122,10 +122,10 @@ namespace Ghini_Bikes
             });
 
             Console.WriteLine("First bike has " + bike1Pictures + " photos");
-            Console.WriteLine("Last part has " + part1Compatibilities + " compatibilities");
+           // Console.WriteLine("Last part has " + part1Compatibilities + " compatibilities");
             Console.WriteLine("User by id: " + user.Username);
             Console.WriteLine("Users list first:" + users.Last().Username);
-            Console.WriteLine("Parts last: " + parts.Last().Manufacturer);
+           // Console.WriteLine("Parts last: " + parts.Last().Manufacturer);
             Console.WriteLine("Accessories first:" + accessories.First().Manufacturer);
             Console.WriteLine("Bikes last:" + bikes.Last().Manufacturer);
             Console.WriteLine("Orders count:" + orders.Count());
