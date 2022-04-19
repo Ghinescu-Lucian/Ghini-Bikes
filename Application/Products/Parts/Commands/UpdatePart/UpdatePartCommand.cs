@@ -13,5 +13,7 @@ namespace Application.Products.Parts.Commands.UpdatePartCommand
         public int Year { get; set; }
         public List<Image> Images { get; set; }
         public double Price { get; set; }
+        public int Quantity { get; set; }
+        public List<CompatibleItem> Compatibities { get; set; }
     }
 }

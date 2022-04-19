@@ -23,18 +23,21 @@ namespace Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        public void DeleteBike(Bike bike)
+        public Bike DeleteBike(int bikeId)
         {
             try
             {
-                var bikeRemove = _db.Products.Single(b => b.Manufacturer == bike.Manufacturer && b.Model == b.Model && b.Year == b.Year);
+                var bikeRemove = _db.Products.Single(b => b.ProductId == bikeId);
                 _db.Products.Remove(bikeRemove);
+                _db.SaveChanges();
+                return (Bike)bikeRemove;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            _db.SaveChanges();
+            
+            return null;
         }
 
         public IEnumerable<Bike> GetAllBikes()

@@ -12,9 +12,9 @@ namespace Infrastructure.Repositories
         public void CreateOrder(Order order)
         {
             if (order == null) throw new ArgumentNullException("order parameter is null");
-            Console.WriteLine("AIci");
+            //Console.WriteLine("AIci");
             _db.Users.SingleOrDefault(u => u.Id == order.User.Id).Orders.Add(order);
-           // _db.Add(order);
+            //_db.Add(order);
             _db.SaveChanges();
         }
 

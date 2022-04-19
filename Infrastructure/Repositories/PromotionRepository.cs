@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application;
 using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -32,13 +33,13 @@ namespace Infrastructure.Repositories
 
         public PromoPackage GetPromotionById(int packageId)
         {
-            var promotions = _db.Promotions.SingleOrDefault(pack => pack.Id == packageId);
+            var promotions = _db.Promotions.Include(i => i.Items).SingleOrDefault(pack => pack.Id == packageId);
             return promotions;
         }
 
         public IEnumerable<PromoPackage> GetPromotions()
         {
-            var promotions = _db.Promotions.ToList();
+            var promotions = _db.Promotions.Include(i => i.Items);
             return promotions;
         }
 

@@ -8,7 +8,7 @@ using Domain.Models;
 
 namespace Application.Users.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<User>
+    public class CreateUserCommand : IRequest<Domain.Models.User>
     {
         public string Email { get; set; }
         public string Username { get; set; }

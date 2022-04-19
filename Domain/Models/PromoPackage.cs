@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class PromoPackage : IEnumerable<PromoItem>
+    public class PromoPackage //: IEnumerable<PromoItem>
     {
         public int Id { get; set; }
         [MaxLength(50)]
@@ -24,7 +24,7 @@ namespace Domain.Models
           */
         }
 
-        public int GetNo()
+     /*   public int GetNo()
         {
             return Items.Count;
         }
@@ -84,5 +84,6 @@ namespace Domain.Models
         {
             index = -1;
         }
+     */
     }
 }

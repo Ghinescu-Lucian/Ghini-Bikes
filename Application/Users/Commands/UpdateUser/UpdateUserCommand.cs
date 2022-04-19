@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.UpdateUser
 {
-    public class UpdateUserCommand : IRequest<User>
+    public class UpdateUserCommand : IRequest<Domain.Models.User>
     {
         public int UserId { get; set; }
         public string Email { get; set; }

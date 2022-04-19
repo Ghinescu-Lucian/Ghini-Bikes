@@ -20,14 +20,9 @@ namespace Application.Products.Bikes.Commands.DeleteBikeCommand
 
         public async Task<Bike> Handle(DeleteBikeCommand request, CancellationToken cancellationToken)
         {
-            var bike = new Bike()
-            {
-               Manufacturer=request.Manufacturer,
-               Model=request.Model,
-               Year=request.Year
-            };
+           
 
-            _repository.DeleteBike(bike);
+            var bike= _repository.DeleteBike(request.Id);
 
             return bike;
         }

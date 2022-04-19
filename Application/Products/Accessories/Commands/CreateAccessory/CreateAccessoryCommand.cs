@@ -12,5 +12,6 @@ namespace Application.Products.Accessories.Commands.CreateAccessoryCommand
         public int Year { get; set; }
         public double Price { get; set; }
         public List<Image> Images { get; set; }
+        public int Quantity { get; set; }
     }
 }

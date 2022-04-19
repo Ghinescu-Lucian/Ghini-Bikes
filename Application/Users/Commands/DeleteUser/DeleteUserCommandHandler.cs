@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.DeleteUser
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, User>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Domain.Models.User>
     {
         private readonly IUserRepository _repository;
 
@@ -17,7 +17,7 @@ namespace Application.Users.Commands.DeleteUser
             _repository = repository;
         }
 
-        public async Task<User> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public async Task<Domain.Models.User> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
           
            var user = _repository.DeleteUser(request.UserId);

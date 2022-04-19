@@ -7,7 +7,7 @@ namespace Application
     {
         void CreateBike(Bike bike);
         IEnumerable<Product> GetBikes();
-        void DeleteBike(Bike bike);
+        Bike DeleteBike(int bikeId);
         Bike GetBikeById(int bikeId);
         IEnumerable<Bike> GetAllBikes();
         void UpdateBike(int bikeId, Bike bike);

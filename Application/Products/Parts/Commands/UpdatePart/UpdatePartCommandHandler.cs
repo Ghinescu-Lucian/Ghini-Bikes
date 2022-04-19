@@ -21,6 +21,8 @@ namespace Application.Products.Parts.Commands.UpdatePartCommand
                 Year = request.Year,
                 Price = request.Price,
                 Images = request.Images,
+                Quantity = request.Quantity,
+                Compatibilities = request.Compatibities
             };
             return Task.FromResult(partUpdate);
         }

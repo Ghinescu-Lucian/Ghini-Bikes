@@ -7,7 +7,7 @@ namespace Application
     {
         void CreateAccessory(Accessory accessory);
         IEnumerable<Accessory> GetAccessories();
-        void DeleteAccessory(Accessory accessory);
+        Accessory DeleteAccessory(int accessoryId);
         Accessory GetAccessoryById(int accessoryId);
         void UpdateAccessory(int accessoryId, Accessory accessory);
     }

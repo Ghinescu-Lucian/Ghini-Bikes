@@ -18,9 +18,9 @@ namespace Application.Users.Commands.CreateUser
             _repository = repository;
         }
 
-        public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Domain.Models.User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User()
+            var user = new Domain.Models.User()
             {
                 Email = request.Email,
             Username = request.Username,

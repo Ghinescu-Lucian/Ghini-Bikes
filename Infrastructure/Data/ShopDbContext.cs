@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Domain.Products;
 using Microsoft.EntityFrameworkCore;
+using Domain.Models;
 
 namespace Infrastructure.Data
 {
@@ -34,6 +35,7 @@ namespace Infrastructure.Data
             builder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
+            
         }
 
     }

@@ -14,14 +14,9 @@ namespace Application.Products.Accessories.Commands.DeleteAccessoryCommand
 
         public async Task<Accessory> Handle(DeleteAccessoryCommand request, CancellationToken cancellationToken)
         {
-            var accessory = new Accessory()
-            {
-                Manufacturer = request.Manufacturer,
-                Model = request.Model,
-                Year = request.Year,
-            };
+           
 
-            _repository.DeleteAccessory(accessory);
+            var accessory= _repository.DeleteAccessory(request.Id);
 
             return accessory;
 

@@ -21,7 +21,8 @@ namespace Application.Products.Accessories.Commands.UpdateAccessoryCommand
                 Year = request.Year,
                 Price = request.Price,
                 Description = request.Description,
-                Images = request.Images
+                Images = request.Images,
+                Quantity = request.Quantity
             };
 
             _repository.UpdateAccessory(request.Id,accessory);

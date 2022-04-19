@@ -20,18 +20,20 @@ namespace Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        public void DeleteAccessory(Accessory accessory)
+        public Accessory DeleteAccessory(int accessoryId)
         {
             try
             {
-                var accessoryRemove = _db.Products.Single(acc => acc.Manufacturer == accessory.Manufacturer && acc.Model == accessory.Model && acc.Year == accessory.Year);
+                var accessoryRemove = _db.Products.Single(acc => acc.ProductId == accessoryId);
                 _db.Products.Remove(accessoryRemove);
+                _db.SaveChanges();  
+                return (Accessory)accessoryRemove;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            _db.SaveChanges();  
+            return null;
         }
 
         public IEnumerable<Accessory> GetAccessories()
@@ -48,7 +50,7 @@ namespace Infrastructure.Repositories
         {
             int ok = 0;
             if (accessoryId < 0) throw new ArgumentOutOfRangeException("Invalid accessory ID");
-            foreach (Accessory acc in _db.Products)
+            foreach (Accessory acc in _db.Accessories)
                 if (acc.ProductId == accessoryId)
                 {
                     ok = ok + 1;
@@ -57,6 +59,7 @@ namespace Infrastructure.Repositories
                     acc.Model = accessory.Model;
                     acc.Year = accessory.Year;
                     acc.Description = accessory.Description;
+                    acc.Quantity = accessory.Quantity;
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid accessory ID");

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.DeleteUser
 {
-    public class DeleteUserCommand : IRequest<User>
+    public class DeleteUserCommand : IRequest<Domain.Models.User>
     {
         public int UserId { get; set; }
         

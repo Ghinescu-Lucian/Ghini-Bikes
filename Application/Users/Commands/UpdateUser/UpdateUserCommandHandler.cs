@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.UpdateUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Domain.Models.User>
     {
         private readonly IUserRepository _repository;
 
@@ -17,9 +17,9 @@ namespace Application.Users.Commands.UpdateUser
             _repository = repository;
         }
 
-        public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Domain.Models.User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User()
+            var user = new Domain.Models.User()
             {
                 Email = request.Email,
                 Username = request.Username,

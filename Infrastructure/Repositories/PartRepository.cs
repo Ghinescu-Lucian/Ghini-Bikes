@@ -21,18 +21,20 @@ namespace Infrastructure.Repositories
 
         }
 
-        public void DeletePart(Part part)
+        public Part DeletePart(int partId)
         {
             try
             {
-                var partRemove = _db.Products.Single(p => p.Manufacturer == part.Manufacturer && p.Model == part.Model && part.Year == p.Year);
+                var partRemove = _db.Products.Single(p => p.ProductId == partId);
                 _db.Products.Remove(partRemove);
+                _db.SaveChanges();
+                return (Part)partRemove;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            _db.SaveChanges();
+            return null;
         }
 
         public Part GetPartById(int partId)
@@ -49,7 +51,7 @@ namespace Infrastructure.Repositories
         public void UpdatePart(int partId, Part part)
         {
             int ok = 0;
-            foreach (Part p in _db.Products)
+            foreach (Part p in _db.Parts)
                 if (p.ProductId == partId)
                 {
                     ok = ok + 1;
@@ -58,6 +60,8 @@ namespace Infrastructure.Repositories
                     p.Year = part.Year;
                     p.Description = part.Description;
                     p.Price = part.Price;
+                    p.Quantity = part.Quantity;
+                    p.Compatibilities = part.Compatibilities;
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid part Id");

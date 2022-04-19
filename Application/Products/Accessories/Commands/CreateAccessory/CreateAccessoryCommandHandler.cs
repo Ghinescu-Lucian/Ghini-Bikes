@@ -22,6 +22,7 @@ namespace Application.Products.Accessories.Commands.CreateAccessoryCommand
                 Year = request.Year,
                 Price = request.Price,
                 Images = request.Images,
+                Quantity = request.Quantity
             };
 
             _repository.CreateAccessory(accessory);

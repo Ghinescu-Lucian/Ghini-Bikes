@@ -25,6 +25,7 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
             bike.Weigth = request.Weight;
             bike.Quantity= request.Quantity;
             bike.Images = request.Images;
+            bike.Weigth = request.WarrantyMonths;
            _repository.CreateBike(bike);
 
             return bike;

@@ -13,5 +13,6 @@ namespace Application.Products.Accessories.Commands.UpdateAccessoryCommand
         public double Price { get; set; }
         public string Model { get; set; }
         public List<Image> Images { get; set; }
+        public int Quantity { get; set; }
     }
 }

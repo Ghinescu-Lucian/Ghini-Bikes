@@ -14,13 +14,7 @@ namespace Application.Products.Parts.Commands.DeletePartCommand
 
          public Task<Part> Handle(DeletePartCommand request, CancellationToken cancellationToken)
         {
-            var part = new Part
-            {
-                Manufacturer = request.Manufacturer,
-                Model = request.Model,
-                Year = request.Year
-            };
-            _partRepository.DeletePart(part);
+            var part = _partRepository.DeletePart(request.Id);
             return Task.FromResult(part);
         }
     }
