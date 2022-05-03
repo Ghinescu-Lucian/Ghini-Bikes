@@ -141,7 +141,7 @@ namespace Ghini_Bikes
                           Console.WriteLine("Order 1 items:" + orders.First().Items.Count());
                           Console.WriteLine("Nr biciclete " + bikes.Count());
                         */
-            Product product;
+          /*  Product product;
             product = await mediator.Send(new CreateBikeCommand
             {
                 Description = "bike",
@@ -154,7 +154,7 @@ namespace Ghini_Bikes
                 Type = "Bike",
                 Year = 2022,
                 Images = new List<Image> { new Image { Path = "ladl;s" + ".png" } }
-            });
+            });*/
 
 
 

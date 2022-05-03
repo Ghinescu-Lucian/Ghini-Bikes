@@ -11,6 +11,6 @@ namespace Domain.Models
     {
         public int Id { get; set; }
         public Product Bike { get; set; }
-       
+
     }
 }

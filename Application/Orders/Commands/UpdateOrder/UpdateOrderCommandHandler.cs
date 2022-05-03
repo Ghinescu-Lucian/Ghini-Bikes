@@ -19,6 +19,7 @@ namespace Application.Orders.Commands.UpdateOrderCommand
                 TelephoneNr = request.TelephoneNr,
                 Pay = request.Payment,
                 Status = request.Status,
+                Address = request.Address,
                 Date = request.Date
             };
             _orderRepository.UpdateOrder(request.Id, order);

@@ -21,7 +21,7 @@ namespace Domain.Models
 
         public bool LoggedIn { get; set; }
         public List<Order> Orders { get; set; }
-       
+        public string Role { get; set; }
         public User()
         {
             Orders = new List<Order>();

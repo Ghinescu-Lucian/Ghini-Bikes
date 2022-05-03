@@ -25,9 +25,9 @@ namespace Domain.Models
         public double TotalCost { get; set; }
         [Required]
         public double FinalCost { get; set; }
-        public User User { get; set; }
+        public int UserId { get; set; }
 
-        [Required,MaxLength(13)]
+        [Required, MaxLength(13)]
         public string TelephoneNr { get; set; }
         [Required, MaxLength(50)]
         public string Address { get; set; }
@@ -37,37 +37,37 @@ namespace Domain.Models
         public Status? Status { get; set; }
 
         public ShippingCostContext ShippingCost;
-        
-       /* public Order(List<OrderItem> Items, User User, string shippingMethod)
-        {
-            double totalCost = 0;
 
-            foreach (OrderItem product in Items)
-                totalCost += product.Price;
-            ShippingCost = new ShippingCostContext();
-            if (string.Equals(shippingMethod, "Personal"))
-            {
-                ShippingCost.SetStrategy(new PesonalLiftShippingCost()); 
-            }
+        /* public Order(List<OrderItem> Items, User User, string shippingMethod)
+         {
+             double totalCost = 0;
 
-            else if (string.Equals(shippingMethod, "Courier"))
-            {
-                ShippingCost.SetStrategy(new CourierShippingCost() { OrderPrice = totalCost });
-            }
-            else throw new Exception("Invalid shipping method");
+             foreach (OrderItem product in Items)
+                 totalCost += product.Price;
+             ShippingCost = new ShippingCostContext();
+             if (string.Equals(shippingMethod, "Personal"))
+             {
+                 ShippingCost.SetStrategy(new PesonalLiftShippingCost()); 
+             }
 
-            FinalCost =totalCost + ShippingCost.CalculateShippingCost();
+             else if (string.Equals(shippingMethod, "Courier"))
+             {
+                 ShippingCost.SetStrategy(new CourierShippingCost() { OrderPrice = totalCost });
+             }
+             else throw new Exception("Invalid shipping method");
+
+             FinalCost =totalCost + ShippingCost.CalculateShippingCost();
 
 
-            Date  = DateTime.Now;
-            OrderItems = Items;
-            TotalCost = totalCost;
-            User = User;
-        }*/
+             Date  = DateTime.Now;
+             OrderItems = Items;
+             TotalCost = totalCost;
+             User = User;
+         }*/
 
         public override string ToString()
         {
-            string s = " Comanda cu id: " + Id + " are costul "+FinalCost+"lei (livrare = "+(FinalCost-TotalCost) + " lei )";
+            string s = " Comanda cu id: " + Id + " are costul " + FinalCost + "lei (livrare = " + (FinalCost - TotalCost) + " lei )";
             return s;
         }
     }

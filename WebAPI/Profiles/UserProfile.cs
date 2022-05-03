@@ -12,7 +12,8 @@ namespace WebAPI.Profiles
             CreateMap<UserDto,CreateUserCommand>()
                 .ForMember(u => u.Email, opt => opt.MapFrom(s => s.Email))
                 .ForMember(u => u.Username, opt => opt.MapFrom(s => s.Username))
-                .ForMember( u => u.Email, opt => opt.MapFrom(s => s.Email))
+                .ForMember(u => u.Email, opt => opt.MapFrom(s => s.Email))
+                .ForMember(u => u.Role, opt => opt.MapFrom(s => s.Role))
                 .ReverseMap();
             CreateMap<UserDto, NormalUser>()
                 .ReverseMap();

@@ -4,11 +4,18 @@ using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries.GetUserByID;
 using Application.Users.Queries.GetUsersList;
 using AutoMapper;
+using Domain.Models;
 using Domain.Users;
 using Ghini_Bikes.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using WebAPI.Dtos;
+using WebAPI.Settings;
 
 namespace WebAPI.Controllers
 {
@@ -18,10 +25,34 @@ namespace WebAPI.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public UserController(IMediator mediator, IMapper mapper)
+        private readonly JwtSettings _jwtSettings;
+        public UserController(IMediator mediator, IMapper mapper, IOptionsSnapshot<JwtSettings> jwtSettings)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _jwtSettings = jwtSettings.Value;
+        }
+
+        [HttpPost, Route("login")]
+        public async Task<IActionResult> Login(UserDto user)
+        {
+            if (user != null)
+            {
+                var userDb = await _mediator.Send(new GetUserByIDQuery { UserId = user.Id });
+                if (userDb != null)
+                {
+                   
+
+                    var password = Encrypt.EncryptText(user.Password);
+                    if (string.Equals(password, userDb.Password))
+                    {
+                        return Ok(GenerateJwt(userDb, userDb.Role));
+                    }
+                    else return NotFound("Wrong username or password!");
+                }
+                else return NotFound("Wrong username!");
+            }
+            return null;
         }
 
         [HttpPost]
@@ -29,11 +60,13 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            usr.Password = Encrypt.EncryptText(usr.Password);
+            // identity, => create user command 
+            //  usr.Password = Encrypt.EncryptText(usr.Password);
+            usr.Role = "Client";
             var command = _mapper.Map<CreateUserCommand>(usr);
             var created = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserByID), new { Id = created.Id }, usr);
+            return CreatedAtAction(nameof(GetUserByID), new { userId = created.Id }, usr);
         }
         [HttpGet]
         [Route("{userId}")]
@@ -49,7 +82,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("{userId}")]
-      public async Task<IActionResult> DeleteUser(int userId)
+        public async Task<IActionResult> DeleteUser(int userId)
         {
             var command = new DeleteUserCommand { UserId = userId };
             var result = await _mediator.Send(command);
@@ -72,7 +105,6 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateUser(int userId, UserDto update)
         {
             var user = _mapper.Map<NormalUser>(update);
-            user.Password = Encrypt.EncryptText(user.Password);
             var commnad = new UpdateUserCommand
             {
                 UserId = userId,
@@ -84,6 +116,27 @@ namespace WebAPI.Controllers
             if (result == null)
                 return NotFound();
             return NoContent();
+        }
+        private string GenerateJwt(User user, string role)
+        {
+            var claims = new List<Claim>
+                   {
+                        new Claim(ClaimTypes.NameIdentifier,user.Username),
+                        new Claim(ClaimTypes.Email,user.Email),
+                        new Claim(ClaimTypes.Role, role)
+                    };
+
+            var token = new JwtSecurityToken
+            (
+                issuer: _jwtSettings.Issuer,
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(_jwtSettings.ExpirationInDays),
+                notBefore: DateTime.UtcNow,
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+                    SecurityAlgorithms.HmacSha256)
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Ghini_Bikes.Services;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace Application.Users.Commands.UpdateUser
             {
                 Email = request.Email,
                 Username = request.Username,
-                Password = request.Password
-            };
+                Password = Encrypt.EncryptText(request.Password)
+        };
 
             _repository.UpdateUser(request.UserId,user);
 

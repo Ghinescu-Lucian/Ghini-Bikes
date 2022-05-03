@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
 using Domain.Users;
+using Ghini_Bikes.Services;
 using MediatR;
 
 namespace Application.Users.Commands.CreateUser
@@ -23,8 +24,9 @@ namespace Application.Users.Commands.CreateUser
             var user = new Domain.Models.User()
             {
                 Email = request.Email,
-            Username = request.Username,
-            Password = request.Password
+                Username = request.Username,
+                Password = Encrypt.EncryptText(request.Password),
+                Role=request.Role
              };
 
             _repository.CreateUser(user);

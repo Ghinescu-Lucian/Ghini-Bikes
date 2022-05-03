@@ -6,6 +6,8 @@ using Application.Products.Bikes.Queries.GetBikeById;
 using AutoMapper;
 using Domain.Products;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
 
@@ -24,6 +26,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> CreateBike(BikeDto bike)
         {
             if (!ModelState.IsValid)
@@ -37,6 +40,7 @@ namespace WebAPI.Controllers
         }
         [HttpGet]
         [Route("{bikeId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Client,Administrator")]
         public async Task<IActionResult> GetBikeByID(int bikeId)
         {
             var query = new GetBikeByIdQuery { Id = bikeId };
@@ -49,6 +53,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("{bikeId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> DeleteBike(int bikeId)
         {
             var command = new DeleteBikeCommand { Id = bikeId };
@@ -69,6 +74,7 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Route("{bikeId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> UpdateBike(int bikeId, BikeDto update)
         {
             var bike = _mapper.Map<Bike>(update);

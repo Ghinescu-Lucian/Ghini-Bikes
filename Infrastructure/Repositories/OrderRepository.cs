@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
         {
             if (order == null) throw new ArgumentNullException("order parameter is null");
             //Console.WriteLine("AIci");
-            _db.Users.SingleOrDefault(u => u.Id == order.User.Id).Orders.Add(order);
+            _db.Users.SingleOrDefault(u => u.Id == order.UserId).Orders.Add(order);
             //_db.Add(order);
             _db.SaveChanges();
         }
@@ -22,7 +22,8 @@ namespace Infrastructure.Repositories
         {
             if (orderId < 0) throw new ArgumentOutOfRangeException(" Invalid order id " + orderId);
             var orderDelete = _db.Orders.Single(o => o.Id == orderId);
-            _db.Remove(orderDelete);
+            foreach (OrderItem oi in orderDelete.Items)
+                _db.Remove(orderDelete);
             _db.SaveChanges();
             return orderDelete;
 
@@ -30,19 +31,30 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return _db.Orders.Include( o => o.Items);
+            var orders = _db.Orders.Include(i => i.Items);
+            foreach(Order o in orders)
+            {
+                foreach (OrderItem oi in o.Items)
+                    oi.Order = null;
+            }
+            return orders;
         }
 
         public Order GetOrderById(int orderId)
         {
             if (orderId < 0) throw new ArgumentOutOfRangeException(" Invalid order id " + orderId);
-            return _db.Orders.FirstOrDefault(o => o.Id == orderId);
+            var order = _db.Orders.Include(i => i.Items).SingleOrDefault(i => i.Id == orderId);
+            foreach (OrderItem oi in order.Items)
+            {
+                oi.Order = null;
+            }
+            return order;
         }
 
         public IEnumerable<Order> GetOrdersByUser(int userId)
         {
-            if (userId == null || userId<=0 ) throw new ArgumentNullException("user parameter is null");
-            var result = _db.Orders.Where(o => o.User.Id == userId);
+            if (userId == null || userId <= 0) throw new ArgumentNullException("user parameter is null");
+            var result = _db.Orders.Where(o => o.UserId == userId);
             return result;
         }
 
@@ -56,7 +68,7 @@ namespace Infrastructure.Repositories
                 {
                     ok = ok + 1;
                     o.Address = order.Address;
-                    o.User = order.User;
+                    // o.UserId = order.UserId;
                     o.ShippingCost = order.ShippingCost;
                     o.TotalCost = order.TotalCost;
                     o.Date = order.Date;

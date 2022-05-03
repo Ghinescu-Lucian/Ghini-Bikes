@@ -25,7 +25,12 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var partRemove = _db.Products.Single(p => p.ProductId == partId);
+                var partRemove = _db.Parts.Include(p => p.Compatibilities).Single(p => p.ProductId == partId);
+                
+                foreach(var comp in partRemove.Compatibilities)
+                {
+                    _db.Compatibilities.Remove(comp);
+                }
                 _db.Products.Remove(partRemove);
                 _db.SaveChanges();
                 return (Part)partRemove;

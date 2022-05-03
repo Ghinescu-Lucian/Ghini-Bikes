@@ -24,6 +24,10 @@ namespace Infrastructure.Repositories
         public PromoPackage DeletePromotion(int packageId)
         {
             var packageDelete = GetPromotionById(packageId);
+            foreach( var item in packageDelete.Items)
+            {
+                _db.PromoItems.Remove(item);
+            }
             if (packageDelete == null) return null;
             _db.Promotions.Remove(packageDelete);
             _db.SaveChanges();

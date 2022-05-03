@@ -24,6 +24,7 @@ namespace Application.Products.Parts.Commands.UpdatePartCommand
                 Quantity = request.Quantity,
                 Compatibilities = request.Compatibities
             };
+            _partRepository.UpdatePart(request.Id, partUpdate);
             return Task.FromResult(partUpdate);
         }
     }

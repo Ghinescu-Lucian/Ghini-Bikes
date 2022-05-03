@@ -50,6 +50,11 @@ namespace Infrastructure.Repositories
             return _db.Bikes.FirstOrDefault(acc => acc.ProductId == bikeId);
         }
 
+        public Product GetBikeById2(int bikeId)
+        {
+            return _db.Products.Where(p => p.ProductId == bikeId).FirstOrDefault();
+        }
+
         public IEnumerable<Product> GetBikes()
         {
             return _db.Bikes;
@@ -61,7 +66,7 @@ namespace Infrastructure.Repositories
         {
             int ok = 0;
             if (bikeId < 0) throw new ArgumentOutOfRangeException("Invalid accessory ID");
-            foreach (Bike acc in _db.Products)
+            foreach (Bike acc in _db.Bikes)
                 if (acc.ProductId == bikeId)
                 {
                     ok = ok + 1;
