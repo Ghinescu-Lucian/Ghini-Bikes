@@ -1,0 +1,29 @@
+{
+    "links": [
+        {
+            "label": "Home",
+            "href": "http://localhost:3000/"
+        },
+        {
+            "label": "Profile",
+            "href": "/profile"
+        },
+        {
+            "label": "Bikes",
+            "href": "http://localhost:3000/bikes"
+        },
+        {
+            "label": "Parts",
+            "href": "http://localhost:3000/parts"
+        },
+        {
+            "label": "Accessories",
+            "href": "http://localhost:3000/accessories"
+        },
+        {
+            "label": "Promotions",
+            "href": "http://localhost:3000/promotions"
+        }
+        
+    ]
+}
