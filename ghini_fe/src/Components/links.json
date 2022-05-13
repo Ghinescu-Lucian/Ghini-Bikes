@@ -23,6 +23,10 @@
         {
             "label": "Promotions",
             "href": "http://localhost:3000/promotions"
+        },
+        {
+            "label": "LogIn",
+            "href": "http://localhost:3000/LogIn"
         }
         
     ]

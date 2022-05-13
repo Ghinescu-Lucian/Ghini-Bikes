@@ -35,6 +35,11 @@ namespace Infrastructure.Repositories
             var user=  _db.Users.SingleOrDefault(u => u.Id == UserId);
             return user;
         }
+        public User GetUserByUsername(string Username)
+        {
+            var user = _db.Users.SingleOrDefault(u => u.Username == Username);
+            return user;
+        }
 
         public IEnumerable<User> GetUsers()
         {

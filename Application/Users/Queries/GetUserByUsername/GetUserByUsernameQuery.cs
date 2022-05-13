@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Users.Queries.GetUserByID
+namespace Application.Users.Queries.GetUserByUsername
 {
-    public class GetUserByUsernmaeQuery : IRequest<User>
+    public class GetUserByUsernameQuery : IRequest<User>
     {
-        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 }

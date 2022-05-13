@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries.GetUserByID
 {
-    public class GetUserByIDQueryHandler : IRequestHandler<GetUserByIDQuery, User>
+    public class GetUserByIDQueryHandler : IRequestHandler<GetUserByUsernmaeQuery, User>
     { 
         private readonly IUserRepository _repository;
 
@@ -18,7 +18,7 @@ namespace Application.Users.Queries.GetUserByID
         }
 
 
-        Task<User> IRequestHandler<GetUserByIDQuery, User>.Handle(GetUserByIDQuery request, CancellationToken cancellationToken)
+        Task<User> IRequestHandler<GetUserByUsernmaeQuery, User>.Handle(GetUserByUsernmaeQuery request, CancellationToken cancellationToken)
         {
             var result = _repository.GetUserById(request.UserId);
             return Task.FromResult(result);

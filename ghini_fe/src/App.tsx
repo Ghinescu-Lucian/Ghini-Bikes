@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Greeter } from './Classes/Greeter';
 import { useToggle } from './Components/CunstomHook';
@@ -12,6 +11,9 @@ import { Logo } from './Components/Logo';
 import Parts from './Pages/Parts';
 import Accessories from './Pages/Accessories';
 import Promotions from './Pages/Promotions';
+import { LogInForm } from './Components/LogInForm';
+import LogIn from './Pages/LogIn';
+import SignUp from './Pages/SignUp';
 
 const sendHttpRequest = (url: RequestInfo, method: any, payload?: any) => {
   return fetch(url, {
@@ -71,6 +73,8 @@ function App() {
   return (
     <>
     <Nav/>
+     {/* <LogInForm/> */}
+{/* <SignUp/> */}
     {/* <CounterButton /> */}
       {/* <hr></hr> */}
       {/* <RefHook /> */}
@@ -78,8 +82,11 @@ function App() {
       <Routes> 
         <Route path="/" element={
             <header className="App-header">
-              <Logo/>
-              <h1 style={{ color: colors.blue }}>{greeter.greet()}</h1>
+              <div className='logoBox'>
+                <Logo/>
+              </div>
+              
+              <h1 style={{ color: colors.black }}>{greeter.greet()}</h1>
               <h2>
 
               {/* <img src="./Images/GhiniBikeLogo.jpg" /> */}
@@ -97,7 +104,8 @@ function App() {
           <Route path="/parts" element = { <Parts/>}></Route>
           <Route path="/accessories" element = { <Accessories/>}></Route>
           <Route path="/promotions" element = { <Promotions/>}></Route>
-
+          <Route path="/LogIn" element = { <LogIn/>}></Route>
+          <Route path="/SignUp" element = { <SignUp/>}></Route>
         </Routes>
       </div>
     

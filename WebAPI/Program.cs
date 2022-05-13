@@ -77,6 +77,18 @@ builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddDbContext<ShopDbContext>(options => options.UseSqlServer("Server=DESKTOP-C8L0AG5\\LUCHI;Database=GhiniBikes;Trusted_Connection=True"));
 
+builder.Services.AddCors(feature =>
+                feature.AddPolicy(
+                    "CorsPolicy",
+                    apiPolicy => apiPolicy
+                                    //.AllowAnyOrigin()
+                                    //.WithOrigins("http://localhost:4200")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                                    .SetIsOriginAllowed(host => true)
+                                    .AllowCredentials()
+                                ));
+
 
 
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
@@ -92,7 +104,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

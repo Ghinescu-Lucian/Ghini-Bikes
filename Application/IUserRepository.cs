@@ -14,5 +14,6 @@ namespace Application
         User DeleteUser(int userId);
         User GetUserById(int userId);
         void UpdateUser(int userId,User user);
+        User GetUserByUsername(string Username);
     }
 }

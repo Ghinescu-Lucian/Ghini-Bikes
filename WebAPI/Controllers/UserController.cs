@@ -2,6 +2,7 @@
 using Application.Users.Commands.DeleteUser;
 using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries.GetUserByID;
+using Application.Users.Queries.GetUserByUsername;
 using Application.Users.Queries.GetUsersList;
 using AutoMapper;
 using Domain.Models;
@@ -14,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using WebAPI.Dtos;
 using WebAPI.Settings;
 
@@ -33,12 +35,13 @@ namespace WebAPI.Controllers
             _jwtSettings = jwtSettings.Value;
         }
 
-        [HttpPost, Route("login")]
+        [HttpPost]
+        [Route("{user.Id}")]
         public async Task<IActionResult> Login(UserDto user)
         {
             if (user != null)
             {
-                var userDb = await _mediator.Send(new GetUserByIDQuery { UserId = user.Id });
+                var userDb = await _mediator.Send(new GetUserByUsernameQuery { Username = user.Username });
                 if (userDb != null)
                 {
                    
@@ -46,11 +49,11 @@ namespace WebAPI.Controllers
                     var password = Encrypt.EncryptText(user.Password);
                     if (string.Equals(password, userDb.Password))
                     {
-                        return Ok(GenerateJwt(userDb, userDb.Role));
+                        return Ok("{\n \"token\": \""+GenerateJwt(userDb, userDb.Role)+"\"\n}");
                     }
-                    else return NotFound("Wrong username or password!");
+                    else return BadRequest("Wrong username or password!");
                 }
-                else return NotFound("Wrong username!");
+                else return BadRequest("Wrong username!");
             }
             return null;
         }
@@ -72,7 +75,7 @@ namespace WebAPI.Controllers
         [Route("{userId}")]
         public async Task<IActionResult> GetUserByID(int userId)
         {
-            var query = new GetUserByIDQuery { UserId = userId };
+            var query = new GetUserByUsernmaeQuery { UserId = userId };
             var result = await _mediator.Send(query);
             if (result == null)
                 return NotFound(result);
