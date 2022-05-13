@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/Share";
 import { Avatar, IconButton, CardMedia } from "@material-ui/core";
 
-const CoffeCard = props => {
+const ProductCard = props => {
   const { avatarUrl, title, subtitle, description, imageUrl } = props;
   return (
     <Card>
