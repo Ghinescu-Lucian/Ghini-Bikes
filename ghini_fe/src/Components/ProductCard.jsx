@@ -37,4 +37,4 @@ const ProductCard = props => {
   );
 };
 
-export default CoffeCard;
+export default ProductCard;
