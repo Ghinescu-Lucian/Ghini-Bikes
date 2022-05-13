@@ -1,9 +1,12 @@
-import React, { useEffect } from "react"
 import "./CSS/LogInForm.css";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import * as userService from '../Services/UserService.js';
+import UserProfile from '../Classes/UserProfile'
+import { useNavigate } from "react-router-dom";
+
+
 
 const schema = yup.object()
     .shape({
@@ -15,31 +18,38 @@ const schema = yup.object()
 
 export const LogInForm = () => {
 
+
+
+    const navigate = useNavigate();
+
+
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm(
         {
             resolver: yupResolver(schema)
         });
 
-    // Object.keys(errors).forEach((element) => {
-    //     const { ref } = errors[element]
-    //     console.log(ref, "eroare element");
-    // })
+    
 
     const onFormSubmit = async (data) => {
-        // console.log(data);
-        try{
-        var Login_Result = await userService.Login(data.Username,data.Password);
+       
+        try {
+            var Login_Result = await userService.Login(data.Username, data.Password);
         }
-        catch(err){
-            console.log("Wrong credentials");
+        catch (err) {
+            console.log("Wrong credentials 123");
         }
-        if(Login_Result){
-        console.log(Login_Result.status);
-         console.log(Login_Result,"REZULTAT");
+        if (Login_Result) {
+            var res = JSON.stringify(Login_Result);
+            localStorage.setItem('user',res);
+            UserProfile.setName(Login_Result.username);
+            console.log("Username:", data.username);
+            console.log(localStorage.getItem("user"));
+            navigate("/");
+            console.log(Login_Result, "REZULTAT");
         }
     }
 
-    
+
 
     return (
         <div className="center">

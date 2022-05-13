@@ -3,7 +3,7 @@ body{
   padding: 0;
   background: linear-gradient(120deg,#d7dfe4, #3e3941);
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
 }
 .center{
     position: absolute;

@@ -3,7 +3,7 @@ export class Greeter {
     constructor(message: string) {
         this.greeting = message;
     }
-    greet() {
-        return "Hello, " + this.greeting;
+    greet(gr:string) {
+        return "Hello, " + gr+" !";
     }
 }

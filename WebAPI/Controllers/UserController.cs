@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("{user.Id}")]
+        [Route("login/{user.Id}")]
         public async Task<IActionResult> Login(UserDto user)
         {
             if (user != null)
@@ -44,12 +44,13 @@ namespace WebAPI.Controllers
                 var userDb = await _mediator.Send(new GetUserByUsernameQuery { Username = user.Username });
                 if (userDb != null)
                 {
-                   
+
+                    var userProps = "\"id\": " + userDb.Id + ",\n\"email\": " +"\""+ userDb.Email +"\""+ ",\n\"username\": " + "\""+userDb.Username +"\""+ ",\n\"role\": " +"\""+ userDb.Role + "\",\n";
 
                     var password = Encrypt.EncryptText(user.Password);
                     if (string.Equals(password, userDb.Password))
                     {
-                        return Ok("{\n \"token\": \""+GenerateJwt(userDb, userDb.Role)+"\"\n}");
+                        return Ok("{\n" +userProps+"\"token\": \""+GenerateJwt(userDb, userDb.Role)+"\"\n}");
                     }
                     else return BadRequest("Wrong username or password!");
                 }
@@ -68,6 +69,8 @@ namespace WebAPI.Controllers
             usr.Role = "Client";
             var command = _mapper.Map<CreateUserCommand>(usr);
             var created = await _mediator.Send(command);
+            if (created == null)
+                return BadRequest("Wrong parameters");
 
             return CreatedAtAction(nameof(GetUserByID), new { userId = created.Id }, usr);
         }

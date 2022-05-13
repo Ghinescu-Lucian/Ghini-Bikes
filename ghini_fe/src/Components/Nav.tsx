@@ -13,6 +13,8 @@ type Link = {
     href : string;
 };
 
+
+
 const Links: React.FC<{ links: Link[] }> = ({ links }) => {
     return (
         <div className={styles['links-container']}>
@@ -37,6 +39,7 @@ const Nav: React.FC<{}> = () => {
                 <LogoNav/>
                 {/* <LocalGroceryStoreIcon/> */}
             </div>
+            
             <Links links={links} />
         </nav>
     )
