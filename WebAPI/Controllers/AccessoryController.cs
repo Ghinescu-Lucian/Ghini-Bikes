@@ -4,6 +4,7 @@ using Application.Products.Accessories.Commands.UpdateAccessoryCommand;
 using Application.Products.Accessories.Queries.GetAccessoryById;
 using Application.Products.Accessories.Queries.GetAllAccessories;
 using AutoMapper;
+using Domain.Models;
 using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,17 +25,35 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccessory(AccessoryDto acc)
+        public async Task<IActionResult> CreateAccessory([FromForm] AccessoryDto acc)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            List<Image> images = new List<Image>();
+
+            if (acc.ImagesURL != null)
+            {
+
+                for (int i = 0; i < acc.ImagesURL.Count; i++)
+                {
+                    Image img = new Image
+                    {
+                        Path = await UploadImage(acc.ImagesURL[i].FileName, acc.ImagesURL[i]),
+                        position = i
+                    };
+                    images.Add(img);
+                }
+
+                acc.Images = images;
+
+            }
 
             var command = _mapper.Map<CreateAccessoryCommand>(acc);
             var created = await _mediator.Send(command);
 
             //   return Ok(created);
             return CreatedAtAction(nameof(GetAccessoryByID), new { accessoryId = created.ProductId }, acc);
-        }
+        } 
         [HttpGet]
         [Route("{accessoryId}")]
         public async Task<IActionResult> GetAccessoryByID(int accessoryId)
@@ -63,6 +82,9 @@ namespace WebAPI.Controllers
         {
             var query = new GetAllAccessoriesQuery();
             var result = await _mediator.Send(query);
+            foreach (var item in result)
+                foreach (var img in item.Images)
+                    img.Path = "https://localhost:7155/Images/" + img.Path;
             return Ok(result);
 
         }
@@ -88,6 +110,15 @@ namespace WebAPI.Controllers
             if (result == null)
                 return NotFound();
             return NoContent();
+        }
+        private async Task<string> UploadImage(string fileName, IFormFile file)
+        {
+            string folderPath = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\WebAPI\\Images";
+            var new_name = Guid.NewGuid().ToString() + "_" + fileName;
+            folderPath = Path.Combine(folderPath, new_name);
+            await file.CopyToAsync(new FileStream(folderPath, FileMode.Create));
+
+            return new_name;
         }
     }
 }

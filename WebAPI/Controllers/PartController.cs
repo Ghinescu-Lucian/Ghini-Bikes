@@ -4,6 +4,7 @@ using Application.Products.Parts.Commands.UpdatePartCommand;
 using Application.Products.Parts.Queries.GetAllParts;
 using Application.Products.Parts.Queries.GetPartById;
 using AutoMapper;
+using Domain.Models;
 using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,28 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePart(PartDto part)
+        public async Task<IActionResult> CreatePart([FromForm] PartDto part)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            List<Image> images = new List<Image>();
+
+            if (part.ImagesURL != null)
+            {
+
+                for (int i = 0; i < part.ImagesURL.Count; i++)
+                {
+                    Image img = new Image
+                    {
+                        Path = await UploadImage(part.ImagesURL[i].FileName, part.ImagesURL[i]),
+                        position = i
+                    };
+                    images.Add(img);
+                }
+
+                part.Images = images;
+
+            }
 
             var command = _mapper.Map<CreatePartCommand>(part);
             var created = await _mediator.Send(command);
@@ -45,7 +64,7 @@ namespace WebAPI.Controllers
                 return NotFound(result);
             return Ok(result);
 
-        }
+        } 
 
         [HttpDelete]
         [Route("{partId}")]
@@ -63,6 +82,10 @@ namespace WebAPI.Controllers
         {
             var query = new GetAllPartsQuery();
             var result = await _mediator.Send(query);
+            foreach (var item in result)
+                foreach (var img in item.Images)
+                    img.Path = "https://localhost:7155/Images/" + img.Path;
+
             return Ok(result);
 
         }
@@ -89,5 +112,16 @@ namespace WebAPI.Controllers
                 return NotFound();
             return NoContent();
         }
+
+        private async Task<string> UploadImage(string fileName, IFormFile file)
+        {
+            string folderPath = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\WebAPI\\Images";
+            var new_name = Guid.NewGuid().ToString() + "_" + fileName;
+            folderPath = Path.Combine(folderPath, new_name);
+            await file.CopyToAsync(new FileStream(folderPath, FileMode.Create));
+
+            return new_name;
+        }
+
     }
 }

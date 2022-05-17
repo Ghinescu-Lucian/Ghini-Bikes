@@ -43,7 +43,7 @@ namespace Infrastructure.Repositories
 
         public Accessory GetAccessoryById(int accessoryId)
         {
-            return _db.Accessories.FirstOrDefault(acc => acc.ProductId == accessoryId);
+            return _db.Accessories.Include( a => a.Images).FirstOrDefault(acc => acc.ProductId == accessoryId);
         }
 
         public void UpdateAccessory(int accessoryId, Accessory accessory)

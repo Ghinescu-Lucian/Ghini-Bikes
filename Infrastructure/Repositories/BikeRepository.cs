@@ -47,7 +47,7 @@ namespace Infrastructure.Repositories
          }
         public Bike GetBikeById(int bikeId)
         {
-            return _db.Bikes.FirstOrDefault(acc => acc.ProductId == bikeId);
+            return _db.Bikes.Include(b => b.Images).FirstOrDefault(acc => acc.ProductId == bikeId);
         }
 
         public Product GetBikeById2(int bikeId)

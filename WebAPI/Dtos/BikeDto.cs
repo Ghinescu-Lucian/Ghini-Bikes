@@ -12,6 +12,9 @@ namespace WebAPI.Dtos
         public string Manufacturer { get; set; }
         public string Model { get; set; }
         public List<Image> Images { get; set; }
+
+        public List<IFormFile> ImagesURL { get; set; }
+
         public int Quantity { get; set; }
         public int Category { get; set; }
         public int WarrantyMonths { get; set; }

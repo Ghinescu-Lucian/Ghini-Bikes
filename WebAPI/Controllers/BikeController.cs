@@ -4,6 +4,7 @@ using Application.Products.Bikes.Commands.UpdateBikeCommand;
 using Application.Products.Bikes.Queries.GetAllBikes;
 using Application.Products.Bikes.Queries.GetBikeById;
 using AutoMapper;
+using Domain.Models;
 using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,10 +28,29 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
-        public async Task<IActionResult> CreateBike(BikeDto bike)
+        public async Task<IActionResult> CreateBike([FromForm] BikeDto bike)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            List<Image> images = new List<Image>();
+            
+            if (bike.ImagesURL != null )
+            {
+                
+                for ( int i = 0; i < bike.ImagesURL.Count; i++)
+                {
+                    Image img = new Image
+                    {
+                        Path = await UploadImage(bike.ImagesURL[i].FileName, bike.ImagesURL[i]),
+                        position = i
+                    };
+                    images.Add(img);
+                }
+
+                bike.Images=images;
+               
+            }
 
             var command = _mapper.Map<CreateBikeCommand>(bike);
             var created = await _mediator.Send(command);
@@ -40,7 +60,7 @@ namespace WebAPI.Controllers
         }
         [HttpGet]
         [Route("{bikeId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Client,Administrator")]
+       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Client,Administrator")]
         public async Task<IActionResult> GetBikeByID(int bikeId)
         {
             var query = new GetBikeByIdQuery { Id = bikeId };
@@ -68,6 +88,10 @@ namespace WebAPI.Controllers
         {
             var query = new GetAllBikesQuery();
             var result = await _mediator.Send(query);
+            foreach (var item in result)
+                foreach (var img in item.Images)
+                    img.Path= "https://localhost:7155/Images/" + img.Path;
+
             return Ok(result);
 
         }
@@ -97,6 +121,16 @@ namespace WebAPI.Controllers
             if (result == null)
                 return NotFound();
             return NoContent();
+        }
+
+        private async Task<string> UploadImage(string fileName, IFormFile file)
+        {
+            string folderPath = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\WebAPI\\Images";
+            var new_name = Guid.NewGuid().ToString() + "_" + fileName;
+            folderPath = Path.Combine(folderPath,new_name);
+            await file.CopyToAsync( new FileStream(folderPath, FileMode.Create));
+
+            return new_name;
         }
 
     }

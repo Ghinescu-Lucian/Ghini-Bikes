@@ -10,6 +10,8 @@ namespace Domain.Models
     public class CompatibleItem
     {
         public int Id { get; set; }
+
+        public int Bike_Id { get; set; }
         public Product Bike { get; set; }
 
     }

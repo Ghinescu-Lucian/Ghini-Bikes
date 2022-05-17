@@ -13,7 +13,7 @@ namespace Domain.Models
 
         [Required,MaxLength(200)]
         public string Path { get; set; }
-
+        public int position { get; set; }
         public int ProductId { get; set; }
     }
 }

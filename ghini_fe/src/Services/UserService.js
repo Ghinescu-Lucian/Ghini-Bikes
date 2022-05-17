@@ -1,4 +1,4 @@
-const URL = 'https://localhost:7155/api/User'
+const URL = 'https://localhost:7155/api/User' 
 
 //LogIn
 export async function Login(_username, _password) {

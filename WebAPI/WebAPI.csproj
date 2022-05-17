@@ -27,11 +27,14 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Pictures\" />
 
 		<ProjectReference Include="..\Domain\Domain.csproj" />
 		<ProjectReference Include="..\Application\Application.csproj" />
 		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Images\" />
 	</ItemGroup>
 
 </Project>

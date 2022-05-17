@@ -45,7 +45,7 @@ namespace Infrastructure.Repositories
         public Part GetPartById(int partId)
         {
             if (partId < 0) throw new ArgumentOutOfRangeException("Incorrect part Id");
-            return _db.Parts.FirstOrDefault(p => p.ProductId == partId);
+            return _db.Parts.Include( p => p.Images).Include(p => p.Compatibilities).FirstOrDefault(p => p.ProductId == partId);
         }
 
         public IEnumerable<Part> GetParts()

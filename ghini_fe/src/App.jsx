@@ -46,7 +46,6 @@ function App() {
     console.log("Error local storage");
   }
 
-  console.log(UserProfile.getName(), "NAME-UL");
 
   useEffect(() => {
     setUsername(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user");

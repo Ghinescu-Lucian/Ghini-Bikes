@@ -10,20 +10,20 @@ import ShareIcon from "@material-ui/icons/Share";
 import { Avatar, IconButton, CardMedia } from "@material-ui/core";
 
 const ProductCard = props => {
-  const { avatarUrl, title, subtitle, description, imageUrl } = props;
+  const {  manufacturer, model, description, image } = props;
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar src={avatarUrl} />}
+        avatar={<Avatar src={image} />}
         action={
           <IconButton aria-label="settings">
             <ShareIcon />
           </IconButton>
         }
-        title={title}
-        subheader={subtitle}
+        title={manufacturer}
+        subheader={model}
       />
-      <CardMedia style={{ height: "150px" }} image={imageUrl} />
+      <CardMedia style={{ height: "150px" }} image={image} />
       <CardContent>
         <Typography variant="body2" component="p">
           {description}

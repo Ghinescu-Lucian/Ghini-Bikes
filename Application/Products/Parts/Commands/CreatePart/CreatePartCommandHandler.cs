@@ -23,11 +23,11 @@ namespace Application.Products.Parts.Commands.CreatePartCommand
 
             if (request.Compatibilities != null)
             {
-                foreach (CompatibleItem b in request.Compatibilities)
+                foreach (int b in request.Compatibilities)
                 {
 
-                    var bike = _bikeRepository.GetBikeById2(b.Bike.ProductId);
-                    part.AddCompatibleBike(new CompatibleItem { Bike = bike });
+                    var bike = _bikeRepository.GetBikeById2(b);
+                    part.AddCompatibleBike(new CompatibleItem { Bike = bike, Bike_Id=bike.ProductId });
                 }
             }
             part.Images=request.Images;
