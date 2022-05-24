@@ -40,7 +40,7 @@ const ProductCard = props => {
     <div>
       <Card>
         <CardHeader
-          avatar={<Avatar src={image} />}
+          avatar={<Avatar src={image} />} 
           action={
             <IconButton aria-label="settings">
               <ShareIcon />
@@ -56,8 +56,8 @@ const ProductCard = props => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">BUY NOW</Button>
-          <Button size="small">OFFER</Button>
+          {/* <Button size="small">BUY NOW</Button> */}
+          {/* <Button size="small">OFFER</Button> */}
           <Button className="popup-btn">Detalii</Button>
         </CardActions>
       </Card>

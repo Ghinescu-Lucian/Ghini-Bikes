@@ -1,6 +1,5 @@
 import { Grid } from "@material-ui/core"
 import { useEffect } from "react";
-import Content from "../Components/Content";
 import * as bikeService from '../Services/BikeService.js';
 import { useState } from 'react';
 import ProductCard from "../Components/ProductCard";
@@ -8,11 +7,9 @@ import ProductCard from "../Components/ProductCard";
 const Bikes = () => {
 
     const [bikes, setBikes] = useState([]);
-   // const lnk = "https://localhost:7155/Images/FOCUS.png";
 
     const bikeProducts = async () => {
         const response = await bikeService.GetBikes();
-        //console.log(response);
         setBikes(response);
     }
     useEffect(() => {
@@ -34,7 +31,6 @@ const Bikes = () => {
                     <Grid container spacing={2}>
                         {
                             bikes.map((values) => {
-                               // console.log(values.images.length());
                                 return (
                                     
                                         <Grid item xs={12} sm={4}>

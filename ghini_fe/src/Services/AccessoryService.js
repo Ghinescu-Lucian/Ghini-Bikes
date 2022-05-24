@@ -4,7 +4,7 @@ export async function GetAccessoryById(id) {
     var URL2 = `${URL}/${id}`;
     let url = URL2;
 
-     console.log("Options ",url);
+    //  console.log("Options ",url);
      return fetch(url, {
         method: 'GET',
         headers: {

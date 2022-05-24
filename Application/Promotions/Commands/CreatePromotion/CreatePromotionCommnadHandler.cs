@@ -34,19 +34,22 @@ namespace Application.Promotions.Commands.CreatePromotion
                     if (item._Product.Category <= 3)
                     {
                         var bike = _bikeRepository.GetBikeById(item._Product.ProductId);
-                        var promoItem = new PromoItem { _Product = bike, Quantity = item.Quantity, Discount = item.Discount };
+                        var promoItem = new PromoItem { _Product = bike, Quantity = item.Quantity, Discount = item.Discount, ProductId = bike.ProductId };
+                        promoItem.ProductCategory = item._Product.Category;
                         package.Items.Add(promoItem);
                     }
                     else if (item._Product.Category == 4)
                     {
                         var part = _partRepository.GetPartById(item._Product.ProductId);
-                        var promoItem = new PromoItem { _Product = part, Quantity = item.Quantity, Discount = item.Discount };
+                        var promoItem = new PromoItem { _Product = part, Quantity = item.Quantity, Discount = item.Discount, ProductId = part.ProductId };
+                        promoItem.ProductCategory = item._Product.Category;
                         package.Items.Add(promoItem);
                     }
                     else
                     {
                         var accessory = _accessoryRepository.GetAccessoryById(item._Product.ProductId);
-                        var promoItem = new PromoItem { _Product = accessory, Quantity = item.Quantity, Discount = item.Discount };
+                        var promoItem = new PromoItem { _Product = accessory, Quantity = item.Quantity, Discount = item.Discount , ProductId = accessory.ProductId };
+                        promoItem.ProductCategory = item._Product.Category;
                         package.Items.Add(promoItem);
                     }
                 }

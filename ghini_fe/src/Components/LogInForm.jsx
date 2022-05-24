@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import * as userService from '../Services/UserService.js';
 import UserProfile from '../Classes/UserProfile'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 
 
@@ -41,11 +41,11 @@ export const LogInForm = () => {
         if (Login_Result) {
             var res = JSON.stringify(Login_Result);
             localStorage.setItem('user',res);
-            UserProfile.setName(Login_Result.username);
-            console.log("Username:", data.username);
-            console.log(localStorage.getItem("user"));
-            navigate("/");
-            console.log(Login_Result, "REZULTAT");
+            // UserProfile.setName(Login_Result.username);
+            // console.log("Username:", data.username);
+            // console.log(localStorage.getItem("user"));
+            // navigate("/");
+            // console.log(Login_Result, "REZULTAT");
         }
     }
 

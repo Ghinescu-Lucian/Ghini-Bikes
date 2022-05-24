@@ -67,6 +67,10 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(query);
             if (result == null)
                 return NotFound(result);
+
+            foreach (var img in result.Images)
+                img.Path = "https://localhost:7155/Images/" + img.Path;
+
             return Ok(result);
 
         }
