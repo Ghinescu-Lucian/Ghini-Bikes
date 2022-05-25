@@ -7,6 +7,7 @@ import { Route, Link, Routes } from "react-router-dom";
 import Welcome from './Pages/HomePage';
 import Nav from './Components/Nav';
 import Bikes from './Pages/Bikes';
+import AddProducts from './Pages/AddProducts';
 import { Logo } from './Components/Logo';
 import Parts from './Pages/Parts';
 import Accessories from './Pages/Accessories';
@@ -90,6 +91,7 @@ function App() {
           <Route path="/promotions" element={<Promotions />}></Route>
           <Route path="/LogIn" element={<LogIn />}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
+          <Route path="/AddProducts" element={<AddProducts />}></Route>
         </Routes>
       </div>
 

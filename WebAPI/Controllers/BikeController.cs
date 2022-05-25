@@ -10,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WebAPI.Dtos;
 
 namespace WebAPI.Controllers
@@ -27,7 +29,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+      //  [DisableFormValueModelBinding]
+        [Route("addBike")]
+         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        // [FromForm]
         public async Task<IActionResult> CreateBike([FromForm] BikeDto bike)
         {
             if (!ModelState.IsValid)
@@ -137,5 +142,32 @@ namespace WebAPI.Controllers
             return new_name;
         }
 
+    }
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class DisableFormValueModelBindingAttribute : Attribute, IResourceFilter
+    {
+        public void OnResourceExecuting(ResourceExecutingContext context)
+        {
+            var formValueProviderFactory = context.ValueProviderFactories
+                    .OfType<FormValueProviderFactory>()
+                    .FirstOrDefault();
+            if (formValueProviderFactory != null)
+            {
+                context.ValueProviderFactories.Remove(formValueProviderFactory);
+            }
+
+            var jqueryFormValueProviderFactory = context.ValueProviderFactories
+                .OfType<JQueryFormValueProviderFactory>()
+                .FirstOrDefault();
+            if (jqueryFormValueProviderFactory != null)
+            {
+                context.ValueProviderFactories.Remove(jqueryFormValueProviderFactory);
+            }
+        }
+
+        public void OnResourceExecuted(ResourceExecutedContext context)
+        {
+        }
     }
 }

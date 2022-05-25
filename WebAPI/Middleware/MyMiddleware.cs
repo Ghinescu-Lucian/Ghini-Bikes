@@ -14,10 +14,23 @@ namespace WebAPI.Middleware
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext context)
         {
 
-            return _next(httpContext);
+            // Check if request body is empty and it's a multipart request
+            if ((context.Request.ContentLength == null || context.Request.ContentLength == 0)
+                && context.Request.ContentType != null
+                && context.Request.ContentType.ToUpper().StartsWith("MULTIPART/"))
+            {
+                // Set 400 response with a message
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsync("Multipart request body must not be empty.");
+            }
+            else
+            {
+                // All other requests continue the way down the pipeline
+                await _next(context);
+            }
         }
     }
 

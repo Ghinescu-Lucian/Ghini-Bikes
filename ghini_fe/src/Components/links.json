@@ -25,6 +25,10 @@
             "href": "http://localhost:3000/promotions"
         },
         {
+            "label": "Add Products",
+            "href": "http://localhost:3000/AddProducts"
+        },
+        {
             "label": "LogIn",
             "href": "http://localhost:3000/LogIn"
         }
