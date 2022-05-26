@@ -44,7 +44,7 @@ export const LogInForm = () => {
             // UserProfile.setName(Login_Result.username);
             // console.log("Username:", data.username);
             // console.log(localStorage.getItem("user"));
-            // navigate("/");
+            navigate("/");
             // console.log(Login_Result, "REZULTAT");
         }
     }

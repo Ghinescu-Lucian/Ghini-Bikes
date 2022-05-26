@@ -9,6 +9,8 @@ using Domain.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -25,6 +27,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Route("addAccessory")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> CreateAccessory([FromForm] AccessoryDto acc)
         {
             if (!ModelState.IsValid)

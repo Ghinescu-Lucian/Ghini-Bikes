@@ -107,8 +107,8 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Route("{bikeId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
-        public async Task<IActionResult> UpdateBike(int bikeId, BikeDto update)
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        public async Task<IActionResult> UpdateBike(int bikeId, BikeUpdateDto update)
         {
             var bike = _mapper.Map<Bike>(update);
 
@@ -118,10 +118,10 @@ namespace WebAPI.Controllers
                 Manufacturer = bike.Manufacturer,
                 Model = bike.Model,
                 Description = bike.Description,
-                Images = bike.Images,
+              //  Images = bike.Images,
                 Price = bike.Price,
                 WarrantyMonths=bike.WarrantyMonths,
-                Weigth=bike.Weigth,
+                Weight=bike.Weight,
                 Year=bike.Year,
             };
 

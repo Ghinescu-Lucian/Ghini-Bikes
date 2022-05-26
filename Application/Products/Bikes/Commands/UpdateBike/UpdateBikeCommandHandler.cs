@@ -22,10 +22,10 @@ namespace Application.Products.Bikes.Commands.UpdateBikeCommand
                 Model = request.Model,
                 Year = request.Year,
                 Price=request.Price,
-                Weigth = request.Weigth,
+                Weight = request.Weight,
                 WarrantyMonths = request.WarrantyMonths,
                 Description = request.Description,
-                Images = request.Images,
+                //Images = request.Images,
 
             };
 

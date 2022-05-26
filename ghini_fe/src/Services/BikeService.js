@@ -40,9 +40,9 @@ export async function AddBike(data, token) {
         position: 0,
         productId: 0
     }`
-    
 
-    console.log("TOKEN: ", token);
+
+    // console.log("TOKEN: ", token);
     if (data.category == 1) type = "Bike";
     else if (data.category == 2) type = "MTBBike";
     else if (data.category == 3) type = "ElectricBike";
@@ -68,31 +68,6 @@ export async function AddBike(data, token) {
 
 
 
-    var options = {
-            productId: 0,
-            type: "string",
-            description: "string",
-            year: 0,
-            price: 0,
-            manufacturer: "string",
-            model: "string",
-            images: [
-              {
-                id: 0,
-                path: "string",
-                position: 0,
-                productId: 0
-              }
-            ],
-            imagesURL: [
-              "string"
-            ],
-            quantity: data.quantity,
-            category: data.category,
-            warrantyMonths: data.warranty,
-            specification: "string",
-            weigth: data.weigth};
-
     const headers = {
         // Accept: "multipart/form-data",
         // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
@@ -102,45 +77,77 @@ export async function AddBike(data, token) {
 
     let res;
     try {
-        res = await axios.post(url, formData,{headers: headers});
+        res = await axios.post(url, formData, { headers: headers });
     } catch (ex) {
         console.log(ex);
     }
-    return res;
+    return res.status;
 
-    // return fetch(url, {
-    //     method: 'POST',
-    //     headers: {
-    //         'content-type': 'multipart/form-data; boundary=abcde12345'  ,
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    //     body: formData
-    // })
-    //     // .then(res => res.json())
-    //     // .then(function (response) {
-    //     //     if (response.status !== 201) {
-    //     //         // console.log("Username or Email already exists!");
-    //     //         // alert(response.body);
-    //     //         console.log(response.body);
-    //     //         // alert("Username or Email already exists!");
-    //     //     }
-    //     //     console.log(response.errors);
-    //     //     return response.json();
-    //     // })
-    //     .catch(function (err) {
-    //         console.log(err, "eorrr");
-    //         // alert("Username already exists12");
-    //     })
-    //     .then(function (response) {
-    //             if (response.status !== 201) {
-    //                 // console.log("Username or Email already exists!");
-    //                 // alert(response.body);
-    //                 console.log(response.text());
-    //                 // alert("Username or Email already exists!");
-    //                 return null;
-    //             }
-    //             console.log(response.text());
-    //             return response.json();
-    //         });
 
 }
+
+export async function DeleteBike(id, token) {
+    var url = `${URL}/${id}`;
+    const headers = {
+        // Accept: "multipart/form-data",
+        // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
+        'Authorization': `Bearer ${token}`,
+
+    }
+    let res;
+    try {
+        res = await axios.delete(url, { headers: headers });
+    } catch (ex) {
+        console.log(ex);
+    }
+    return res.status;
+}
+
+export async function UpdateBike(id, data, token) {
+    var url = `${URL}/${id}`;
+    const headers = {
+        // Accept: "multipart/form-data",
+        // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
+        'Authorization': `Bearer ${token}`,
+    }
+
+    console.log(id);
+    console.log("URL:",url);
+    var options = {
+        productId: 0,
+        type: "string",
+        description: data.description,
+        year: data.year,
+        price: data.price,
+        manufacturer: data.manufacturer,
+        model: data.model,
+        quantity: data.quantity,
+        category: 0,
+        warrantyMonths: data.warrantyMonths,
+        specification: "string",
+        weigth: data.weigth
+    };
+
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            // 'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json',
+            
+        },
+        body: JSON.stringify(
+            options
+        )
+    })
+        // .then(res => res.json())
+        .then(function (response) {
+            return response.status;
+        })
+        .catch(function (err) {
+            console.log(err, "eorrr");
+            // alert("Username already exists12");
+        });
+    // return 200;
+}
+
+

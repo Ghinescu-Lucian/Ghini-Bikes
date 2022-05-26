@@ -22,11 +22,11 @@ namespace Application.Products.Bikes.Commands.CreateBikeCommand
             var bikeFactory = BikeFactory.Instance;
 
             var bike = bikeFactory.CreateProductOfType(request.Type, request.Year, request.Price, request.Model, request.Manufacturer, request.Description);
-            bike.Weigth = request.Weight;
+            bike.Weight = request.Weight;
             bike.Quantity = request.Quantity;
             if (request.Images != null)
                 bike.Images = request.Images;
-            bike.Weigth = request.WarrantyMonths;
+            bike.WarrantyMonths = request.WarrantyMonths;
             _repository.CreateBike(bike);
 
             return bike;

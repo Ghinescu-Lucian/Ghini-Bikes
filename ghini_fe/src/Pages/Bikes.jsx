@@ -7,6 +7,12 @@ import ProductCard from "../Components/ProductCard";
 const Bikes = () => {
 
     const [bikes, setBikes] = useState([]);
+    const [role, setRole] = useState("client");
+
+    useEffect(() => {
+        setRole(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).role: "client");
+      }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user"]
+      );
 
     const bikeProducts = async () => {
         const response = await bikeService.GetBikes();
@@ -15,10 +21,7 @@ const Bikes = () => {
     useEffect(() => {
         bikeProducts();
     }, []);
-
-    bikes.map((values) => {
-        console.log(values);
-     })
+    bikes.map((values) => { console.log(values.productId)});
 
     return (
         <div>
@@ -34,7 +37,7 @@ const Bikes = () => {
                                 return (
                                     
                                         <Grid item xs={12} sm={4}>
-                                            <ProductCard {... values} image={values.images[0].path}/>
+                                            <ProductCard {... values} image={values.images[0].path} role={role} id={values.productId} data={values}/>
                                         </Grid>
                                     
                                 )

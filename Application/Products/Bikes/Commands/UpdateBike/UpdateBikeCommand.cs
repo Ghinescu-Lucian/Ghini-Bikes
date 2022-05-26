@@ -14,8 +14,8 @@ namespace Application.Products.Bikes.Commands.UpdateBikeCommand
         public int Year { get; set; }
         public int WarrantyMonths { get; set; }
         public double Price { get; set; }
-        public double Weigth { get; set; }
-        public List<Image> Images { get; set; }
+        public double Weight { get; set; }
+       // public List<Image> Images { get; set; }
 
     }
 }

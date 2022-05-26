@@ -162,7 +162,7 @@ const PromotionCard = props => {
         }
     }
 
-    ok = 1;
+    ok = 1; 
 
 
     var uniq = getUniquePropertyValues(description, "model");
