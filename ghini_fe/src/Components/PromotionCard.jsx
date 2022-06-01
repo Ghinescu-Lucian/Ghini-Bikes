@@ -13,7 +13,7 @@ import * as bikeService from '../Services/BikeService.js';
 import * as partService from '../Services/PartService.js';
 import * as accessoryService from '../Services/AccessoryService.js';
 import { useEffect, useState } from "react";
-// import { Settings } from "@material-ui/icons";
+// import { Settings } from "@material-ui/icons"; 
 
 
 
@@ -26,17 +26,24 @@ function getUniquePropertyValues(_array, _property) {
     }, []);
 }
 
-const PromotionCard = props => {
-    const { name, items, keyUnique } = props;
+const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
+    const { name, items } = props;
     var popupViews = document.querySelectorAll('.popup-view');
     var popupBtns = document.querySelectorAll('.popup-btn');
     var closeBtns = document.querySelectorAll('.close-btn');
+    var addBtns = document.querySelectorAll('.add-cart-btn');
+
+
+
+    // console.log("ID:",id);
 
 
     //javascript for quick view button
     var popup = function (popupClick) {
         popupViews[popupClick].classList.add('active');
     }
+
+    
 
     let products = [];
     let discounts = [];
@@ -51,9 +58,22 @@ const PromotionCard = props => {
         discounts.push(values.discount);
     });
 
+    let obj1 = {
+        name : props.name,
+        items : props.items,
+        price : 0,
+        image : image 
+    }
+
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState([]);
     const [price, setPrice] = useState(0.0);
+    const [obj,setObj] = useState(obj1);
+
+    
+
+    console.log(obj);
+
 
     const imageProducts = async () => {
         var total=0.0;
@@ -88,6 +108,9 @@ const PromotionCard = props => {
         }
         setPrice(price + total);
         products = [];
+        obj1.price = total;
+        // console.log("PRICE TOTAL:", obj1.priceT);
+        setObj(obj1);
         setImages(slideshow);
         setDescription(descrp);
     }
@@ -114,6 +137,13 @@ const PromotionCard = props => {
         });
     });
 
+    addBtns.forEach((addBtn) => {
+        addBtn.addEventListener("click", () => {
+          popupViews.forEach((popupView) => {
+            popupView.classList.remove('active');
+          });
+        });
+      });
 
 
     showSlides(slideIndex);
@@ -129,12 +159,11 @@ const PromotionCard = props => {
         showSlides(slideIndex = n);
     }
 
-    let id = keyUnique;
 
     // console.log(images);
 
     function showSlides(n) {
-        console.log("aiici");
+        
         if (ok == 1) {
             console.log("aiici2");
 
@@ -196,7 +225,7 @@ const PromotionCard = props => {
                     }
                     title={name}
                 />
-                {/* <CardMedia style={{ height: "200px", width: "350px" }} image={images[0]} /> */}
+                <CardMedia style={{ height: "200px", width: "350px" }} image={image} />
                 <CardContent>
                     <Typography variant="body2" component="p">
 
@@ -249,13 +278,7 @@ const PromotionCard = props => {
 
                             <span className="price">Pret {price} lei</span>
 
-                            <form method="POST" action="">
-                                <input type="hidden" name="hidden_name" value="" />
-                                <input type="hidden" name="hidden_price" value="" />
-                                <input type="hidden" name="hidden_idProduct" value="" />
-                                <input type="hidden" name="hidden_img" value="'.$res.'" />
-                                <input type="submit" name="add_to_cart" className="add-cart-btn" value="Adauga in cos" />
-                            </form>
+                            <button name="add_to_cart" className="add-cart-btn"  onClick={() => handleClick(obj)}>{role === "Administrator" ? "Select" : "Add to cart"}</button> 
                         </div>
                     </div>
 

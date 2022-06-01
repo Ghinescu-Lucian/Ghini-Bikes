@@ -6,5 +6,6 @@ namespace WebAPI.Dtos
     {
         public string Name { get; set; }
         public List<PromoItem> Items { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

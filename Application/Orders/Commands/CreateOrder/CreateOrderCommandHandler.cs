@@ -65,13 +65,14 @@ namespace Application.Orders.Commands.CreateOrderCommand
             {
                 Items = request.Items,
                 UserId = request.UserId,
-                Date = request.Date,
+                Date = DateTime.Now,
                 TotalCost = total,
                 FinalCost = total + shippingContext.CalculateShippingCost(),
                 ShippingCost = shippingContext,
                 TelephoneNr = request.TelephoneNr,
                 Address = request.Address,
-                Pay = request.Payment
+                Pay = request.Payment,
+                Name = request.Name
             };
             _orderRepository.CreateOrder(order);
             return Task.FromResult(order);

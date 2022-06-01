@@ -29,9 +29,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-      //  [DisableFormValueModelBinding]
+        //  [DisableFormValueModelBinding]
         [Route("addBike")]
-         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         // [FromForm]
         public async Task<IActionResult> CreateBike([FromForm] BikeDto bike)
         {
@@ -39,11 +39,11 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
 
             List<Image> images = new List<Image>();
-            
-            if (bike.ImagesURL != null )
+
+            if (bike.ImagesURL != null)
             {
-                
-                for ( int i = 0; i < bike.ImagesURL.Count; i++)
+
+                for (int i = 0; i < bike.ImagesURL.Count; i++)
                 {
                     Image img = new Image
                     {
@@ -53,19 +53,19 @@ namespace WebAPI.Controllers
                     images.Add(img);
                 }
 
-                bike.Images=images;
-               
+                bike.Images = images;
+
             }
 
             var command = _mapper.Map<CreateBikeCommand>(bike);
             var created = await _mediator.Send(command);
 
-         //   return Ok(created);
-            return CreatedAtAction(nameof(GetBikeByID),new { bikeId = created.ProductId },  bike);
+            //   return Ok(created);
+            return CreatedAtAction(nameof(GetBikeByID), new { bikeId = created.ProductId }, bike);
         }
         [HttpGet]
         [Route("{bikeId}")]
-       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Client,Administrator")]
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Client,Administrator")]
         public async Task<IActionResult> GetBikeByID(int bikeId)
         {
             var query = new GetBikeByIdQuery { Id = bikeId };
@@ -91,7 +91,7 @@ namespace WebAPI.Controllers
                 return NotFound(result);
             return NoContent();
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAllBikes()
         {
@@ -99,7 +99,7 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(query);
             foreach (var item in result)
                 foreach (var img in item.Images)
-                    img.Path= "https://localhost:7155/Images/" + img.Path;
+                    img.Path = "https://localhost:7155/Images/" + img.Path;
 
             return Ok(result);
 
@@ -107,7 +107,7 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Route("{bikeId}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> UpdateBike(int bikeId, BikeUpdateDto update)
         {
             var bike = _mapper.Map<Bike>(update);
@@ -118,11 +118,11 @@ namespace WebAPI.Controllers
                 Manufacturer = bike.Manufacturer,
                 Model = bike.Model,
                 Description = bike.Description,
-              //  Images = bike.Images,
+                //  Images = bike.Images,
                 Price = bike.Price,
-                WarrantyMonths=bike.WarrantyMonths,
-                Weight=bike.Weight,
-                Year=bike.Year,
+                WarrantyMonths = bike.WarrantyMonths,
+                Weight = bike.Weight,
+                Year = bike.Year,
             };
 
             var result = await _mediator.Send(commnad);
@@ -136,8 +136,8 @@ namespace WebAPI.Controllers
         {
             string folderPath = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\WebAPI\\Images";
             var new_name = Guid.NewGuid().ToString() + "_" + fileName;
-            folderPath = Path.Combine(folderPath,new_name);
-            await file.CopyToAsync( new FileStream(folderPath, FileMode.Create));
+            folderPath = Path.Combine(folderPath, new_name);
+            await file.CopyToAsync(new FileStream(folderPath, FileMode.Create));
 
             return new_name;
         }

@@ -1,14 +1,14 @@
 ﻿using Domain.Enums;
-using Domain.Models;
-using Domain.Orders;
 
 namespace WebAPI.Dtos
 {
-    public class OrderDto
+    
+    public class OrderGET_Dto
     {
         public int Id { get; set; }
         public List<OrderItemDto> Items { get; set; }
 
+        public DateTime Date { get; set; }
         public double TotalCost { get; set; }
         public double FinalCost { get; set; }
         public UserDto User { get; set; }
@@ -21,7 +21,5 @@ namespace WebAPI.Dtos
         public Status? Status { get; set; }
 
         public string Name { get; set; }
-        // altundeva
-        //public ShippingCostContext ShippingCost;
     }
 }

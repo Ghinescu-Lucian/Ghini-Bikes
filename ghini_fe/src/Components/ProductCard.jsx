@@ -14,10 +14,9 @@ import { CloseButton } from "./CloseButton";
 import * as bikeService from '../Services/BikeService.js';
 import { UpdateBikeForm } from "./UpdateBikeForm";
 
-
-const ProductCard = props => {
-  const { manufacturer, model, description, image, price, role, id, data } = props;
-
+//  
+const ProductCard = ({props,handleClick,image,role,id,data}) => {
+  const { manufacturer, model, description, price} = props;
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : "user");
@@ -27,6 +26,7 @@ const ProductCard = props => {
   var popupViews = document.querySelectorAll('.popup-view');
   var popupBtns = document.querySelectorAll('.popup-btn');
   var closeBtns = document.querySelectorAll('.close-btn');
+  var addBtns = document.querySelectorAll('.add-cart-btn');
 
   //javascript for quick view button
   var popup = function (popupClick) {
@@ -41,6 +41,14 @@ const ProductCard = props => {
   //javascript for close button
   closeBtns.forEach((closeBtn) => {
     closeBtn.addEventListener("click", () => {
+      popupViews.forEach((popupView) => {
+        popupView.classList.remove('active');
+      });
+    });
+  });
+
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener("click", () => {
       popupViews.forEach((popupView) => {
         popupView.classList.remove('active');
       });
@@ -63,7 +71,11 @@ const ProductCard = props => {
 
     else alert("Something went wrong!");
   }
-console.log('ID:card:', id);
+
+  // const handleClick = (item) => {
+  //   console.log(item);  
+  // };
+  // console.log('ID:card:', id);
   return (
     <div className="product-card">
       <Card>
@@ -71,9 +83,11 @@ console.log('ID:card:', id);
           avatar={<Avatar src={image} />}
           action={
             role === 'Administrator' ?
-              (<IconButton aria-label="settings" onClick={deleteProduct}>
+              (
+              <IconButton aria-label="settings" onClick={deleteProduct}>
                 <DeleteIcon id="delete" />
-              </IconButton>) : (<div></div>)
+              </IconButton>
+              ) : (<div></div>)
 
           }
 
@@ -104,14 +118,9 @@ console.log('ID:card:', id);
               <div className="info" style={{ height: "500px", width: "500px" }} >
                 <h2>{manufacturer}<br /><span>{model}</span></h2>
                 <p>{description}</p>
-                <span className="price">{price} lei</span>
-                <form method="POST" action="">
-                  <input type="hidden" name="hidden_name" value="" />
-                  <input type="hidden" name="hidden_price" value="" />
-                  <input type="hidden" name="hidden_idProduct" value="" />
-                  <input type="hidden" name="hidden_img" value="'.$res.'" />
-                  <input type="submit" name="add_to_cart" className="add-cart-btn" value={role === "Administrator"? "Select" : "Add to cart"} />
-                </form>
+                <p>{price} RON</p>
+                  <button name="add_to_cart" className="add-cart-btn"  onClick={() => handleClick(props)}>{role === "Administrator" ? "Select" : "Add to cart"}</button> 
+                {/* </form> */}
                 {
                   role === 'Administrator' ? (
                     <div>
@@ -119,13 +128,14 @@ console.log('ID:card:', id);
                       {/* <div class="product-card"> */}
                       <div className="product">
                         <div className="popup-view">
-                          <div className="popup-card">
+                          <div className="popup-card"> 
                             <UpdateBikeForm data={data} />
-                            
+
                           </div>
                         </div>
                       </div>
-                    </div>) : (<div></div>)
+                    </div>
+                    ) : (<div></div>)
                 }
               </div>
             </div>

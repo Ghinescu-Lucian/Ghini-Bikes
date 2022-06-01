@@ -2,12 +2,16 @@ import { Grid } from "@material-ui/core"
 import { useEffect } from "react";
 import * as promotionService from '../Services/PromotionService.js';
 import { useState } from 'react';
-import ProductCard from "../Components/ProductCard";
 import PromotionCard from "../Components/PromotionCard";
 
 
-const Promotions = () => {
+const Promotions = ({handleClick}) => {
     const [promotions, setPromotions] = useState([]);
+    const [role, setRole] = useState("client");
+    useEffect(() => {
+        setRole(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).role : "client");
+    }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user"]
+    );
 
     const promotionProducts = async () => {
         const response = await promotionService.GetPromotions();
@@ -18,7 +22,7 @@ const Promotions = () => {
         promotionProducts();
     }, []);
 
-    
+    promotions.map((values) => (console.log(values)));
    
 
     return (
@@ -35,7 +39,11 @@ const Promotions = () => {
                                 return (
                                           
                                         <Grid item xs={12} sm={4} key={Math.random() -1}>
-                                            <PromotionCard {... values} keyUnique={Math.random()}/>
+                                            <PromotionCard keyUnique={Math.random()}
+                                            props ={values}  role={role}
+                                            id={values.id} data={values} handleClick={handleClick}
+                                            image={values.image}
+                                            />
                                         </Grid>
                                     
                                 )

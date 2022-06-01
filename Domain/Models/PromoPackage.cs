@@ -16,6 +16,8 @@ namespace Domain.Models
         public string Name { get; set; }   
         public List<PromoItem> Items { get; set; }
 
+        public string Image { get; set; }
+
 
         public void AddProduct(Product p,int quantity, double discount)
         {

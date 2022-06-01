@@ -58,8 +58,8 @@ body{
   
 }
 .center{
-  position: absolute;
-  top: 65%;
+  position: fixed;
+  top: 6%;
   left: 20%;
   transform: translate(-50%, -50%);
   width:600px;
@@ -67,7 +67,7 @@ body{
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
-  .center h1{
+  .center h2{
     font-family: "Copperplate","Papyrus", fantasy;
     text-align: center;
     padding: 20px 0;

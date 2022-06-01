@@ -12,6 +12,7 @@ namespace Domain.Models
     {
         
         public int Id { get; set; }
+        public int ProductId { get; set; }
         public Product _Product { get; set; }
 
         public int OrderId { get; set; }

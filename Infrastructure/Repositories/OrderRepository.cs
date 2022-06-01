@@ -21,9 +21,10 @@ namespace Infrastructure.Repositories
         public Order DeleteOrder(int orderId)
         {
             if (orderId < 0) throw new ArgumentOutOfRangeException(" Invalid order id " + orderId);
-            var orderDelete = _db.Orders.Single(o => o.Id == orderId);
+            var orderDelete = _db.Orders.Include(o => o.Items).Single(o => o.Id == orderId);
             foreach (OrderItem oi in orderDelete.Items)
-                _db.Remove(orderDelete);
+                _db.Remove(oi);
+            _db.Remove(orderDelete);
             _db.SaveChanges();
             return orderDelete;
 

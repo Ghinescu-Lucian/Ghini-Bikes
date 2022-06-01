@@ -38,6 +38,8 @@ namespace Domain.Models
 
         public ShippingCostContext ShippingCost;
 
+        public string Name { get; set; }
+
         /* public Order(List<OrderItem> Items, User User, string shippingMethod)
          {
              double totalCost = 0;

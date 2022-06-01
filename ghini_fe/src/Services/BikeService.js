@@ -15,7 +15,7 @@ export async function GetBikeById(id) {
     });
     return response.ok ? await response.json() : null;
 }
-
+ 
 export async function GetBikes() {
     var URL2 = `${URL}`;
     let url = URL2;
@@ -105,6 +105,7 @@ export async function DeleteBike(id, token) {
 
 export async function UpdateBike(id, data, token) {
     var url = `${URL}/${id}`;
+    console.log(token);
     const headers = {
         // Accept: "multipart/form-data",
         // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
@@ -131,7 +132,7 @@ export async function UpdateBike(id, data, token) {
     return fetch(url, {
         method: 'PUT',
         headers: {
-            // 'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
             
         },

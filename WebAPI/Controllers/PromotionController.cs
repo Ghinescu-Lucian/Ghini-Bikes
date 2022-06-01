@@ -24,11 +24,13 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePromotion(PromotionDto promo)
+        [Route("addPromo")]
+        public async Task<IActionResult> CreatePromotion([FromForm] PromotionDto promo)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var command = _mapper.Map<CreatePromotionCommand>(promo);
+            command.Image = await UploadImage(promo.Image.FileName, promo.Image);
             var created = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetPromotionById), new { promoId = created.Id }, promo);
@@ -41,6 +43,7 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(query);
             if (result == null)
                 return NotFound(result);
+            result.Image = "https://localhost:7155/Images/" + result.Image;
             return Ok(result);
 
         }
@@ -61,6 +64,8 @@ namespace WebAPI.Controllers
         {
             var query = new GetPromotionsQuery();
             var result = await _mediator.Send(query);
+            foreach (var img in result)
+                img.Image = "https://localhost:7155/Images/" + img.Image;
             return Ok(result);
 
         }
@@ -79,6 +84,16 @@ namespace WebAPI.Controllers
             if (result == null)
                 return NotFound();
             return NoContent();
+        }
+
+        private async Task<string> UploadImage(string fileName, IFormFile file)
+        {
+            string folderPath = "C:\\Users\\ghine\\Desktop\\Facultate\\Amdaris\\Proiect\\Ghini-Bike\\Ghini-Bikes\\WebAPI\\Images";
+            var new_name = Guid.NewGuid().ToString() + "_" + fileName;
+            folderPath = Path.Combine(folderPath, new_name);
+            await file.CopyToAsync(new FileStream(folderPath, FileMode.Create));
+
+            return new_name;
         }
     }
 }

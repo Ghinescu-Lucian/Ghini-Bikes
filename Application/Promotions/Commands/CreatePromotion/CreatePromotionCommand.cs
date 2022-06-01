@@ -7,5 +7,7 @@ namespace Application.Promotions.Commands.CreatePromotion
     {
         public string Name { get; set; }
         public List<PromoItem> Items { get; set; }
+
+        public string Image { get; set; }
     }
 }

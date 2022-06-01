@@ -54,6 +54,7 @@ namespace Application.Promotions.Commands.CreatePromotion
                     }
                 }
             }
+            package.Image = request.Image;
             _promotionRepository.CreatePromotion(package);
             return Task.FromResult(package);
         }
