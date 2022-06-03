@@ -5,7 +5,7 @@ body{
   height: 100vh;
   overflow: scroll;
 }
-.center{
+.center2{
     position: absolute;
     top: 55%;
     left: 50%;
@@ -15,21 +15,21 @@ body{
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
   }
-  .center h1{
+  .center2 h1{
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid silver;
   }
-  .center form{
+  .center2 form{
     padding: 0 40px;
     box-sizing: border-box;
   }
-  form .txt_field{
+  form .txt_field2{
     position: relative;
     border-bottom: 2px solid #adadad;
     margin: 30px 0;
   }
-  .txt_field input{
+  .txt_field2 input{
     width: 100%;
     padding: 0 5px;
     height: 40px;
@@ -38,7 +38,7 @@ body{
     background: none;
     outline: none;
   }
-  .txt_field label{
+  .txt_field2 label{
     position: absolute;
     top: 50%;
     left: 5px;
@@ -48,7 +48,7 @@ body{
     pointer-events: none;
     transition: .5s;
   }
-  .txt_field span::before{
+  .txt_field2 span::before{
     content: '';
     position: absolute;
     top: 40px;
@@ -58,16 +58,16 @@ body{
     background: #2691d9;
     transition: .5s;
   }
-  .txt_field input:focus ~ label,
-  .txt_field input:valid ~ label{
+  .txt_field2 input:focus ~ label,
+  .txt_field2 input:valid ~ label{
     top: -5px;
     color: #2691d9;
   }
-  .txt_field input:focus ~ span::before,
-  .txt_field input:valid ~ span::before{
+  .txt_field2 input:focus ~ span::before,
+  .txt_field2 input:valid ~ span::before{
     width: 100%;
   }
-  .pass{
+  .pass2{
     margin: -5px 0 20px 5px;
     color: #a6a6a6;
     cursor: pointer;

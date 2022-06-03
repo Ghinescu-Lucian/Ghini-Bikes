@@ -1,5 +1,6 @@
 import React from "react"
 import { SignUpForm } from '../Components/SignUpForm';
+import "../Components/CSS/SignUpForm.css"
 
 const SignUp = () => {
     return(

@@ -2,16 +2,13 @@ import { Greeter } from '../Classes/Greeter';
 import UserProfile from '../Classes/UserProfile'
 import { PlaceOrderForm } from '../Components/PlaceOrderForm';
 
-const Order = () => {
-    UserProfile.setName("user!");
-    let greeter = new Greeter(UserProfile.getName());
+const PlaceOrder = () => {
     return (
     <div>
-        <div>About component</div>
-        <h2> {greeter.greet(UserProfile.getName())}</h2>
+        {/* <h2> {greeter.greet(UserProfile.getName())}</h2> */}
         <PlaceOrderForm/>
     </div>
 
     );
 }
-export default Order;
+export default PlaceOrder;

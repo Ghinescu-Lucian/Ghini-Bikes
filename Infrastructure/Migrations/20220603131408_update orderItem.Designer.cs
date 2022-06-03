@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220603131408_update orderItem")]
+    partial class updateorderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +58,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("OrderItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -68,6 +73,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderItemId");
 
                     b.HasIndex("ProductId");
 
@@ -138,10 +145,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<double>("Discount")
                         .HasColumnType("float");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()
@@ -359,6 +362,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Image", b =>
                 {
+                    b.HasOne("Domain.Models.OrderItem", null)
+                        .WithMany("Images")
+                        .HasForeignKey("OrderItemId");
+
                     b.HasOne("Domain.Models.Product", null)
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
@@ -404,6 +411,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Domain.Models.OrderItem", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Domain.Models.Product", b =>

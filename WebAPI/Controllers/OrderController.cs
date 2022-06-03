@@ -36,24 +36,22 @@ namespace WebAPI.Controllers
             List<OrderItem> items = new List<OrderItem>();
             foreach (OrderItemDto item in order.Items)
             {
-                if (item.Category <= 3)
+                var itm = new OrderItem
                 {
-                    var bike = await _mediator.Send(new GetBikeByIdQuery { Id = item.ProductId });
-                    var orderItem = new OrderItem { Discount = item.Discount, _Product = bike, Quantity = item.Quantity };
-                    items.Add(orderItem);
-                }
-                else if (item.Category == 4)
-                {
-                    var part = await _mediator.Send(new GetPartByIdQuery { Id = item.ProductId });
-                    var orderItem = new OrderItem { Discount = item.Discount, _Product = part, Quantity = item.Quantity };
-                    items.Add(orderItem);
-                }
-                else if (item.Category == 5)
-                {
-                    var accessory = await _mediator.Send(new GetAccessoryByIdQuery { Id = item.ProductId });
-                    var orderItem = new OrderItem { Discount = item.Discount, _Product = accessory, Quantity = item.Quantity };
-                    items.Add(orderItem);
-                }
+                    ProductId = item.ProductId,
+                    Price = item.Price,
+                    Manufacturer = item.Manufacturer,
+                    Model = item.Model,
+                    Category = item.Category,
+                    Discount = item.Discount,
+                    Year = item.Year,
+                    OrderId = item.OrderId,
+                    Quantity = item.Quantity,
+                    Image = item.Image,
+                    Description = item.Description
+                };
+                items.Add(itm);
+               
             }
             var command = _mapper.Map<CreateOrderCommand>(order);
             command.Items = items;

@@ -52,33 +52,33 @@ export const LogInForm = () => {
 
 
     return (
-        <div className="center">
+        <div className="center3">
             <h1>Login</h1>
             <form method="POST"
                 onSubmit={handleSubmit(onFormSubmit)}
             >
-                <div className="txt_field">
+                <div className="txt_field3">
                     <input type="text" name="Username"
                         {...register("Username")}
                     />
-                    <div className="error">
+                    <div className="error3">
                         {errors.Username?.message}
                     </div>
                     <span></span>
                     <label>Username</label>
                 </div>
-                <div className="txt_field">
+                <div className="txt_field3">
                     <input type="password" name="Password"
                         {...register("Password")}
                     />
-                    <div className="error">
+                    <div className="error3">
                         {errors.Password?.message}
                     </div>
                     <span></span>
                     <label>Password</label>
                 </div>
                 <input id="LoginButton" type="submit" value="Login" />
-                <div className="signup_link">
+                <div className="signup_link3">
                     Not a member? <a href="http://localhost:3000/SignUp">Signup</a>
                 </div>
             </form>

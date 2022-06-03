@@ -52,7 +52,7 @@ namespace Application.Orders.Commands.CreateOrderCommand
             */
             foreach (OrderItem item in request.Items)
             {
-                total += item._Product.Price * (100 - item.Discount) / 100 * item.Quantity;
+                total += item.Price * (100 - item.Discount) / 100 * item.Quantity;
             }
 
             ShippingCostContext shippingContext = new ShippingCostContext();
@@ -72,7 +72,8 @@ namespace Application.Orders.Commands.CreateOrderCommand
                 TelephoneNr = request.TelephoneNr,
                 Address = request.Address,
                 Pay = request.Payment,
-                Name = request.Name
+                Name = request.Name,
+                Status = Domain.Enums.Status.Pending,
             };
             _orderRepository.CreateOrder(order);
             return Task.FromResult(order);

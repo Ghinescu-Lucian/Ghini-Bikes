@@ -35,7 +35,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
   });
 
   const placeOrder = () => {
-    navigate("/Order",{price});
+    navigate("/place_order",{price});
   }
 
 
@@ -48,9 +48,9 @@ const Cart = ({ cart, setCart, handleChange }) => {
             {item.manufacturer ? (<p>{item.manufacturer} {item.model} {item.year}</p>) : (<p>{item.name}</p>)}
           </div>
           <div>
-            <button onClick={() => handleChange(item, 1)}>+</button>
-            <button>{item.amount}</button>
             <button onClick={() => handleChange(item, -1)}>-</button>
+            <button>{item.amount}</button>
+            <button onClick={() => handleChange(item, 1)}>+</button>
           </div>
           <div>
             <span>{item.price}</span>

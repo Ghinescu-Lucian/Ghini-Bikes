@@ -87,13 +87,13 @@ export const PlaceOrderForm = () => {
 
     const onFormSubmit1 = async (data) => {
         data.shipping_method = selectedOption.value;
-        console.log(data);
+        console.log(data,cart,userData);
 
     
             var place_Result = await orderService.placeOrder(data,cart, userData);
             if (place_Result) {
                 console.log(place_Result, "REGISTER AICI");
-                alert("Order placed successfully!");
+                alert("Order placed successfully!"); 
                 navigate("/");
             }
         

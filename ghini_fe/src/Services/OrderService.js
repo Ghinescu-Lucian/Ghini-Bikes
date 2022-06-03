@@ -44,9 +44,12 @@ export async function GetOrders() {
 export async function placeOrder(dataDelivery, productsData, userData) {
     var URL2 = `${URL}`;
     let url = URL2;
-    console.log(dataDelivery, productsData);
-    console.log("A:LKLPDKPAKdp");
-
+    // console.log(dataDelivery, productsData);
+    // console.log("A:LKLPDKPAKdp");
+    if(!userData){
+        alert("Must be logged in!");
+        return ;
+    }
     var itemsOptions = "[";
     productsData.map((item) => {
         var opt = {
@@ -55,7 +58,15 @@ export async function placeOrder(dataDelivery, productsData, userData) {
             orderId: 0,
             category: item.category,
             discount: 0,
-            quantity: item.amount
+            year: item.year,
+            price: item.price,
+            manufacturer: item.manufacturer,
+            model: item.model,
+            image: item.images[0].path,
+            quantity: item.amount,
+            description: item.description
+
+
         }
         var opt1 = JSON.stringify(opt);
         itemsOptions = itemsOptions + opt1 + ',';
@@ -63,10 +74,10 @@ export async function placeOrder(dataDelivery, productsData, userData) {
     });
     itemsOptions=itemsOptions.slice(0,-1);
     itemsOptions = itemsOptions + "]";
-    console.log("ITEMS:",itemsOptions);
+    // console.log("ITEMS:",itemsOptions);
     var itms = JSON.parse(itemsOptions);
-    console.log("A:LKLPDKPAKdp");
-    console.log (itms);
+    // console.log("A:LKLPDKPAKdp");
+    // console.log (itms);
     var options = {
         id: 0,
         items: itms,
@@ -93,7 +104,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
     //     username: _username,
     //     role: "string"
     // };
-    // console.log("Options",options);
+    console.log("Options",options);
     // return 200;
     return fetch(url, {
         method: 'POST',
@@ -108,12 +119,13 @@ export async function placeOrder(dataDelivery, productsData, userData) {
         .then(function (response) {
             if (response.status !== 201) {
                 // console.log("Username or Email already exists!");
-                alert("Username or Email already exists!");
+                alert("An error occurred!");
             }
+            console.log(response.json);
             return response.json();
         })
         .catch(function (err) {
-            console.log(err, "eorrr");
+            console.log(err, "error");
             // alert("Username already exists12");
         });
 }

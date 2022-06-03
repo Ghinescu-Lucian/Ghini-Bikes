@@ -42,13 +42,13 @@ export const SignUpForm = () => {
     }
 
     return (
-        <div className="center">
+        <div className="center2">
             <h1>SignUp</h1>
             <form method="post"
                 onSubmit={handleSubmit(onFormSubmit)}
             >
                
-                <div className="txt_field">
+                <div className="txt_field2">
                 
                     <input id="email" name="Email" type="text"  {...register("Email")}/>
                     <div className="error">
@@ -57,7 +57,7 @@ export const SignUpForm = () => {
                     <span></span>
                     <label>Email</label>
                 </div>
-                <div className="txt_field">
+                <div className="txt_field2">
                 
                     <input id="username" name="Username" type="text"  {...register("Username")}/>
                     <div className="error">
@@ -66,7 +66,7 @@ export const SignUpForm = () => {
                     <span></span>
                     <label>Username</label>
                 </div>
-                <div className="txt_field">
+                <div className="txt_field2">
                 
                     <input id="pwd" name="Password" type="password"  {...register("Password")}/>
                     <div className="error">
@@ -75,7 +75,7 @@ export const SignUpForm = () => {
                     <span></span>
                     <label>Password</label>
                 </div>
-                <div className="txt_field">
+                <div className="txt_field2">
                 
                     <input id="pwdC" name="PasswordC" type="password"  {...register("PasswordC")}/>
                     <div className="error">

@@ -32,11 +32,14 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Order> GetAllOrders()
         {
-            var orders = _db.Orders.Include(i => i.Items);
+            var orders = _db.Orders.Include( x => x.Items);
             foreach(Order o in orders)
             {
                 foreach (OrderItem oi in o.Items)
+                {
                     oi.Order = null;
+                   
+                }
             }
             return orders;
         }

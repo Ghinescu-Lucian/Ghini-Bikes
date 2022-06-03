@@ -7,7 +7,8 @@ import { Route, Link, Routes } from "react-router-dom";
 import Welcome from './Pages/HomePage';
 import Nav from './Components/Nav';
 import Bikes from './Pages/Bikes';
-import Order from './Pages/Order';
+import PlaceOrder from './Pages/PlaceOrder';
+import Orders from './Pages/Orders';
 import AddProducts from './Pages/AddProducts';
 import { Logo } from './Components/Logo';
 import Parts from './Pages/Parts';
@@ -124,7 +125,7 @@ function App() {
             </header>} />
 
           <Route path="/home" element={<Welcome />} />
-          <Route path="/order" element={<Order />} />
+          <Route path="/place_order" element={<PlaceOrder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/bikes" element={<Bikes handleClick={handleClick} />}></Route>
           <Route path="/parts" element={<Parts handleClick={handleClick} />}></Route>
@@ -134,6 +135,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} handleChange={handleChange} />}></Route>
           <Route path="/AddProducts" element={<AddProducts />}></Route>
+          <Route path="/orders" element={<Orders/>}></Route>
         </Routes>
       </div>
 
