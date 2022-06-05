@@ -16,12 +16,13 @@ import * as partService from '../Services/PartService.js';
 import * as accessoryService from '../Services/AccessoryService.js';
 import { UpdateBikeForm } from "./UpdateBikeForm";
 
+
 //  
 const ProductCard = ({ props, handleClick, image, role, id, data }) => {
   const { manufacturer, model, description, price } = props;
   const [token, setToken] = useState("");
 
-  // console.log("DATATD:",data);
+  // console.log("DATATD:",data.category);
 
   useEffect(() => {
     setToken(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : "user");
@@ -61,7 +62,8 @@ const ProductCard = ({ props, handleClick, image, role, id, data }) => {
   });
 
   const deleteProduct = async () => {
-    if (data.categoty <= 3) {
+    if (data.category <= 3) {
+      console.log("AICI");
       try {
         var AddBike_Result = await bikeService.DeleteBike(id, token);
       }

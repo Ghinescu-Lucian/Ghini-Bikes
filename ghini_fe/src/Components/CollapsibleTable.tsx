@@ -276,7 +276,7 @@ export default function CollapsibleTable(rws: any) {
     }
 
   });
-  console.log("LIST", list2);
+  // console.log("LIST", list2);
 
 
   // console.log(list, "LIST");
