@@ -41,6 +41,8 @@ function App() {
   const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []);
   const [size, setSize] = useState(0);
 
+  var count = document.querySelectorAll('.size');
+
   const handleClick = (item) => {
     for (var index = 0; index < cart.length; index++) {
       if (cart[index].productId == item.productId) {
@@ -92,6 +94,8 @@ function App() {
     // var siz = JSON.parse(localStorage.getItem("cart")).length + 1;
     var res = JSON.stringify(cart)
     localStorage.setItem('cart', res);
+    setSize(cart.length);
+    count.values= 0;
   }, [cart]);
 
   return (
@@ -125,7 +129,7 @@ function App() {
             </header>} />
 
           <Route path="/home" element={<Welcome />} />
-          <Route path="/place_order" element={<PlaceOrder />} />
+          <Route path="/place_order" element={<PlaceOrder cart={cart} setCart={setCart} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/bikes" element={<Bikes handleClick={handleClick} />}></Route>
           <Route path="/parts" element={<Parts handleClick={handleClick} />}></Route>

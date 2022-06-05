@@ -16,11 +16,10 @@ namespace Application.Orders.Commands.UpdateOrderCommand
         {
             var order = new Order()//request.Items, request.User, request.ShippingMethod)
             {
-                TelephoneNr = request.TelephoneNr,
-                Pay = request.Payment,
+                
                 Status = request.Status,
-                Address = request.Address,
-                Date = request.Date
+                Message = request.Message,
+              
             };
             _orderRepository.UpdateOrder(request.Id, order);
             return Task.FromResult(order);

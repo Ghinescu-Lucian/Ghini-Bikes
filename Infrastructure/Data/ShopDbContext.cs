@@ -25,7 +25,8 @@ namespace Infrastructure.Data
         public ShopDbContext(DbContextOptions options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-C8L0AG5\\LUCHI;Database=GhiniBikes;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-C8L0AG5\\LUCHI;Database=GhiniBikes;Trusted_Connection=True; MultipleActiveResultSets = true");
+           
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

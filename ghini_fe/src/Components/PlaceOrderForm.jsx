@@ -15,9 +15,10 @@ const schema2 = yup.object()
     })
     .required();
 
-export const PlaceOrderForm = () => {
+export const PlaceOrderForm = ({cart1,setCart1}) => {
 
 
+    console.log(cart1);
     const navigate = useNavigate();
     let ok = 0;
     let cost;
@@ -64,12 +65,12 @@ export const PlaceOrderForm = () => {
             if (selectedOption.value == 2) {
                 part2.setAttribute("style", "display:true;");
                 part1.setAttribute("style", "display:none;");
-                console.log(part2);
+                //console.log(part2);
             }
             else {
                 part2.setAttribute("style", "display:none;");
                 part1.setAttribute("style", "display:true;");
-                console.log(part2);
+                //console.log(part2);
 
 
             }
@@ -87,6 +88,7 @@ export const PlaceOrderForm = () => {
 
     const onFormSubmit1 = async (data) => {
         data.shipping_method = selectedOption.value;
+        console.log(data);
         console.log(data,cart,userData);
 
     
@@ -94,6 +96,11 @@ export const PlaceOrderForm = () => {
             if (place_Result) {
                 console.log(place_Result, "REGISTER AICI");
                 alert("Order placed successfully!"); 
+                const arr = [];
+              
+                // arr.totalPrice = price;
+                setCart1(arr);
+                localStorage.setItem('totalPrice',0);
                 navigate("/");
             }
         

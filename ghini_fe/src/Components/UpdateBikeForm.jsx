@@ -95,7 +95,7 @@ export const UpdateBikeForm = (data) => {
     // console.log(data);
     // console.log(value);
     return (
-        <div className="center">
+        <div className="center6">
             <h1> Edit</h1>
             {/* onSubmit={handleSubmit(onFormSubmitUpdate)} */}
             <form onSubmit={handleSubmit(onFormSubmit)} method="post">

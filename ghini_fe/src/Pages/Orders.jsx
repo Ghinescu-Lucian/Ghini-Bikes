@@ -20,7 +20,7 @@ const Orders = () => {
         ordersGet();
     }, []);
 
-    console.log(orders);
+    // console.log(orders);
 
     return (
     <div>

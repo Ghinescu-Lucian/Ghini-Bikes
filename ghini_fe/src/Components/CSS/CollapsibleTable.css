@@ -246,7 +246,7 @@
     border-radius: 10px;
   }
   */
-  .product .popup-card .close-btn{
+  .product .popup-card .close-btn5{
     color: #555;
     z-index: 3;
     position: absolute;
@@ -340,7 +340,7 @@
     }
   
     .product .popup-card .info h2 span{
-      font-size: 10px;
+      font-size: 10px; 
     }
   
     .product .popup-card .info p{

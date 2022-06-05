@@ -23,10 +23,10 @@ const ProductCard = ({props,handleClick,image,role,id,data}) => {
   }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user"]
   );
 
-  var popupViews = document.querySelectorAll('.popup-view');
-  var popupBtns = document.querySelectorAll('.popup-btn');
-  var closeBtns = document.querySelectorAll('.close-btn');
-  var addBtns = document.querySelectorAll('.add-cart-btn');
+  var popupViews = document.querySelectorAll('.popup-viewa');
+  var popupBtns = document.querySelectorAll('.popup-btna');
+  var closeBtns = document.querySelectorAll('.close-btna');
+  var addBtns = document.querySelectorAll('.add-cart-btna');
 
   //javascript for quick view button
   var popup = function (popupClick) {
@@ -72,19 +72,21 @@ const ProductCard = ({props,handleClick,image,role,id,data}) => {
     else alert("Something went wrong!");
   }
 
+
+  let description2 = description.split(' ').slice(0, 2).join(' ');
   // const handleClick = (item) => {
   //   console.log(item);  
   // };
   // console.log('ID:card:', id);
   return (
-    <div className="product-card">
+    <div className="product-carda">
       <Card>
         <CardHeader
           avatar={<Avatar src={image} />}
           action={
             role === 'Administrator' ?
               (
-              <IconButton aria-label="settings" onClick={deleteProduct}>
+              <IconButton aria-label="settings" onClick={deleteProduct} style={{  background: 'rgba(151, 126, 11, 0.205)'}}>
                 <DeleteIcon id="delete" />
               </IconButton>
               ) : (<div></div>)
@@ -93,42 +95,43 @@ const ProductCard = ({props,handleClick,image,role,id,data}) => {
 
           title={manufacturer}
           subheader={model}
+          style={{  background: 'rgba(178, 179, 168, 0.363)'}}
         />
 
         <CardMedia style={{ height: "200px", width: "350px" }} image={image} />
         <CardContent>
           <Typography variant="body2" component="p">
-            {description}
+            {description2}
           </Typography>
         </CardContent>
         <CardActions>
           {/* <Button size="small">BUY NOW</Button> */}
           {/* <Button size="small">OFFER</Button> */}
-          <Button className="popup-btn">Detalii</Button>
+          <Button className="popup-btna" style={{  background: '#ffb84d'}} >Details</Button>
         </CardActions>
       </Card>
-      <div className="product-card">
-        <div className="product">
-          <div className="popup-view">
-            <div className="popup-card">
-              <CloseButton />
-              <div className="product-img">
+      <div className="product-carda">
+        <div className="producta">
+          <div className="popup-viewa" style={{height: "750px"}}>
+            <div className="popup-carda">
+            <button className="close-btna" style={{  background: '#ffb84d'}}>&times;</button>
+              <div className="product-imga">
                 <img style={{ height: "500px", width: "500px" }} src={image} />
               </div>
-              <div className="info" style={{ height: "500px", width: "500px" }} >
+              <div className="infoa" style={{ height: "500px", width: "500px" }} >
                 <h2>{manufacturer}<br /><span>{model}</span></h2>
                 <p>{description}</p>
                 <p>{price} RON</p>
-                  <button name="add_to_cart" className="add-cart-btn"  onClick={() => handleClick(props)}>{role === "Administrator" ? "Select" : "Add to cart"}</button> 
+                {role === "Administrator" ? ( <div></div>): (<button name="add_to_cart" className="add-cart-btna"  onClick={() => handleClick(props)}> Add to cart</button> ) }
                 {/* </form> */}
                 {
                   role === 'Administrator' ? (
                     <div>
-                      <Button className="popup-btn">Edit</Button>
+                      <Button className="popup-btna" style={{  background: '#ffb84d',color:'rgba(29, 29, 75, 0.625)', fontWeigh:'900' }}>Edit</Button>
                       {/* <div class="product-card"> */}
-                      <div className="product">
-                        <div className="popup-view">
-                          <div className="popup-card"> 
+                      <div className="producta">
+                        <div className="popup-viewa" style={{height: "1px"}}>
+                          <div className="popup-carda"> 
                             <UpdateBikeForm data={data} />
 
                           </div>

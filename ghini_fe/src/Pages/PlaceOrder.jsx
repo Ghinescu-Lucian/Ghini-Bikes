@@ -2,11 +2,12 @@ import { Greeter } from '../Classes/Greeter';
 import UserProfile from '../Classes/UserProfile'
 import { PlaceOrderForm } from '../Components/PlaceOrderForm';
 
-const PlaceOrder = () => {
+const PlaceOrder = ({cart,setCart}) => {
+
     return (
     <div>
         {/* <h2> {greeter.greet(UserProfile.getName())}</h2> */}
-        <PlaceOrderForm/>
+        <PlaceOrderForm cart1={cart} setCart1={setCart}/>
     </div>
 
     );

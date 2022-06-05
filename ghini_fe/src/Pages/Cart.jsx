@@ -35,7 +35,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
   });
 
   const placeOrder = () => {
-    navigate("/place_order",{price});
+    navigate("/place_order",{price,cart,setCart});
   }
 
 

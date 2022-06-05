@@ -203,8 +203,8 @@ body{
     
     .product .popup-view{
       z-index: 2;
-      background: rgba(29, 29, 75, 0.625);
-      position: fixed;
+      background: rgba(85, 85, 182, 0.625);
+      position: fixed; 
       top: 0;
       right: 0;
       bottom: 0;

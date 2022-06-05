@@ -1,4 +1,4 @@
-import { ContactlessOutlined } from "@material-ui/icons";
+import { ContactlessOutlined, DnsTwoTone } from "@material-ui/icons";
 
 const URL = 'https://localhost:7155/api/Order'
 
@@ -128,4 +128,52 @@ export async function placeOrder(dataDelivery, productsData, userData) {
             console.log(err, "error");
             // alert("Username already exists12");
         });
+}
+
+export async function UpdateOrder(data, token) {
+
+    let id = data.id;
+    data.id = parseInt(data.id);
+    data.status = parseInt(data.status);
+    
+
+    var url = `${URL}/${id}`;
+    // console.log(token);
+    const headers = {
+        // Accept: "multipart/form-data",
+        // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
+        'Authorization': `Bearer ${token}`,
+    }
+
+    // console.log(id);
+    console.log("URL:",url);
+    var options = {
+      id: id,
+      status: data.status,
+      message: data.message
+    };
+    console.log(JSON.stringify(
+        options
+    ));
+    // return 200;
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            
+        },
+        body: JSON.stringify(
+            options
+        )
+    })
+        // .then(res => res.json())
+        .then(function (response) {
+            return response.status;
+        })
+        .catch(function (err) {
+            console.log(err, "eorrr");
+            // alert("Username already exists12");
+        });
+    // return 200;
 }

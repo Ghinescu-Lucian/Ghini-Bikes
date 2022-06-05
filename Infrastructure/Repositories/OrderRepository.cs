@@ -1,5 +1,6 @@
 ﻿using Application;
 using Domain.Models;
+using Domain.Products;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -67,18 +68,57 @@ namespace Infrastructure.Repositories
             if (orderId < 0) throw new ArgumentOutOfRangeException("Invalid order Id ( <0 )" + orderId);
             if (order == null) throw new ArgumentNullException("order parameter is null");
             int ok = 0;
-            foreach (Order o in _db.Orders)
+            foreach (Order o in _db.Orders.Include(oi => oi.Items))
                 if (o.Id == orderId)
                 {
                     ok = ok + 1;
-                    o.Address = order.Address;
-                    // o.UserId = order.UserId;
-                    o.ShippingCost = order.ShippingCost;
-                    o.TotalCost = order.TotalCost;
-                    o.Date = order.Date;
-                    o.TelephoneNr = order.TelephoneNr;
-                    o.Pay = order.Pay;
+                    var initialStatus = o.Status;
                     o.Status = order.Status;
+                    o.Message = order.Message;
+                    if(o.Status == Domain.Enums.Status.Accepted && initialStatus!= Domain.Enums.Status.Accepted)
+                    {
+                        for( var i = 0; i < o.Items.Count; i++)
+                        {
+                            if(o.Items[i].Category <= 3)
+                            {
+                               Bike bike = _db.Bikes.First(b => b.ProductId == o.Items[i].ProductId);
+                                bike.Quantity = bike.Quantity - o.Items[i].Quantity;
+                            }
+                            if (o.Items[i].Category == 4)
+                            {
+                                Part part = _db.Parts.First(b => b.ProductId == o.Items[i].ProductId);
+                                part.Quantity = part.Quantity - o.Items[i].Quantity;
+                            }
+                            if (o.Items[i].Category == 5)
+                            {
+                                Accessory acc = _db.Accessories.First(b => b.ProductId == o.Items[i].ProductId);
+                                acc.Quantity = acc.Quantity - o.Items[i].Quantity;
+                            }
+
+                        }
+                    }
+                    if (o.Status != Domain.Enums.Status.Accepted && initialStatus == Domain.Enums.Status.Accepted)
+                    {
+                        for (var i = 0; i < o.Items.Count; i++)
+                        {
+                            if (o.Items[i].Category <= 3)
+                            {
+                                Bike bike = _db.Bikes.First(b => b.ProductId == o.Items[i].ProductId);
+                                bike.Quantity = bike.Quantity + o.Items[i].Quantity;
+                            }
+                            if (o.Items[i].Category == 4)
+                            {
+                                Part part = _db.Parts.First(b => b.ProductId == o.Items[i].ProductId);
+                                part.Quantity = part.Quantity + o.Items[i].Quantity;
+                            }
+                            if (o.Items[i].Category == 5)
+                            {
+                                Accessory acc = _db.Accessories.First(b => b.ProductId == o.Items[i].ProductId);
+                                acc.Quantity = acc.Quantity + o.Items[i].Quantity;
+                            }
+
+                        }
+                    }
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid order Id");

@@ -16,23 +16,11 @@ import { Avatar } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { CloseButton } from './CloseButton';
 import "./CSS/CollapsibleTable.css";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react"
+import * as orderService from '../Services/OrderService.js';
+import SearchIcon from "@material-ui/icons/Search";
 
-
-
-/*
-history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-*/
 
 function createData(
   id: string,
@@ -56,11 +44,19 @@ function createData(
 function Row(props: { row: any }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [token, setToken] = useState("");
+
+
+  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
 
   var popupViews = document.querySelectorAll('.popup-view');
   var popupBtns = document.querySelectorAll('.popup-btn');
-  var closeBtns = document.querySelectorAll('.close-btn');
-  var addBtns = document.querySelectorAll('.add-cart-btn');
+  var closeBtns = document.querySelectorAll('.close-btn5');
+
+  useEffect(() => {
+    setToken(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "{}").token : "user");
+  }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "{}").username : "user"]
+  );
 
   //javascript for quick view button
   var popup = function (popupClick: any) {
@@ -86,6 +82,23 @@ function Row(props: { row: any }) {
     console.log(id);
   }
 
+  const onFormSubmit = async (data: any) => {
+    console.log(data);
+    try {
+      var update_Result = await orderService.UpdateOrder(data, token);
+    }
+    catch (err) {
+      console.log("Something went wrong", err);
+      alert("Something went wrong!");
+    }
+    if (update_Result >= 200 && update_Result < 210) {
+      alert("Order edited with success!")
+      window.location.reload();
+    }
+    else alert("Something went wrong!");
+  }
+
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -110,15 +123,16 @@ function Row(props: { row: any }) {
           <div className="product">
             <div className="popup-view">
               <div className="popup-card">
-                <CloseButton />
+              <button className="close-btn5">&times;</button>
                 <div className="center4">
                   <h1> Add products</h1>
-                  <form method="post">
+                  <form onSubmit={handleSubmit(onFormSubmit)} method="post">
                     {/* onSubmit={handleSubmit(onFormSubmit)} */}
                     <div className="txt_field4">
-                      <input name="message" type="text"
+                      <input type="text"
                         asp-for="FileUpload.FormFile"
                         defaultValue="Message"
+                        {...register("message")}
                       />
 
                       <span></span>
@@ -128,14 +142,14 @@ function Row(props: { row: any }) {
                     <div className="txt_field">
                       {/* <input name="category" type="text" required /> */}
                       <span></span>
-                      <select id="cars" name="category" className="txt_field"   >
+                      <select id="cars" className="txt_field"  {...register("status")}  >
                         <option value="1">Accept</option>
                         <option value="2">Reject</option>
                         <option value="3">Pending</option>
                       </select>
                       <label>Status</label>
                     </div>
-
+                    <input type="hidden" value={row.id} {...register("id")} />
                     <input type="submit" name="submit" value="Save" />
                   </form>
                 </div>
@@ -156,6 +170,9 @@ function Row(props: { row: any }) {
               </Typography>
               <Typography variant="h6" gutterBottom component="div">
                 Telephone: {row.telephone}
+              </Typography>
+              <Typography variant="h6" gutterBottom component="div">
+                Message: {row.message}
               </Typography>
               <Typography variant="h6" gutterBottom component="div">
                 Products:
@@ -194,31 +211,18 @@ function Row(props: { row: any }) {
   );
 }
 
-const history = [
-  {
-    date: '2020-01-05',
-    customerId: '11091700',
-    amount: 3,
-  },
-  {
-    date: '2020-01-02',
-    customerId: 'Anonymous',
-    amount: 1,
-  },
-];
 
-const rows1 = [
-
-  createData('Frozen yoghurt', "12.22.2022", 37, "ceva", 12, history),
-
-];
 
 export default function CollapsibleTable(rws: any) {
 
+
+  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
+
   // console.log(rws);
 
-  let list: any[] = [];
 
+
+  let list: any[] = [];
 
   rws.rws.map((r: any) => {
     var listItems: any[] = [];
@@ -246,16 +250,59 @@ export default function CollapsibleTable(rws: any) {
       name: r.name,
       telephone: r.telephoneNr,
       history: listItems,
-      status: r.status
+      status: r.status,
+      message: r.message
     }
     list.push(firstData);
     // console.log(r);
   });
 
-  console.log(list, "LIST");
+
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const onFormSubmit2 = async (data: any) => {
+    
+    var keyword = data.keyword;
+    setSearchTerm(keyword);
 
 
-  return (
+  }
+  let list2 = list.filter((val) => {
+    if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return val;
+    }
+    else if (searchTerm == "") {
+      return val;
+    }
+
+  });
+  console.log("LIST", list2);
+
+
+  // console.log(list, "LIST");
+
+
+  return (<div>
+    <form onSubmit={handleSubmit(onFormSubmit2)}>
+      <div className="wrapper">
+        <div className="search-input">
+          <a href="" target="_blank" hidden></a>
+          <input type="text" placeholder="Order ID" {...register("keyword")} />
+          <div className="autocom-box">
+
+          </div>
+          {/* <div className="icon"><button type="submit" className="fas fa-search"></button></div> */}
+          <Button type="submit" style={{
+            position: "absolute",
+            top: "10%",
+            left: "85%"
+
+          }}><SearchIcon className="icon" style={{ height: "40px", width: "40px" }} /></Button>
+        </div>
+      </div>
+    </form>
+    <span>-</span>
+
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -269,11 +316,22 @@ export default function CollapsibleTable(rws: any) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {list.map((row) => (
+          {list.filter((val) => {
+            console.log(val.id,"ID");
+            // || val.id.includes(searchTerm)
+            if (val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||  val.id.toString().includes(searchTerm) ) {
+              return val;
+            }
+            else if (searchTerm == "") {
+              return val;
+            }
+
+          }).map((row) => (
             <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+  </div>
   );
 }

@@ -11,7 +11,7 @@ const links = JSON.parse(linksString).links;
 
 type Link = {
     label: string;
-    href: string;
+    href: string; 
 };
 
 
@@ -32,7 +32,7 @@ const Links: React.FC<{ links: Link[], size: number }> = ({ links, size }) => {
                 <span>
                     <a href={"http://localhost:3000/cart/"}><CartIcon /></a>
                 </span>
-                <span>{size}</span>
+                <span className="">{size}</span>
             </div>
         </div>
     )

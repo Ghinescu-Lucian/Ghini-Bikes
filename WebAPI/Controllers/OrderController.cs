@@ -10,6 +10,8 @@ using Application.Products.Parts.Queries.GetPartById;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
 
@@ -93,20 +95,15 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Route("{orderId}")]
-        public async Task<IActionResult> UpdateOrder(int orderId, OrderDto update)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        public async Task<IActionResult> UpdateOrder(int orderId, UpdateOrderDTO update)
         {
             var order = _mapper.Map<Order>(update);
             var commnad = new UpdateOrderCommand
             {
                 Id = orderId,
-                Items = order.Items,
-                Date = order.Date,
-                UserId = order.UserId,
-                TelephoneNr = order.TelephoneNr,
-                Address = order.Address,
-                Payment = (Domain.Enums.Payment)order.Pay,
                 Status = (Domain.Enums.Status)order.Status,
-                ShippingMethod = "Courier"
+                Message = update.Message,
             };
             var result = await _mediator.Send(commnad);
             if (result == null)

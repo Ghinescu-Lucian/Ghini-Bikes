@@ -11,7 +11,11 @@ namespace WebAPI.Profiles
         {
             CreateMap<OrderDto, CreateOrderCommand>()
                .ReverseMap();
+            CreateMap<UpdateOrderDTO, CreateOrderCommand>()
+               .ReverseMap();
             CreateMap<OrderDto, Order>()
+                .ReverseMap();
+            CreateMap<UpdateOrderDTO, Order>()
                 .ReverseMap();
         }
     }
