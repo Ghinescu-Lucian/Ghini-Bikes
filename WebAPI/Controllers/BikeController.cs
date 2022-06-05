@@ -119,6 +119,7 @@ namespace WebAPI.Controllers
                 Model = bike.Model,
                 Description = bike.Description,
                 //  Images = bike.Images,
+                Quantity = bike.Quantity,
                 Price = bike.Price,
                 WarrantyMonths = bike.WarrantyMonths,
                 Weight = bike.Weight,

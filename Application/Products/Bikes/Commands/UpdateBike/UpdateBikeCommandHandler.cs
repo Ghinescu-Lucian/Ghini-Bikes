@@ -25,6 +25,7 @@ namespace Application.Products.Bikes.Commands.UpdateBikeCommand
                 Weight = request.Weight,
                 WarrantyMonths = request.WarrantyMonths,
                 Description = request.Description,
+                Quantity = request.Quantity,
                 //Images = request.Images,
 
             };

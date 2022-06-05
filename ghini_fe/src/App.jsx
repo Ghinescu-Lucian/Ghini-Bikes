@@ -21,6 +21,7 @@ import UserProfile from './Classes/UserProfile'
 import Profile from './Pages/Profile';
 import { useNavigate } from "react-router-dom";
 import { couldStartTrivia } from 'typescript';
+import AddParts from './Pages/AddParts';
 
 // import SearchBox from './Components/SearchBox.jsx';
 
@@ -140,6 +141,7 @@ function App() {
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} handleChange={handleChange} />}></Route>
           <Route path="/AddProducts" element={<AddProducts />}></Route>
           <Route path="/orders" element={<Orders/>}></Route>
+          <Route path="/add_part" element={<AddParts/>}></Route>
         </Routes>
       </div>
 

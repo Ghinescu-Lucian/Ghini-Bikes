@@ -97,7 +97,7 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Route("{accessoryId}")]
-        public async Task<IActionResult> UpdateAccessory(int accessoryId, AccessoryDto update)
+        public async Task<IActionResult> UpdateAccessory(int accessoryId, UpdateAccessoryDTO update)
         {
             var acc = _mapper.Map<Accessory>(update);
             var commnad = new UpdateAccessoryCommand

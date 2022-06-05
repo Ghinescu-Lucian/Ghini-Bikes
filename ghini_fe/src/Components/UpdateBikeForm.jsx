@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import * as bikeService from '../Services/BikeService.js';
 import * as accessoryService from '../Services/AccessoryService.js';
+import * as partService from '../Services/PartService.js';
 import { useNavigate } from "react-router-dom";
 import { isConstructorDeclaration } from "typescript";
 
@@ -45,8 +46,8 @@ export const UpdateBikeForm = (data) => {
     // console.log("DATA:", value.productId);
 
     const onFormSubmit = async (data) => {
-        console.log("AICI");
-        console.log(data);
+        // console.log("AICI");
+        console.log(data, "AICIII");
         let res;
 
         if (data.manufacturer === '')
@@ -61,6 +62,8 @@ export const UpdateBikeForm = (data) => {
             data.price = value.price;
         if (data.quantity === '')
             data.quantity = value.quantity;
+        if (data.warranty === '')
+            data.warranty = value.warrantyMonths;
         // data.file = file;
         if (value.category <= 3) {
             try {
@@ -79,13 +82,28 @@ export const UpdateBikeForm = (data) => {
         }
         else if (value.category == 5) {
             try {
-                var AddAcc_Result = await accessoryService.AddAccessory(data, token);
+                var AddAcc_Result = await accessoryService.UpdateAccessory(value.productId, data, token);
             }
             catch (err) {
                 console.log("Something went wrong", err);
             }
-            if (AddAcc_Result >= 200 && AddAcc_Result < 210)
+            if (AddAcc_Result >= 200 && AddAcc_Result < 210) {
                 alert("Product edited with success!")
+                window.location.reload(false);
+            }
+            else alert("Something went wrong!");
+        }
+        else if (value.category == 4) {
+            try {
+                var AddAcc_Result = await partService.UpdatePart(value.productId, data, token);
+            }
+            catch (err) {
+                console.log("Something went wrong", err);
+            }
+            if (AddAcc_Result >= 200 && AddAcc_Result < 210) {
+                alert("Product edited with success!")
+                window.location.reload(false);
+            }
             else alert("Something went wrong!");
         }
 
@@ -161,7 +179,7 @@ export const UpdateBikeForm = (data) => {
                     <span></span>
                     <label>Price</label>
                 </div>
-                <div className="txt_field">
+                {value.weight ? (<div className="txt_field">
                     <input name="weight" type="text"
                         {...register("weight")}
                         asp-for="FileUpload.FormFile"
@@ -169,8 +187,8 @@ export const UpdateBikeForm = (data) => {
                     />
                     <span></span>
                     <label>Weight</label>
-                </div>
-                <div className="txt_field">
+                </div>) : (<div></div>)}
+                {value.warrantyMonths ? (<div className="txt_field">
                     <input name="warranty" type="text"
                         {...register("warranty")}
                         asp-for="FileUpload.FormFile"
@@ -178,7 +196,9 @@ export const UpdateBikeForm = (data) => {
                     />
                     <span></span>
                     <label>Warranty months</label>
-                </div>
+                </div>) : (<div></div>)}
+
+
 
                 <div className="txt_field">
                     <input name="quantity" type="text"

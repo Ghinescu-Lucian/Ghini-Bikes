@@ -53,6 +53,7 @@ export async function AddBike(data, token) {
     // formData.append('ProductId: ', 0);
     formData.append('Type', type);
     formData.append('Description', data.description);
+    formData.append('Year', data.year);
     formData.append('price', data.price);
     formData.append('Manufacturer', data.manufacturer);
     formData.append('Model', data.model);
@@ -105,15 +106,16 @@ export async function DeleteBike(id, token) {
 
 export async function UpdateBike(id, data, token) {
     var url = `${URL}/${id}`;
-    console.log(token);
+    // console.log(token);
     const headers = {
         // Accept: "multipart/form-data",
         // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
         'Authorization': `Bearer ${token}`,
     }
 
-    console.log(id);
-    console.log("URL:",url);
+    // console.log(id);
+    // console.log("URL:",url);
+    console.log("UPDATE:",data.weight);
     var options = {
         productId: 0,
         type: "string",
@@ -124,10 +126,11 @@ export async function UpdateBike(id, data, token) {
         model: data.model,
         quantity: data.quantity,
         category: 0,
-        warrantyMonths: data.warrantyMonths,
+        warrantyMonths: data.warranty,
         specification: "string",
-        weigth: data.weigth
+        weigth: data.weight
     };
+    console.log(JSON.stringify(options));
 
     return fetch(url, {
         method: 'PUT',
@@ -140,7 +143,7 @@ export async function UpdateBike(id, data, token) {
             options
         )
     })
-        // .then(res => res.json())
+        // .then(res => res.json()) 
         .then(function (response) {
             return response.status;
         })

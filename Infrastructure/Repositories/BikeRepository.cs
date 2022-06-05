@@ -76,6 +76,9 @@ namespace Infrastructure.Repositories
                     acc.Year = bike.Year;
                     acc.Description = bike.Description;
                     acc.Category = bike.Category;
+                    acc.Quantity = bike.Quantity;
+                    acc.Weight = bike.Weight;
+                    acc.WarrantyMonths = bike.WarrantyMonths;
                     break;
                 }
             if (ok == 0) throw new InvalidOperationException("Invalid accessory ID");

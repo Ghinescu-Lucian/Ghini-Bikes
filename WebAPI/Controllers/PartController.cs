@@ -7,6 +7,8 @@ using AutoMapper;
 using Domain.Models;
 using Domain.Products;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
 
@@ -25,6 +27,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Route("addPart")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public async Task<IActionResult> CreatePart([FromForm] PartDto part)
         {
             if (!ModelState.IsValid)
@@ -94,7 +98,7 @@ namespace WebAPI.Controllers
 
        [HttpPut]
         [Route("{partId}")]
-        public async Task<IActionResult> UpdatePart(int partId, PartDto update)
+        public async Task<IActionResult> UpdatePart(int partId, UpdatePartDTO update)
         {
             var part = _mapper.Map<Part>(update);
             var commnad = new UpdatePartCommand

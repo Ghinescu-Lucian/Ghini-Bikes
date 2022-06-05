@@ -94,4 +94,72 @@ export async function AddAccessory(data, token) {
 
 
 }
+export async function UpdateAccessory(id, data, token) {
+    var url = `${URL}/${id}`;
+    // console.log(token);
+    const headers = {
+        // Accept: "multipart/form-data",
+        // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
+        'Authorization': `Bearer ${token}`,
+    }
+
+    // console.log(id);
+    // console.log("URL:",url);
+   
+    var options = {
+        productId: 0,
+        type: "string",
+        description: data.description,
+        year: data.year,
+        price: data.price,
+        manufacturer: data.manufacturer,
+        model: data.model,
+        quantity: data.quantity,
+        category: 0,
+        warrantyMonths: data.warranty,
+        specification: "string",
+        weigth: data.weight
+    };
+    console.log(JSON.stringify(options));
+
+    // return 200;
+
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            
+        },
+        body: JSON.stringify(
+            options
+        )
+    })
+        // .then(res => res.json())
+        .then(function (response) {
+            return response.status;
+        })
+        .catch(function (err) {
+            console.log(err, "eorrr");
+            // alert("Username already exists12");
+        });
+    // return 200;
+}
+
+export async function DeleteAccessory(id, token) {
+    var url = `${URL}/${id}`;
+    const headers = {
+        // Accept: "multipart/form-data",
+        // 'Content-Type': 'multipart/form-data; boundary=abcde12345',
+        'Authorization': `Bearer ${token}`,
+
+    }
+    let res;
+    try {
+        res = await axios.delete(url, { headers: headers });
+    } catch (ex) {
+        console.log(ex);
+    }
+    return res.status;
+}
 

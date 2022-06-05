@@ -2,6 +2,7 @@ import { Grid } from "@material-ui/core"
 import { useEffect } from "react";
 import Content from "../Components/Content";
 import * as partService from '../Services/PartService.js';
+import * as bikeService from '../Services/BikeService.js';
 import { useState } from 'react';
 import ProductCard from "../Components/ProductCard";
 
@@ -12,6 +13,16 @@ const Parts = ({ handleClick }) => {
 
     const partProducts = async () => {
         const response = await partService.GetParts();
+        var descrp = "Compatibilities: \n";
+        for (let j = 0; j < response.length; j++) {
+            for (let i = 0; i < response[j].compatibilities.length; i++) {
+                 var r = await bikeService.GetBikeById(response[j].compatibilities[i].bike_Id);
+                //   console.log(r.year);
+                descrp = descrp + " " +r.manufacturer+ "  "+r.model+ "  "+r.year+ " \n";
+            }
+            // console.log("RESP",response[j]);
+            response[j].description = response[j].description +" \n "+descrp;
+        }
         //console.log(response);
         setParts(response);
     }
@@ -25,9 +36,9 @@ const Parts = ({ handleClick }) => {
         partProducts();
     }, []);
 
-    parts.map((values) => {
-        console.log(values.images[0].path);
-    })
+    // parts.map((values) => {
+    //     console.log(values.images[0].path);
+    // })
 
     return (
         <div>

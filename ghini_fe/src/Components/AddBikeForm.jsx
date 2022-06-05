@@ -26,7 +26,7 @@ export const AddBikeForm = () => {
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm(
         {
             resolver: yupResolver(schema)
-        });
+        }); 
 
     const [token, setToken] = useState("");
     const [file, setFile] = useState("");
@@ -116,7 +116,9 @@ export const AddBikeForm = () => {
                 <div className="txt_field">
                     {/* <input name="category" type="text" required /> */}
                     <span></span>
-                    <select id="cars" name="category" className="txt_field"  {...register("category")} asp-for="FileUpload.FormFile" >
+                    <select id="cars" name="category" className="txt_fieldD"  {...register("category")} asp-for="FileUpload.FormFile" 
+                            style={{color: '#00131a', width:"45%", fontWeight: '700', fontSize:"16px"}}
+                        >
                         <option value="1">Classic bike</option>
                         <option value="2">MTB</option>
                         <option value="3">Electric bike</option>
