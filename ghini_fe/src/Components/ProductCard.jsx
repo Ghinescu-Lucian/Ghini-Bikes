@@ -164,6 +164,9 @@ const ProductCard = ({ props, handleClick, image, role, id, data }) => {
                     <a> {e}<br></br></a>
                   )
                 })}</p>
+                { 
+                  (data.weight !== undefined) ? (<p>Weight: {data.weight} kg</p>):(<p></p>)
+                }
                 <p>{price} RON</p>
                 {role === "Administrator" ? (<div></div>) : (<button name="add_to_cart" className="add-cart-btna" onClick={() => handleClick(props)}> Add to cart</button>)}
                 {/* </form> */}

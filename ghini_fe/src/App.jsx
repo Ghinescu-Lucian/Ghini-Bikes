@@ -22,6 +22,7 @@ import Profile from './Pages/Profile';
 import { useNavigate } from "react-router-dom";
 import { couldStartTrivia } from 'typescript';
 import AddParts from './Pages/AddParts';
+import AddPromotion from './Pages/AddPromotion';
 
 // import SearchBox from './Components/SearchBox.jsx';
 
@@ -40,7 +41,7 @@ function App() {
   let ok = null;
 
   const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []);
-  const [size, setSize] = useState(0);
+  const [size, setSize] = useState(0); 
 
   var count = document.querySelectorAll('.size');
 
@@ -142,6 +143,8 @@ function App() {
           <Route path="/AddProducts" element={<AddProducts />}></Route>
           <Route path="/orders" element={<Orders/>}></Route>
           <Route path="/add_part" element={<AddParts/>}></Route>
+          <Route path="/add_promotion" element={<AddPromotion/>}></Route>
+
         </Routes>
       </div>
 

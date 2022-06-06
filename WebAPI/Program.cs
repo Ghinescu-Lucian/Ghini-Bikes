@@ -45,6 +45,8 @@ builder.Services.AddSwaggerGen(options =>
         new List<string>()
         }
     });
+   
+      
 
 });
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

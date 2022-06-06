@@ -19,7 +19,7 @@ namespace WebAPI.Dtos
         public int Category { get; set; }
         public int WarrantyMonths { get; set; }
         public string Specification { get; set; }
-        public double Weigth { get; set; }
+        public double Weight { get; set; }
 
     }
 }

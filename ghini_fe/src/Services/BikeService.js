@@ -63,7 +63,7 @@ export async function AddBike(data, token) {
     formData.append('category', data.category);
     formData.append('warrantyMonths', data.warranty);
     formData.append('Specification', "string");
-    formData.append('weight', data.weigth);
+    formData.append('Weight', data.weight);
 
     console.log(data.file);
 

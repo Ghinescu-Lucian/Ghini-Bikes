@@ -27,9 +27,25 @@ namespace WebAPI.Controllers
         [Route("addPromo")]
         public async Task<IActionResult> CreatePromotion([FromForm] PromotionDto promo)
         {
+           
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (promo.ItemsId.Count == 0) return BadRequest();
+            List<PromoItem> list = new List<PromoItem>();
+
+            for (var i = 0; i < promo.ItemsId.Count; i++)
+            {
+                var aux = new PromoItem
+                {
+                    Discount = promo.ItemsDiscount[i],
+                    ProductCategory = promo.ItemsCategory[i],
+                    ProductId = promo.ItemsId[i],
+                    Quantity = promo.ItemsQuantity[i],
+                };
+                list.Add(aux);
+            }
             var command = _mapper.Map<CreatePromotionCommand>(promo);
+                command.Items = list;
             command.Image = await UploadImage(promo.Image.FileName, promo.Image);
             var created = await _mediator.Send(command);
 

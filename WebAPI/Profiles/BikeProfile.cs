@@ -17,7 +17,7 @@ namespace WebAPI.Profiles
                 .ForMember(b => b.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(b => b.Quantity, opt => opt.MapFrom(s => s.Quantity))
                 .ForMember(b => b.Price, opt => opt.MapFrom(s => s.Price))
-                .ForMember(b => b.Weight, opt => opt.MapFrom(s => s.Weigth))
+                .ForMember(b => b.Weight, opt => opt.MapFrom(s => s.Weight))
                 .ForMember(b => b.WarrantyMonths, opt => opt.MapFrom(s => s.WarrantyMonths))
                 .ReverseMap();
 

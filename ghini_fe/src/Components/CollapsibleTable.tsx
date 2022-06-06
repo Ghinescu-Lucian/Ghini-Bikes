@@ -98,7 +98,7 @@ function Row(props: { row: any }) {
     else alert("Something went wrong!");
   }
 
-
+ 
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -117,13 +117,13 @@ function Row(props: { row: any }) {
         <TableCell align="right">{row.date}</TableCell>
         <TableCell align="right">{row.name}</TableCell>
         <TableCell align="right">{row.totalCost}</TableCell>
-        <TableCell align="right">{row.status == 1 ? "Accepted" : (row.status == 2 ? "Rejected" : "Pending")}  </TableCell>
+        <TableCell align="right">{row.status}  </TableCell>
         <Button className="popup-btn" onClick={() => handleChange(row.id)}>Change</Button>
         <div className="product-card">
           <div className="product">
             <div className="popup-view">
               <div className="popup-card">
-              <button className="close-btn5">&times;</button>
+                <button className="close-btn5">&times;</button>
                 <div className="center4">
                   <h1> Add products</h1>
                   <form onSubmit={handleSubmit(onFormSubmit)} method="post">
@@ -242,6 +242,12 @@ export default function CollapsibleTable(rws: any) {
 
     })
 
+    
+    if (r.status == 1) r.status = "Accepted";
+    else if (r.status == 2) r.status = "Rejected";
+    else if (r.status == 3) r.status = "Pending";
+  
+
     var firstData = {
       address: r.address,
       date: r.date.substring(0, r.date.length - 8),
@@ -261,7 +267,7 @@ export default function CollapsibleTable(rws: any) {
   const [searchTerm, setSearchTerm] = useState("")
 
   const onFormSubmit2 = async (data: any) => {
-    
+
     var keyword = data.keyword;
     setSearchTerm(keyword);
 
@@ -317,9 +323,9 @@ export default function CollapsibleTable(rws: any) {
         </TableHead>
         <TableBody>
           {list.filter((val) => {
-            console.log(val.id,"ID");
+            // console.log(val.id,"ID");
             // || val.id.includes(searchTerm)
-            if (val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||  val.id.toString().includes(searchTerm) ) {
+            if (val.name.toLowerCase().includes(searchTerm.toLowerCase()) || val.id.toString().includes(searchTerm) || val.status === searchTerm) {
               return val;
             }
             else if (searchTerm == "") {
