@@ -163,6 +163,6 @@ export async function DeletePart(id, token) {
         res = await axios.delete(url, { headers: headers });
     } catch (ex) {
         console.log(ex);
-    }
+    } 
     return res.status;
 }

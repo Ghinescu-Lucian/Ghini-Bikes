@@ -16,13 +16,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import DeleteIcon from "@material-ui/icons/Delete";
 //'@mui/icons-material/Delete';
-import FilterListIcon from "@material-ui/icons/FilterList";
 //'@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useForm } from "react-hook-form";
@@ -31,8 +27,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import "./CSS/DataTable.css";
 import * as partService from '../Services/PartService.js';
 import * as accessoryService from '../Services/AccessoryService.js';
-import { CollectionsOutlined } from '@material-ui/icons';
-import Button from "@material-ui/core/Button";
+import * as promotionService from '../Services/PromotionService.js';
 
 
 
@@ -95,6 +90,7 @@ const headCells = [
         disablePadding: false,
         label: 'Year',
     },
+
 
 ];
 
@@ -191,19 +187,7 @@ const EnhancedTableToolbar = (props) => {
                 </Typography>
             )}
 
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
-            )}
+           
         </Toolbar>
     );
 };
@@ -214,12 +198,7 @@ EnhancedTableToolbar.propTypes = {
 
 const schema = yup.object()
     .shape({
-        manufacturer: yup.string().required(),
-        model: yup.string().required(),
-        year: yup.number().min(2000).required(),
-        description: yup.string().required(),
-        price: yup.number().required(),
-        quantity: yup.number().min(1).required(),
+        name: yup.string().required(),
         file: yup.mixed().required('File is required'),
 
     })
@@ -279,6 +258,8 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                category: a.category
+
             }
             aux.push(aju);
         })
@@ -296,6 +277,8 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                category: a.category
+
             }
             aux.push(aju);
         })
@@ -313,6 +296,7 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                category: a.category
             }
             aux.push(aju);
         })
@@ -346,7 +330,7 @@ export default function EnhancedTable2() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = bikes.map((n) => n.productId); //AICI
+            const newSelecteds = bikes.map((n) => n); //AICI
             setSelected(newSelecteds);
             return;
         }
@@ -354,7 +338,7 @@ export default function EnhancedTable2() {
     };
     const handleSelectAllClick2 = (event) => {
         if (event.target.checked) {
-            const newSelecteds2 = parts.map((n) => n.productId); //AICI
+            const newSelecteds2 = parts.map((n) => n); //AICI
             setSelected2(newSelecteds2);
             return;
         }
@@ -362,7 +346,7 @@ export default function EnhancedTable2() {
     };
     const handleSelectAllClick3 = (event) => {
         if (event.target.checked) {
-            const newSelecteds3 = accessories.map((n) => n.productId); //AICI
+            const newSelecteds3 = accessories.map((n) => n); //AICI
 
             setSelected3(newSelecteds3);
             return;
@@ -389,40 +373,40 @@ export default function EnhancedTable2() {
 
         setSelected(newSelected);
     };
-    const handleClick2 = (event, productId) => {
-        const selectedIndex = selected2.indexOf(productId);
+    const handleClick2 = (event, product) => {
+        const selectedIndex = selected2.indexOf(product);
         let newSelected = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected2, productId);
+            newSelected = newSelected.concat(selected2, product);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected2.slice(1));
         } else if (selectedIndex === selected2.length - 1) {
             newSelected = newSelected.concat(selected2.slice(0, -1));
         } else if (selectedIndex > 0) {
             newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
+                selected2.slice(0, selectedIndex),
+                selected2.slice(selectedIndex + 1),
             );
         }
 
         setSelected2(newSelected);
     };
-    const handleClick3 = (event, productId) => {
+    const handleClick3 = (event, product) => {
 
-        const selectedIndex = selected3.indexOf(productId);
+        const selectedIndex = selected3.indexOf(product);
         let newSelected = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected3, productId);
+            newSelected = newSelected.concat(selected3, product);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected3.slice(1));
         } else if (selectedIndex === selected3.length - 1) {
             newSelected = newSelected.concat(selected3.slice(0, -1));
         } else if (selectedIndex > 0) {
             newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
+                selected3.slice(0, selectedIndex),
+                selected3.slice(selectedIndex + 1),
             );
         }
 
@@ -455,6 +439,45 @@ export default function EnhancedTable2() {
     const handleChangeDense = (event) => {
         setDense(event.target.checked);
     };
+    const handleChangeQuantity= (row,value) => {
+        var index = bikes.indexOf(row);
+        bikes[index].quantity=parseInt(value);
+        console.log(row,"JDAKS");
+        console.log(index,"JDAKS");
+ 
+     };
+     const handleChangeDiscount = (row,value) => {
+         var index = bikes.indexOf(row);
+         bikes[index].discount=parseInt(value);
+         var index = selected3.indexOf(row);
+         console.log(row,"JDAKS2");
+      };
+      const handleChangeQuantity2 = (row,value) => {
+        var index = parts.indexOf(row);
+        parts[index].quantity=parseInt(value);
+     //    console.log(row,"JDAKS");
+     //    console.log(index,"JDAKS");
+ 
+     };
+     const handleChangeDiscount2 = (row,value) => {
+         var index = parts.indexOf(row);
+         parts[index].discount=parseInt(value);
+         // var index = selected3.indexOf(row);
+         // console.log(row,"JDAKS");
+      };
+    const handleChangeQuantity3 = (row,value) => {
+       var index = accessories.indexOf(row);
+       accessories[index].quantity=parseInt(value);
+    //    console.log(row,"JDAKS");
+    //    console.log(index,"JDAKS");
+
+    };
+    const handleChangeDiscount3 = (row,value) => {
+        var index = accessories.indexOf(row);
+        accessories[index].discount=parseInt(value);
+        // var index = selected3.indexOf(row);
+        // console.log(row,"JDAKS");
+     };
 
     const isSelected = (productId) => selected.indexOf(productId) !== -1;
     const isSelected2 = (productId) => selected2.indexOf(productId) !== -1;
@@ -470,28 +493,29 @@ export default function EnhancedTable2() {
 
 
     const onFormSubmit = async (data) => {
-        console.log(data);
-        console.log(selected);
+        // console.log(data);
+        // console.log(selected);
+        // console.log("AICICICIICICICIC");
+        console.log("DTA",data);
         data.file = file;
 
         try {
-            var AddBike_Result = await partService.AddPart(data, selected, token);
+            var result = await promotionService.AddPromotion(data, selected,selected2,selected3, token);
         }
         catch (err) {
             console.log("Something went wrong", err);
             alert("Something went wrong!");
         }
-        if (AddBike_Result >= 200 && AddBike_Result < 210)
+        if (result >= 200 && result < 210)
             alert("Product added with success!")
         else alert("Something went wrong!");
         // window.location("/bikes");
 
     }
 
-    var x = 1;
-    console.log("S1", selected);
-    console.log("S2", selected2);
-    console.log("S3", selected3);
+    // console.log("S1", selected);
+    // console.log("S2", selected2);
+    // console.log("S3", selected3);
     return (
         <div className="centerD">
             <div >
@@ -509,7 +533,7 @@ export default function EnhancedTable2() {
                         <span></span>
                         <label>Name</label>
                     </div>
-                  
+
                     <div className="txt_fieldD">
                         <input type="file" name="file"
                             {...register("file")}
@@ -525,7 +549,7 @@ export default function EnhancedTable2() {
                     </div>
                     <div className="txt_fieldD">
                         <span>.</span>
-                        <label style={{ color: "#1477b9", fontSize:"22px",fontWeight:"600"}}>Products</label>
+                        <label style={{ color: "#1477b9", fontSize: "22px", fontWeight: "600" }}>Products</label>
                     </div>
 
                     <Box sx={{ width: '100%' }}>
@@ -534,7 +558,7 @@ export default function EnhancedTable2() {
                             label="Dense padding"
                         />
                         <Paper sx={{ width: '100%', mb: 2 }}>
-                            <EnhancedTableToolbar numSelected={selected.length} tip={x} />
+                            <EnhancedTableToolbar numSelected={selected.length} tip={1} />
                             <TableContainer>
                                 <Table
                                     sx={{ minWidth: 750 }}
@@ -588,6 +612,8 @@ export default function EnhancedTable2() {
                                                         <TableCell align="right">{row.manufacturer}</TableCell>
                                                         <TableCell align="right">{row.model}</TableCell>
                                                         <TableCell align="right">{row.year}</TableCell>
+                                                        <span>Quantity</span><input onChange={(event) => {handleChangeQuantity(row,event.target.value)}} style={{ width: "10%", marginTop: "6%", fontSize: "13px" }} type="number" />
+                                                        <span style={{ marginLeft: "5%" }}>Discount</span><input onChange={(event) => {handleChangeDiscount(row,event.target.value)}} style={{ width: "10%", marginBottom: "5%", fontSize: "13px" }} type="number" />
                                                     </TableRow>
                                                 );
                                             })}
@@ -637,13 +663,13 @@ export default function EnhancedTable2() {
                                         {stableSort(parts, getComparator(order2, orderBy2))
                                             .slice(page2 * rowsPerPage2, page2 * rowsPerPage2 + rowsPerPage2)
                                             .map((row, index) => {
-                                                const isItemSelected = isSelected2(row.product);
+                                                const isItemSelected = isSelected2(row);
                                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                                 return (
                                                     <TableRow
                                                         hover
-                                                        onClick={(event) => handleClick2(event, row.product)}
+                                                        onClick={(event) => handleClick2(event, row)}
                                                         role="checkbox"
                                                         aria-checked={isItemSelected}
                                                         tabIndex={-1}
@@ -670,13 +696,15 @@ export default function EnhancedTable2() {
                                                         <TableCell align="right">{row.manufacturer}</TableCell>
                                                         <TableCell align="right">{row.model}</TableCell>
                                                         <TableCell align="right">{row.year}</TableCell>
+                                                        <span>Quantity</span><input onChange={(event) => {handleChangeQuantity2(row,event.target.value)}} style={{ width: "10%", marginTop: "6%", fontSize: "13px" }} type="number" />
+                                                        <span style={{ marginLeft: "5%" }}>Discount</span><input onChange={(event) => {handleChangeDiscount2(row,event.target.value)}} style={{ width: "10%", marginTop: "6%", fontSize: "13px" }} type="number" />
                                                     </TableRow>
                                                 );
                                             })}
-                                        {emptyRows > 0 && (
+                                        {emptyRows2 > 0 && (
                                             <TableRow
                                                 style={{
-                                                    height: (dense ? 33 : 53) * emptyRows,
+                                                    height: (dense ? 33 : 53) * emptyRows2,
                                                 }}
                                             >
                                                 <TableCell colSpan={6} />
@@ -719,13 +747,13 @@ export default function EnhancedTable2() {
                                         {stableSort(accessories, getComparator(order3, orderBy3))
                                             .slice(page3 * rowsPerPage3, page3 * rowsPerPage3 + rowsPerPage3)
                                             .map((row, index) => {
-                                                const isItemSelected = isSelected3(row.product);
+                                                const isItemSelected = isSelected3(row);
                                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                                 return (
                                                     <TableRow
                                                         hover
-                                                        onClick={(event) => handleClick3(event, row.product)}
+                                                        onClick={(event) => handleClick3(event, row)}
                                                         role="checkbox"
                                                         aria-checked={isItemSelected}
                                                         tabIndex={-1}
@@ -748,22 +776,23 @@ export default function EnhancedTable2() {
                                                             padding="none"
                                                         >
                                                             {row.productId}
-                                                            
+
                                                         </TableCell>
                                                         <TableCell align="right">{row.manufacturer}</TableCell>
                                                         <TableCell align="right">{row.model}</TableCell>
                                                         <TableCell align="right">{row.year}</TableCell>
-                                                        <Button className="popup-btn" >Change</Button>
+                                                            <span>Quantity</span><input onChange={(event) => {handleChangeQuantity3(row,event.target.value)}} style={{ width: "10%", marginTop: "6%", fontSize: "13px" }} type="number" />
+                                                            <span style={{ marginLeft: "5%"  }}>Discount</span><input onChange={(event) => {handleChangeDiscount3(row,event.target.value)}} style={{ width: "10%", marginTop: "6%", fontSize: "13px" }} type="number" />
                                                         {/* onClick={() => handleChange(row.id)} */}
-                                                         {/* <form style=><input type="text" value="discount"/></form> */}
+                                                        {/* <form style=><input type="text" value="discount"/></form> */}
                                                     </TableRow>
-                                                    
+
                                                 );
                                             })}
-                                        {emptyRows > 0 && (
+                                        {emptyRows3 > 0 && (
                                             <TableRow
                                                 style={{
-                                                    height: (dense ? 33 : 53) * emptyRows,
+                                                    height: (dense ? 33 : 53) * emptyRows3,
                                                 }}
                                             >
                                                 <TableCell colSpan={6} />
@@ -784,7 +813,7 @@ export default function EnhancedTable2() {
                         </Paper>
 
                     </Box>
-                    <input type="submit" name="submit" value="Next" />
+                    <input type="submit" onSubmit={handleSubmit(onFormSubmit)} name="submit" value="Next" />
                 </form>
             </div>
         </div>
