@@ -4,6 +4,7 @@ using Application.Orders.Commands.DeleteOrderCommand;
 using Application.Orders.Commands.UpdateOrderCommand;
 using Application.Orders.Queries.GetAllOrders;
 using Application.Orders.Queries.GetOrderById;
+using Application.Orders.Queries.GetOrdersByUser;
 using Application.Products.Accessories.Queries.GetAccessoryById;
 using Application.Products.Bikes.Queries.GetBikeById;
 using Application.Products.Parts.Queries.GetPartById;
@@ -66,6 +67,18 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetOrderByID(int orderId)
         {
             var query = new GetOrderByIdQuery { Id = orderId };
+            var result = await _mediator.Send(query);
+            if (result == null)
+                return NotFound(result);
+            return Ok(result);
+
+        }
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetOrderByUserID(int userId)
+        {
+            var query = new GetOrdersByUserQuery { UserId = userId };
             var result = await _mediator.Send(query);
             if (result == null)
                 return NotFound(result);

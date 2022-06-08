@@ -12,7 +12,7 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
 
     const ordersGet = async () => {
-        const response = await orderService.GetOrders();
+        const response = await orderService.GetOrders(); 
         setOrders(response);
         
     }

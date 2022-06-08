@@ -59,8 +59,16 @@ namespace Infrastructure.Repositories
         public IEnumerable<Order> GetOrdersByUser(int userId)
         {
             if (userId == null || userId <= 0) throw new ArgumentNullException("user parameter is null");
-            var result = _db.Orders.Where(o => o.UserId == userId);
-            return result;
+            var orders = _db.Orders.Include(x => x.Items).Where( o => o.UserId == userId);
+            foreach (Order o in orders)
+            {
+                foreach (OrderItem oi in o.Items)
+                {
+                    oi.Order = null;
+
+                }
+            }
+            return orders;
         }
 
         public void UpdateOrder(int orderId, Order order)
