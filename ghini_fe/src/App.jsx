@@ -125,9 +125,9 @@ function App() {
                 Welcome to Ghini-Bikes!
 
               </h2>
-              <div>
+              {/* <div>
                 <button onClick={handleLogout}>LogOut</button>
-              </div>
+              </div> */}
             </header>} />
 
           <Route path="/home" element={<Welcome />} />

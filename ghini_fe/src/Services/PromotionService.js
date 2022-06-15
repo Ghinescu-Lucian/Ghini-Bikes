@@ -53,30 +53,35 @@ export async function AddPromotion(data, selected, selected2, selected3, token) 
   
 
     // console.log(_username,_password,_email);
+    console.log("BA AICI",selected3);
+    console.log("BA AIVILEA",selected2);
     const formData = new FormData();
     
     formData.set('Name', data.name);
     formData.append('Image', data.file);
-    for(let i=0 ; i< selected.length; i++){
-        console.log(`Compatibilities[${i}]`,selected[0]);
+    let i;
+    for( i=0 ; i< selected.length; i++){
+        // console.log(`Compatibilities[${i}]`,selected[0]);
         formData.append(`ItemsId[${i}]`,selected[i].productId);
         formData.append(`ItemsDiscount[${i}]`,selected[i].discount);
         formData.append(`ItemsCategory[${i}]`,selected[i].category);
         formData.append(`ItemsQuantity[${i}]`,selected[i].quantity);
     }
-    for(let i=0 ; i< selected2.length; i++){
-        console.log(`Compatibilities[${i}]`,selected[0]);
-        formData.append(`ItemsId[${i}]`,selected2[i].productId);
-        formData.append(`ItemsDiscount[${i}]`,selected2[i].discount);
-        formData.append(`ItemsCategory[${i}]`,selected2[i].category);
-        formData.append(`ItemsQuantity[${i}]`,selected2[i].quantity);
+    var x =i;
+    for( i=0 ; i< selected2.length; i++){
+        // console.log(`Compatibilities[${i}]`,selected[0]);
+        formData.append(`ItemsId[${i+x}]`,selected2[i].productId);
+        formData.append(`ItemsDiscount[${i+x}]`,selected2[i].discount);
+        formData.append(`ItemsCategory[${i+x}]`,selected2[i].category);
+        formData.append(`ItemsQuantity[${i+x}]`,selected2[i].quantity);
     }
+    x=i+x;
     for(let i=0 ; i< selected3.length; i++){
-        console.log(`Compatibilities[${i}]`,selected[0]);
-        formData.append(`ItemsId[${i}]`,selected3[i].productId);
-        formData.append(`ItemsDiscount[${i}]`,selected3[i].discount);
-        formData.append(`ItemsCategory[${i}]`,selected3[i].category);
-        formData.append(`ItemsQuantity[${i}]`,selected3[i].quantity);
+        // console.log(`Compatibilities[${i}]`,selected[0]);
+        formData.append(`ItemsId[${i+x}]`,selected3[i].productId);
+        formData.append(`ItemsDiscount[${i+x}]`,selected3[i].discount);
+        formData.append(`ItemsCategory[${i+x}]`,selected3[i].category);
+        formData.append(`ItemsQuantity[${i+x}]`,selected3[i].quantity);
     }
     // formData.append("Compatibilities[0]", selected[0]);
     // formData.append("Compatibilities[1]", selected[1]);

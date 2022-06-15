@@ -105,7 +105,7 @@ export async function AddPart(data,selected, token) {
 
     // console.log("TOKEN: ", token);
     data.category=4;
-    console.log("SELECTEED",selected);
+    // console.log("SELECTEED",selected);
 
     // console.log(_username,_password,_email);
     const formData = new FormData();

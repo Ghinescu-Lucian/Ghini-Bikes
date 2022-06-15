@@ -6,17 +6,24 @@ import { set, useForm } from "react-hook-form";
 
 
 const Cart = ({ cart, setCart, handleChange }) => {
+
+  const [role, setRole] = useState("there");
   const [price, setPrice] = useState(0);
 
   const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
+
+  useEffect(() => {
+    setRole(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "").role : "user");
+  }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "").role : "user"]
+  );
 
   const handleRemove = (id) => {
     const arr = cart.filter((item) => item.productId !== id);
     // arr.totalPrice = price;
     setCart(arr);
     handlePrice();
-    localStorage.setItem('totalPrice',price);
+    localStorage.setItem('totalPrice', price);
 
   };
 
@@ -27,7 +34,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
       ans += item.amount * item.price)
     );
     setPrice(ans);
-    localStorage.setItem('totalPrice',price);
+    localStorage.setItem('totalPrice', price);
   };
 
   useEffect(() => {
@@ -35,7 +42,9 @@ const Cart = ({ cart, setCart, handleChange }) => {
   });
 
   const placeOrder = () => {
-    navigate("/place_order",{price,cart,setCart});
+    if (role === "user") alert("Only users can place an order! \n Please login/register.")
+    else
+      navigate("/place_order", { price, cart, setCart });
   }
 
 
@@ -63,12 +72,12 @@ const Cart = ({ cart, setCart, handleChange }) => {
         <span> {price} RON</span>
       </div>
       {
-        price != 0 ? ( 
+        price != 0 ? (
           <form onSubmit={handleSubmit(placeOrder)}>
-        <button className="orderButton"> Place order</button>
-        </form>
-        ) :(<h1> Cart is empty</h1>)
-        
+            <button className="orderButton"> Place order</button>
+          </form>
+        ) : (<h1> Cart is empty</h1>)
+
       }
     </article>
   );

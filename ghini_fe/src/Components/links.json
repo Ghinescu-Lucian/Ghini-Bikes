@@ -25,8 +25,20 @@
             "href": "http://localhost:3000/promotions"
         },
         {
-            "label": "Add Products",
+            "label": "ADMN Orders",
+            "href": "http://localhost:3000/orders"
+        },
+        {
+            "label": "ADMN Add Products",
             "href": "http://localhost:3000/AddProducts"
+        },
+        {
+            "label": "ADMN Add Parts",
+            "href": "http://localhost:3000/add_part"
+        },
+        {
+            "label": "ADMN Add Promotions",
+            "href": "http://localhost:3000/add_promotion"
         },
         {
             "label": "LogIn",

@@ -22,7 +22,7 @@ const Promotions = ({handleClick}) => {
         promotionProducts();
     }, []);
 
-    promotions.map((values) => (console.log(values)));
+    // promotions.map((values) => (console.log(values)));
    
 
     return (

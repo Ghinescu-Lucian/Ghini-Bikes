@@ -161,7 +161,7 @@ const ProductCard = ({ props, handleClick, image, role, id, data }) => {
                 <h2>{manufacturer}<br /><span>{model}</span></h2>
                 <p>{descrp.map((e) => {
                   return (
-                    <a> {e}<br></br></a>
+                    <a> {e}<br></br></a> 
                   )
                 })}</p>
                 { 

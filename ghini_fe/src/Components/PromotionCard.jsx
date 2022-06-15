@@ -13,6 +13,9 @@ import * as bikeService from '../Services/BikeService.js';
 import * as partService from '../Services/PartService.js';
 import * as accessoryService from '../Services/AccessoryService.js';
 import { useEffect, useState } from "react";
+import DeleteIcon from "@material-ui/icons/Delete";
+import * as promotionService from '../Services/PromotionService';
+
 // import { Settings } from "@material-ui/icons"; 
 
 
@@ -32,6 +35,12 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
     var popupBtns = document.querySelectorAll('.popup-btn');
     var closeBtns = document.querySelectorAll('.close-btn');
     var addBtns = document.querySelectorAll('.add-cart-btn');
+
+    const [token, setToken] = useState("");
+    useEffect(() => {
+        setToken(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : "user");
+      }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user"]
+      );
 
 
 
@@ -72,7 +81,7 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
 
     
 
-    console.log(obj);
+    // console.log(obj);
 
 
     const imageProducts = async () => {
@@ -92,7 +101,7 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
 
             slideshow.push(response.images[0].path);
             let obj = {
-                manufacturer: response.manufacturer,
+                manufacturer: response.manufacturer, 
                 model: response.model,
                 year: response.year,
                 PRP: response.price,
@@ -165,19 +174,19 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
     function showSlides(n) {
         
         if (ok == 1) {
-            console.log("aiici2");
+            // console.log("aiici2");
 
             let i;
             let slides = document.getElementsByClassName(id);
-            console.log("SLIDES: ", slides);
+            // console.log("SLIDES: ", slides);
             if (n > slides.length) {
                 slideIndex = 1;
-                console.log("aiici3");
+                // console.log("aiici3");
 
             }
             if (n < 1) {
                 slideIndex = slides.length;
-                console.log("aiici4");
+                // console.log("aiici4");
 
             }
             for (i = 0; i < slides.length; i++) {
@@ -210,6 +219,26 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
           return JSON.stringify(obj) === _value;
         });
       });
+
+
+      const deletePromotion = async () => {
+     
+          try {
+            var result = await promotionService.DeletePromotion(id, token);
+          }
+          catch (err) {
+            console.log("Something went wrong", err);
+            alert("Something went wrong!");
+          }
+          if (result >= 200 && result < 210) {
+            alert("Product deleted with success!")
+            window.location.reload(false);
+          }
+    
+          else alert("Something went wrong!");
+        
+      
+      }
             // console.log("Description: ",unique);
            
     return (
@@ -218,10 +247,11 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
                 <CardHeader
                     avatar={<Avatar src={images[0]} />}
                     action={
-                        <IconButton aria-label="settings">
-                            {/* <ShareIcon /> */}
-                            <SettingsIcon/>
-                        </IconButton>
+                        role === "Administrator" ? (
+                            <IconButton aria-label="settings" onClick={deletePromotion} style={{ background: 'rgba(151, 126, 11, 0.205)' }}>
+                            <DeleteIcon id="delete" />
+                          </IconButton>
+                        ) : (<div></div>)
                     }
                     title={name}
                 />
@@ -232,7 +262,7 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button className="popup-btn">Detalii</Button>
+                    <Button className="popup-btn" style={{ background: '#ffb84d' }}>Details</Button>
                 </CardActions>
             </Card>
             <div className="product">

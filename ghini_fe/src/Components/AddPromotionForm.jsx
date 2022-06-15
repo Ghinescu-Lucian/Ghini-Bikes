@@ -442,15 +442,12 @@ export default function EnhancedTable2() {
     const handleChangeQuantity= (row,value) => {
         var index = bikes.indexOf(row);
         bikes[index].quantity=parseInt(value);
-        console.log(row,"JDAKS");
-        console.log(index,"JDAKS");
  
      };
      const handleChangeDiscount = (row,value) => {
          var index = bikes.indexOf(row);
          bikes[index].discount=parseInt(value);
          var index = selected3.indexOf(row);
-         console.log(row,"JDAKS2");
       };
       const handleChangeQuantity2 = (row,value) => {
         var index = parts.indexOf(row);
@@ -496,7 +493,7 @@ export default function EnhancedTable2() {
         // console.log(data);
         // console.log(selected);
         // console.log("AICICICIICICICIC");
-        console.log("DTA",data);
+        // console.log("DTA",data);
         data.file = file;
 
         try {

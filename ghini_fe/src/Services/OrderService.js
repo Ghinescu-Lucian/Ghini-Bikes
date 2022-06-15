@@ -70,35 +70,108 @@ export async function placeOrder(dataDelivery, productsData, userData) {
     let url = URL2;
     // console.log(dataDelivery, productsData);
     // console.log("A:LKLPDKPAKdp");
-    if(!userData){
+    if (!userData) {
         alert("Must be logged in!");
-        return ;
+        return;
     }
     var itemsOptions = "[";
+    // let i;
+    // for (i = 0; i < productsData.length; i++) {
+    //     if (productsData[i].category != undefined) {
+    //         var opt = {
+    //             id: productsData[i].productId,
+    //             productId: productsData[i].productId,
+    //             orderId: 0,
+    //             category: productsData[i].category,
+    //             discount: 0,
+    //             year: productsData[i].year,
+    //             price: productsData[i].price,
+    //             manufacturer: productsData[i].manufacturer,
+    //             model: productsData[i].model,
+    //             image: productsData[i].images[0].path,
+    //             quantity: productsData[i].amount,
+    //             description: productsData[i].description
+
+
+    //         }
+    //         var opt1 = JSON.stringify(opt);
+    //         itemsOptions = itemsOptions + opt1 + ',';
+    //     }
+    //     else {console.log("AKDJJAHDK");
+    //         for (let j = 0; j < productsData[i].items; j++) {
+    //             var opt = {
+    //                 id: productsData[i].items[j].productId,
+    //                 productId: productsData[i].items[j].productId,
+    //                 orderId: 0,
+    //                 category: productsData[i].items[j].productCategory,
+    //                 discount: productsData[i].items[j].discount,
+    //                 year: 2022,
+    //                 price: productsData[i].price,
+    //                 manufacturer: productsData[i].name,
+    //                 model: productsData[i].name,
+    //                 image: productsData[i].items[j].image,
+    //                 quantity: productsData[i].items[j].quantity,
+    //                 description: productsData[i].name
+
+
+    //             }
+    //             var opt1 = JSON.stringify(opt);
+    //             itemsOptions = itemsOptions + opt1 + ',';
+    //         }
+    //     }
+    // }
     productsData.map((item) => {
-        var opt = {
-            id: item.productId,
-            productId: item.productId,
-            orderId: 0,
-            category: item.category,
-            discount: 0,
-            year: item.year,
-            price: item.price,
-            manufacturer: item.manufacturer,
-            model: item.model,
-            image: item.images[0].path,
-            quantity: item.amount,
-            description: item.description
+        if (item.category != undefined) {
+            var opt = {
+                id: item.productId,
+                productId: item.productId,
+                orderId: 0,
+                category: item.category,
+                discount: 0,
+                year: item.year,
+                price: item.price,
+                manufacturer: item.manufacturer,
+                model: item.model,
+                image: item.images[0].path,
+                quantity: item.amount,
+                description: item.description
 
 
+            }
+            var opt1 = JSON.stringify(opt);
+            itemsOptions = itemsOptions + opt1 + ',';
         }
-        var opt1 = JSON.stringify(opt);
-        itemsOptions = itemsOptions + opt1 + ',';
-        
+        else {
+
+            // console.log("AJDBHJABHJD",item.items[0].image);
+            for (let j = 0; j < item.items.length; j++) {
+                var opt = {
+                    id: item.items[j].productId,
+                    productId: item.items[j].productId,
+                    orderId: 0,
+                    category: item.items[j].productCategory,
+                    discount: item.items[j].discount,
+                    year: 2022,
+                    price: item.price,
+                    manufacturer: item.name,
+                    model: item.name,
+                    image: item.image,
+                    quantity: item.items[j].quantity,
+                    description: item.name
+
+
+                }
+                var opt1 = JSON.stringify(opt);
+                itemsOptions = itemsOptions + opt1 + ',';
+
+            }
+        }
     });
-    itemsOptions=itemsOptions.slice(0,-1);
+    console.log("ITEMS:", itemsOptions);
+
+    itemsOptions = itemsOptions.slice(0, -1);
     itemsOptions = itemsOptions + "]";
-    // console.log("ITEMS:",itemsOptions);
+    console.log("ITEMS:", itemsOptions);
     var itms = JSON.parse(itemsOptions);
     // console.log("A:LKLPDKPAKdp");
     // console.log (itms);
@@ -128,7 +201,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
     //     username: _username,
     //     role: "string"
     // };
-    console.log("Options",options);
+    console.log("Options", options);
     // return 200;
     return fetch(url, {
         method: 'POST',
@@ -159,7 +232,7 @@ export async function UpdateOrder(data, token) {
     let id = data.id;
     data.id = parseInt(data.id);
     data.status = parseInt(data.status);
-    
+
 
     var url = `${URL}/${id}`;
     // console.log(token);
@@ -170,11 +243,11 @@ export async function UpdateOrder(data, token) {
     }
 
     // console.log(id);
-    console.log("URL:",url);
+    console.log("URL:", url);
     var options = {
-      id: id,
-      status: data.status,
-      message: data.message
+        id: id,
+        status: data.status,
+        message: data.message
     };
     console.log(JSON.stringify(
         options
@@ -185,7 +258,7 @@ export async function UpdateOrder(data, token) {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
-            
+
         },
         body: JSON.stringify(
             options
