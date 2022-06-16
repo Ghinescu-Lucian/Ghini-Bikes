@@ -19,12 +19,12 @@ type Link = {
 
 
 const Links: React.FC<{ links: Link[], size: number, role: string }> = ({ links, size, role }) => {
-    console.log("ROLE@2", role);
+    // console.log("ROLE@2", role);
 
     const navigate = useNavigate();
 
     const handleLogout2 = () => {
-        console.log("AJDIPAJKDJAK");
+        // console.log("AJDIPAJKDJAK");
         localStorage.clear();
         navigate("/");
         window.location.reload();
@@ -63,13 +63,17 @@ const Links: React.FC<{ links: Link[], size: number, role: string }> = ({ links,
                     if (link.label.includes("ADMN") == false) {
                         if (link.label === "LogIn") {
                             if (role !== "user") {
-                                console.log(role, "AICIII");
+                                // console.log(role, "AICIII");
                                 return (
                                     <div key={link.href} className={styles['link']}>
                                         <button  style={{ background: '#cb891d', borderRadius: "10%"}}onClick={handleLogout2}>LogOut</button>
                                     </div>
                                 )
                             }
+                        }
+                        if(link.label === "Profile"){
+                            if(role === "user")
+                                return;
                         }
                         return (
                             <div key={link.href} className={styles['link']}>
@@ -102,7 +106,7 @@ const Nav: React.FC<{ size: number }> = ({ size }) => {
     }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "").role : "user"]
     );
 
-    console.log("ROLE", role);
+    // console.log("ROLE", role);
     return (
         <nav className={styles.navbar}>
             <div className={styles['logo-container']}>

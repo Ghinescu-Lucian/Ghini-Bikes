@@ -41,7 +41,7 @@ function App() {
   let ok = null;
 
   const [cart, setCart] = useState(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []);
-  const [size, setSize] = useState(0); 
+  const [size, setSize] = useState(0);
 
   var count = document.querySelectorAll('.size');
 
@@ -78,13 +78,13 @@ function App() {
 
   }
 
-  if (localStorage.getItem("user")) {
-    var Username = JSON.parse(window.localStorage.getItem('user'));
+  // if (localStorage.getItem("user")) {
+  //   var Username = JSON.parse(window.localStorage.getItem('user'));
 
-  }
-  else {
-    console.log("Error local storage");
-  }
+  // }
+  // else {
+  //   console.log("Error local storage");
+  // }
 
 
   useEffect(() => {
@@ -97,7 +97,7 @@ function App() {
     var res = JSON.stringify(cart)
     localStorage.setItem('cart', res);
     setSize(cart.length);
-    count.values= 0;
+    count.values = 0;
   }, [cart]);
 
   return (
@@ -107,28 +107,42 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={
-            <header className="App-header">
-              <div className='logoBox'>
-                <Logo />
-              </div>
-              {/* {
+            <div>
+              <header className="App-header">
+                <div className='logoBox'>
+                  <Logo />
+                </div>
+                {/* {
                 if()
               } */}
-              <h1 style={{ color: colors.black }}>{
+                <h1 style={{ color: colors.black }}>{
 
-                greeter.greet(
-                  userName)
-                //  ? Username.username:"user")
-              }</h1>
-              <h2>
+                  greeter.greet(
+                    userName)
+                  //  ? Username.username:"user")
+                }</h1>
+                <h2>
 
-                Welcome to Ghini-Bikes!
+                  Welcome to Ghini-Bikes!
 
-              </h2>
-              {/* <div>
+                </h2>
+                {/* <div>
                 <button onClick={handleLogout}>LogOut</button>
               </div> */}
-            </header>} />
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <h3> Contact us</h3>
+                <span> Adress : X, Jud. Y</span>
+              <span> Telephone : 0727272727</span>
+              <span> Email : ghini.bikes@gmail.com</span>
+              </header>
+              
+            </div>
+          } />
+
 
           <Route path="/home" element={<Welcome />} />
           <Route path="/place_order" element={<PlaceOrder cart={cart} setCart={setCart} />} />
@@ -141,9 +155,9 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} handleChange={handleChange} />}></Route>
           <Route path="/AddProducts" element={<AddProducts />}></Route>
-          <Route path="/orders" element={<Orders/>}></Route>
-          <Route path="/add_part" element={<AddParts/>}></Route>
-          <Route path="/add_promotion" element={<AddPromotion/>}></Route>
+          <Route path="/orders" element={<Orders />}></Route>
+          <Route path="/add_part" element={<AddParts />}></Route>
+          <Route path="/add_promotion" element={<AddPromotion />}></Route>
 
         </Routes>
       </div>
