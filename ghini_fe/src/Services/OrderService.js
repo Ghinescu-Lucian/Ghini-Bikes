@@ -143,7 +143,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
         }
         else {
 
-            // console.log("AJDBHJABHJD",item.items[0].image);
+        //  console.log("AJDBHJABHJD",item.items);
             for (let j = 0; j < item.items.length; j++) {
                 var opt = {
                     id: item.items[j].productId,
@@ -152,7 +152,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
                     category: item.items[j].productCategory,
                     discount: 0,
                     year: 2022,
-                    price: item.price,
+                    price: item.items[j].price,
                     manufacturer: item.name,
                     model: item.name,
                     image: item.image,

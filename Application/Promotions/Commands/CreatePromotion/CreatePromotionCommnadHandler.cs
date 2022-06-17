@@ -36,6 +36,7 @@ namespace Application.Promotions.Commands.CreatePromotion
                         var bike = _bikeRepository.GetBikeById(item.ProductId);
                         var promoItem = new PromoItem { _Product = bike, Quantity = item.Quantity, Discount = item.Discount, ProductId = bike.ProductId };
                         promoItem.ProductCategory = item.ProductCategory;
+                        promoItem.Price = item.Price;
                         package.Items.Add(promoItem);
                     }
                     else if (item.ProductCategory == 4)
@@ -43,6 +44,7 @@ namespace Application.Promotions.Commands.CreatePromotion
                         var part = _partRepository.GetPartById(item.ProductId);
                         var promoItem = new PromoItem { _Product = part, Quantity = item.Quantity, Discount = item.Discount, ProductId = part.ProductId };
                         promoItem.ProductCategory = item.ProductCategory;
+                        promoItem.Price = item.Price;
                         package.Items.Add(promoItem);
                     }
                     else
@@ -50,6 +52,7 @@ namespace Application.Promotions.Commands.CreatePromotion
                         var accessory = _accessoryRepository.GetAccessoryById(item.ProductId);
                         var promoItem = new PromoItem { _Product = accessory, Quantity = item.Quantity, Discount = item.Discount , ProductId = accessory.ProductId };
                         promoItem.ProductCategory = item.ProductCategory;
+                        promoItem.Price = item.Price;
                         package.Items.Add(promoItem);
                     }
                 }

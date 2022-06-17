@@ -16,6 +16,7 @@ namespace Domain.Models
         public int ProductCategory { get; set; }
         public Product _Product { get; set; }
         public int Quantity { get; set; }
+        public float Price { get; set; }
 
 
     }

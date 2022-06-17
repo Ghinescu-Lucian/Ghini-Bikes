@@ -258,6 +258,7 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                price: a.price,
                 category: a.category
 
             }
@@ -277,6 +278,7 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                price: a.price,
                 category: a.category
 
             }
@@ -296,6 +298,7 @@ export default function EnhancedTable2() {
                 year: a.year,
                 quantity: 1,
                 discount: 0,
+                price: a.price,
                 category: a.category
             }
             aux.push(aju);

@@ -55,33 +55,45 @@ export async function AddPromotion(data, selected, selected2, selected3, token) 
     // console.log(_username,_password,_email);
     console.log("BA AICI",selected3);
     console.log("BA AIVILEA",selected2);
+    console.log("BA AIVILEA",selected);
     const formData = new FormData();
     
     formData.set('Name', data.name);
     formData.append('Image', data.file);
     let i;
     for( i=0 ; i< selected.length; i++){
+        var price = selected[i].price - (selected[i].price * selected[i].discount /100); 
+        // if(selected[i].discount==100)
         // console.log(`Compatibilities[${i}]`,selected[0]);
         formData.append(`ItemsId[${i}]`,selected[i].productId);
         formData.append(`ItemsDiscount[${i}]`,selected[i].discount);
         formData.append(`ItemsCategory[${i}]`,selected[i].category);
         formData.append(`ItemsQuantity[${i}]`,selected[i].quantity);
+        formData.append(`ItemsPrices[${i}]`,price);
     }
     var x =i;
     for( i=0 ; i< selected2.length; i++){
+        var price = selected2[i].price - (selected2[i].price *selected2[i].discount /100); 
+
         // console.log(`Compatibilities[${i}]`,selected[0]);
         formData.append(`ItemsId[${i+x}]`,selected2[i].productId);
         formData.append(`ItemsDiscount[${i+x}]`,selected2[i].discount);
         formData.append(`ItemsCategory[${i+x}]`,selected2[i].category);
         formData.append(`ItemsQuantity[${i+x}]`,selected2[i].quantity);
+        formData.append(`ItemsPrices[${i+x}]`,price);
+
     }
     x=i+x;
     for(let i=0 ; i< selected3.length; i++){
+        var price = selected3[i].price - (selected3[i].price * selected3[i].discount /100); 
+
         // console.log(`Compatibilities[${i}]`,selected[0]);
         formData.append(`ItemsId[${i+x}]`,selected3[i].productId);
         formData.append(`ItemsDiscount[${i+x}]`,selected3[i].discount);
         formData.append(`ItemsCategory[${i+x}]`,selected3[i].category);
         formData.append(`ItemsQuantity[${i+x}]`,selected3[i].quantity);
+        formData.append(`ItemsPrices[${i+x}]`,price);
+
     }
     // formData.append("Compatibilities[0]", selected[0]);
     // formData.append("Compatibilities[1]", selected[1]);
@@ -89,6 +101,7 @@ export async function AddPromotion(data, selected, selected2, selected3, token) 
     
 
 
+    // console.log(sel)
     // return 200;
     const headers = {
         // Accept: "multipart/form-data",

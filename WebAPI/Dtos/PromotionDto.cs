@@ -14,6 +14,7 @@ namespace WebAPI.Dtos
 
         public List<int> ItemsCategory { get; set; }
 
+        public List<float> ItemsPrices { get; set; }
         public List<int> ItemsQuantity { get; set; }
 
         public IFormFile Image { get; set; }

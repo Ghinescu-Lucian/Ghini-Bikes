@@ -41,6 +41,7 @@ namespace WebAPI.Controllers
                     ProductCategory = promo.ItemsCategory[i],
                     ProductId = promo.ItemsId[i],
                     Quantity = promo.ItemsQuantity[i],
+                    Price = promo.ItemsPrices[i],
                 };
                 list.Add(aux);
             }
