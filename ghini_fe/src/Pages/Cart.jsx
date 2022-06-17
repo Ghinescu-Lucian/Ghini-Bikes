@@ -62,14 +62,14 @@ const Cart = ({ cart, setCart, handleChange }) => {
             <button onClick={() => handleChange(item, 1)}>+</button>
           </div>
           <div>
-            <span>{item.price}</span>
+            <span>{item.price.toFixed(2)}</span>
             <button onClick={() => handleRemove(item.productId)}>Remove</button>
           </div>
         </div>
       ))}
       <div className="total">
         <span>Total Price of your Cart</span>
-        <span> {price} RON</span>
+        <span> {price.toFixed(2)} RON</span>
       </div>
       {
         price != 0 ? (

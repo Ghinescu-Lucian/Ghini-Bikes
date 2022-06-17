@@ -116,7 +116,7 @@ function Row(props: { row: any }) {
         </TableCell>
         <TableCell align="right">{row.date}</TableCell>
         <TableCell align="right">{row.name}</TableCell>
-        <TableCell align="right">{row.totalCost}</TableCell>
+        <TableCell align="right">{row.totalCost.toFixed(2)}</TableCell>
         <TableCell align="right">{row.status}  </TableCell>
         <Button className="popup-btn" onClick={() => handleChange(row.id)}>Change</Button>
         <div className="product-card">

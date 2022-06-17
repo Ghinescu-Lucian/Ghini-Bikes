@@ -28,7 +28,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import "./CSS/DataTable.css";
+import "./CSS/DataTable2.css";
 import * as partService from '../Services/PartService.js';
 
 
@@ -343,48 +343,48 @@ export default function EnhancedTable() {
 
 
     return (
-        <div className="centerD">
+        <div className="centerD2">
             <div >
                 <h1> Add part</h1>
                 <form onSubmit={handleSubmit(onFormSubmit)} method="post">
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input name="manufacturer" type="text"
                             {...register("manufacturer")}
                             asp-for="FileUpload.FormFile"
                             defaultValue="Proba"
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.manufacturer?.message}
                         </div>
                         <span></span>
                         <label>Manufacturer</label>
                     </div>
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input name="model" type="text"
                             {...register("model")}
                             asp-for="FileUpload.FormFile"
                             defaultValue="Proba"
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.model?.message}
                         </div>
                         <span></span>
                         <label>Model</label>
                     </div>
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input name="year" type="text"
                             {...register("year")}
                             asp-for="FileUpload.FormFile"
                             defaultValue="2022"
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.year?.message}
                         </div>
                         <span></span>
                         <label>Year</label>
                     </div>
-                    <div className="txt_fieldD">
-                        <div className="errorD">
+                    <div className="txt_fieldD2">
+                        <div className="errorD2">
                             {errors.description?.message}
                         </div>
                         <span></span>
@@ -393,38 +393,38 @@ export default function EnhancedTable() {
                             asp-for="FileUpload.FormFile"
                             defaultValue="Description"></textarea>
                     </div>
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input name="price" type="text"
                             {...register("price")}
                             asp-for="FileUpload.FormFile"
                             defaultValue="2022"
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.price?.message}
                         </div>
                         <span></span>
                         <label>Price</label>
                     </div>
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input name="quantity" type="text"
                             {...register("quantity")}
                             asp-for="FileUpload.FormFile"
                             defaultValue="2022"
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.quantity?.message}
                         </div>
                         <span></span>
                         <label>Quantity</label>
                     </div>
-                    <div className="txt_fieldD">
+                    <div className="txt_fieldD2">
                         <input type="file" name="file"
                             {...register("file")}
                             asp-for="FileUpload.FormFile"
                             style={{ marginLeft: "5%" }}
                         onChange={saveFile}
                         />
-                        <div className="errorD">
+                        <div className="errorD2">
                             {errors.file?.message}
                         </div>
                         <span></span>

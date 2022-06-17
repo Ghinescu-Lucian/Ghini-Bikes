@@ -13,7 +13,8 @@ const Orders = () => {
 
     const ordersGet = async () => {
         const response = await orderService.GetOrders(); 
-        setOrders(response);
+        var rsp = response.reverse();
+        setOrders(rsp);
         
     }
     useEffect(() => {

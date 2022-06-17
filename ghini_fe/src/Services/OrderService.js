@@ -150,7 +150,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
                     productId: item.items[j].productId,
                     orderId: 0,
                     category: item.items[j].productCategory,
-                    discount: item.items[j].discount,
+                    discount: 0,
                     year: 2022,
                     price: item.price,
                     manufacturer: item.name,
@@ -166,7 +166,7 @@ export async function placeOrder(dataDelivery, productsData, userData) {
 
             }
         }
-    });
+    }); 
     console.log("ITEMS:", itemsOptions);
 
     itemsOptions = itemsOptions.slice(0, -1);

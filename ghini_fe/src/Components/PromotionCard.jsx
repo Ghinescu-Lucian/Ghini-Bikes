@@ -308,7 +308,7 @@ const PromotionCard = ({props,handleClick, keyUnique,role,id,image}) => {
 
                             <span className="price">Pret {price.toFixed(2)} lei</span>
 
-                            <button name="add_to_cart" className="add-cart-btn"  onClick={() => handleClick(obj)}>{role === "Administrator" ? "Select" : "Add to cart"}</button> 
+                            <button name="add_to_cart" className="add-cart-btn"  onClick={() => handleClick(obj)}>{role === "Administrator" ? "Edit" : "Add to cart"}</button> 
                         </div>
                     </div>
 

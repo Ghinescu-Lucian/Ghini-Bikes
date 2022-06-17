@@ -57,32 +57,32 @@ body{
   left: 40%;
   
 }
-.center{
+.centerD2{
   position: absolute;
-  top: 60%; 
+  top: 75%; 
   left: 50%;
   transform: translate(-50%, -50%);
-  width:600px;
+  width:80%;
   background: white;
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
-  .center h1{
+  .centerD2 h1{
     font-family: "Copperplate","Papyrus", fantasy;
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid silver;
   }
-  .center form{
+  .centerD2 form{
     padding: 0 40px;
     box-sizing: border-box;
   }
-  form .txt_field{
+  form .txt_fieldD2{
     position: relative;
     border-bottom: 2px solid #adadad;
     margin: 30px 0;
   }
-  .txt_field input{
+  .txt_fieldD2 input{
     width: 100%;
     padding: 0 5px;
     height: 40px;
@@ -91,7 +91,7 @@ body{
     background: none;
     outline: none;
   }
-  .txt_field label{
+  .txt_fieldD2 label{
     position: absolute;
     top: 50%;
     left: 5px;
@@ -101,7 +101,7 @@ body{
     pointer-events: none;
     transition: .5s;
   }
-  .txt_field span::before{
+  .txt_fieldD2 span::before{
     content: '';
     position: absolute;
     top: 40px;
@@ -111,25 +111,25 @@ body{
     background: #2691d9;
     transition: .5s;
   }
-  .txt_field input:focus ~ label,
-  .txt_field input:valid ~ label{
+  .txt_fieldD2 input:focus ~ label,
+  .txt_fieldD2 input:valid ~ label{
     top: -5px;
     color: #2691d9;
   }
-  .txt_field input:focus ~ span::before,
-  .txt_field input:valid ~ span::before{
+  .txt_fieldD2 input:focus ~ span::before,
+  .txt_fieldD2 input:valid ~ span::before{
     width: 100%;
   }
-  .txt_field textarea:focus ~ label,
-  .txt_field textarea:valid ~ label{
+  .txt_fieldD2 textarea:focus ~ label,
+  .txt_fieldD2 textarea:valid ~ label{
     top: -5px;
     color: #2691d9;
   }
-  .txt_field textarea:focus ~ span::before,
-  .txt_field textarea:valid ~ span::before{
+  .txt_fieldD2 textarea:focus ~ span::before,
+  .txt_fieldD2 textarea:valid ~ span::before{
     width: 100%;
   }
-  .pass{
+  .passD2{
     margin: -5px 0 20px 5px;
     color: #a6a6a6;
     cursor: pointer;
@@ -151,13 +151,13 @@ body{
     border-color: #2691d9;
     transition: .5s;
   }
-  .signup_link{
+  .signup_linkD2{
     margin: 30px 0;
     text-align: center;
     font-size: 16px;
     color: #666666;
   }
-  .signup_link a{
+  .signup_linkD2 a{
     color: #1477b9;
     text-decoration: none;
   }

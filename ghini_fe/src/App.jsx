@@ -88,7 +88,7 @@ function App() {
 
 
   useEffect(() => {
-    setUsername(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user");
+    setUsername(usr => localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "guest");
   }, [localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).username : "user"]
   );
 
